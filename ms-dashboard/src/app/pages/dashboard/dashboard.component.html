@@ -1,17 +1,17 @@
 <div class="row">
-  <div class="col-lg-3 col-md-6 col-sm-6">
+  <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let kpiItem of KPIList">
     <div class="card card-stats">
       <div class="card-body ">
         <div class="row">
           <div class="col-5 col-md-4">
             <div class="icon-big text-center">
-              <i class="nc-icon nc-single-copy-04 text-warning"></i>
+              <i class="{{kpiItem.iconClass}}"></i>
             </div>
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Posts</p>
-              <p class="card-title">13
+              <p class="card-category">{{kpiItem.cardTitle}}</p>
+              <p class="card-title">{{kpiItem.cardNumbers}}
                 <p>
             </div>
           </div>
@@ -20,92 +20,11 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-refresh"></i> Update Now
+          <i class="{{kpiItem.footerIconClass}}"></i> {{kpiItem.footerText}}
         </div>
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center">
-              <!-- <i class="nc-icon nc-money-coins text-success"></i> -->
-              <i class="fa fa-thumbs-up text-info"></i>
-            </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Likes</p>
-              <p class="card-title">304
-                <p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <i class="fa fa-refresh"></i> Update Now
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center">
-              <i class="fa fa-eye text-primary"></i>
-            </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Reach</p>
-              <p class="card-title">4.5K
-                <p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <i class="fa fa-refresh"></i> Update now
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center">
-              <!-- <i class="nc-icon nc-vector text-danger"></i> -->
-              <i class="fa fa-comment text-danger"></i>
-            </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Comments</p>
-              <p class="card-title">56
-                <p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <i class="fa fa-refresh"></i> Update Now
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>
 <div class="row">
   <div class="col-md-12">

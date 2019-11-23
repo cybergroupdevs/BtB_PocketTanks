@@ -9,6 +9,7 @@ import Chart from 'chart.js';
 
 export class DashboardComponent implements OnInit{
 
+  public KPIList: any[]=[];
   public canvas : any;
   public ctx;
   public chartColor;
@@ -16,6 +17,34 @@ export class DashboardComponent implements OnInit{
   public chartHours;
 
     ngOnInit(){
+this.KPIList = [{
+  iconClass:'nc-icon nc-single-copy-04 text-warning',
+  cardTitle:'Posts',
+  cardNumbers:'12',
+  footerText:'Last Updated Time',
+  footerIconClass:'fa fa-clock-o'
+},{
+  iconClass:'fa fa-thumbs-up text-info',
+  cardTitle:'Likes',
+  cardNumbers:'304',
+  footerText:'Last Updated Time',
+  footerIconClass:'fa fa-clock-o'
+},{
+  iconClass:'fa fa-eye text-primary',
+  cardTitle:'Reach',
+  cardNumbers:'4.5K',
+  footerText:'Last Updated Time',
+  footerIconClass:'fa fa-clock-o'
+},{
+  iconClass:'fa fa-comment text-danger',
+  cardTitle:'Comments',
+  cardNumbers:'56',
+  footerText:'Last Updated Time',
+  footerIconClass:'fa fa-clock-o'
+},];
+
+
+      //Chart Data and Styling
       this.chartColor = "#FFFFFF";
 
       this.canvas = document.getElementById("chartHours");

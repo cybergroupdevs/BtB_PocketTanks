@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
     moduleId: module.id,
@@ -12,6 +13,10 @@ export class FixedPluginComponent implements OnInit{
   public sidebarActiveColor: string = "danger";
 
   public state: boolean = true;
+
+  constructor(
+    public _dialog: MatDialogRef<FixedPluginComponent>
+  ) {}
 
   changeSidebarColor(color){
     var sidebar = <HTMLElement>document.querySelector('.sidebar');

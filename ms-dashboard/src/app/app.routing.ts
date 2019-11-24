@@ -5,6 +5,14 @@ import { LoginComponent } from './login/login.component';
 
 export const AppRoutes: Routes = [
   {
+    path: 'signup',
+    component: LoginComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: '',
     redirectTo: 'dashboard/twitter',
     pathMatch: 'full',  
@@ -20,15 +28,7 @@ export const AppRoutes: Routes = [
   {
     // for undefined routes
     path: '**',    
-    // redirectTo: 'dashboard/twitter'
-    redirectTo: 'login'
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'signup',
-    component: LoginComponent
+    redirectTo: 'dashboard/twitter'
+    // redirectTo: 'login'
   }
 ]

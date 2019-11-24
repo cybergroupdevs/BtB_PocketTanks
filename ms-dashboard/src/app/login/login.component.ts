@@ -20,9 +20,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.router.url === "/signup") 
+    if (this.router.url === "/signup")
       this.isSignup = true;
-  }
+   }
 
   Submit(f) {
     let credentials = {
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       credentials["firstname"] = f.value.firstname
       credentials["lastname"] = f.value.lastname
       
+      this.router.navigateByUrl('/login'); 
       // this.service.signup(credentials)
       // .subscribe(data => {
       //   f.reset();

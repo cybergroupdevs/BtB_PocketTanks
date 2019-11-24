@@ -15,14 +15,18 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { FixedPluginComponent } from './shared/fixedplugin/fixedplugin.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule } from '@angular/material';
+import { NewpostComponent } from './newpost/newpost.component';
+import { NewpostDialogComponent } from './newpost-dialog/newpost-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent,
+    NewpostComponent,
+    NewpostDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -37,10 +41,19 @@ import { MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/ma
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[FixedPluginComponent]
+  entryComponents:[
+    FixedPluginComponent,
+    NewpostDialogComponent
+  ]
 })
 export class AppModule { }

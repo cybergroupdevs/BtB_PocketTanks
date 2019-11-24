@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import { MatDialog } from "@angular/material";
 import { FixedPluginComponent } from '../fixedplugin/fixedplugin.component';
+import { NewpostDialogComponent } from 'app/newpost-dialog/newpost-dialog.component';
 
 @Component({
     moduleId: module.id,
@@ -22,8 +23,14 @@ export class NavbarComponent implements OnInit{
   public isCollapsed = true;
   @ViewChild("navbar-cmp", {static: false}) button;
 
-  constructor(location:Location, private renderer : Renderer, private element : ElementRef,
-    private router: Router,public _dialog: MatDialog) {
+  constructor(
+    location:Location, 
+    private renderer : Renderer, 
+    private element : ElementRef,
+    private router: Router,
+    public _dialog: MatDialog
+  ) 
+  {
       this.location = location;
       this.nativeElement = element.nativeElement;
       this.sidebarVisible = false;
@@ -107,9 +114,47 @@ export class NavbarComponent implements OnInit{
   }
 
 
-  logout(){
-    localStorage.removeItem("token");
-    console.log("done");
-    // this.router.navigateByUrl('/login');  
+  openDialog(): void {
+    const dialogRef = this._dialog.open(NewpostDialogComponent, {
+      width: '400px',
+      // data: this.projects 
+      data: {} 
+    });
+
+    
+    dialogRef.afterClosed().subscribe(result => {
+
+      result = JSON.stringify(result)
+      
+      console.log("data: "+ result)
+
+      // if(result["name"]){
+      //   console.log("selected project: "+ result);
+      //   let newProject = {
+      //     "name": result["name"],
+      //     "personalProject": Boolean(result["personalProject"])        
+      //   }
+        // this.timersService.addProject(newProject)
+        // .subscribe((res)=>{
+        //   console.log("added: ",res);
+        //   this.openSnackBar(res["name"]+" project", "Added!")
+        //   this.timersService.getProject(this.token["user"])
+        //   .subscribe((res: project[])=>{
+        //     this.projects = res;
+        //   },
+        //   (err)=>{
+        //     console.log(err);
+        //   })
+        // },
+        // err=>{
+        //   console.log("issue")          
+        // })
+      // }
+      // else{
+      //   console.log("invalid name of project")
+      // }
+
+
+    });
   }
 }

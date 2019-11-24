@@ -37,7 +37,8 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link btn-magnify" href="javascript:void(0)" matTooltip="New Post">
+          <a class="nav-link btn-magnify" href="javascript:void(0)" 
+              matTooltip="New Post" (click)="openDialog()">
             <i class="nc-icon nc-simple-add"></i>
             <p>
               <span class="d-lg-none d-md-block">New Post</span>
@@ -54,7 +55,7 @@
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
             <a ngbDropdownItem routerLink="/user">My Profile</a>
-            <a ngbDropdownItem routerLink="/login" (click)="logout()">Logout</a>
+            <a ngbDropdownItem routerLink="/login" (click)="localStorage.removeItem('token');">Logout</a>
           </div>
         </li>
       </ul>

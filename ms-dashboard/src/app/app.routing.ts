@@ -20,8 +20,8 @@ export const AppRoutes: Routes = [
   {
     // for undefined routes
     path: '**',    
-    redirectTo: 'dashboard/twitter'
-    // redirectTo: 'login'
+    // redirectTo: 'dashboard/twitter'
+    redirectTo: 'login'
   },
   {
     path: 'login',

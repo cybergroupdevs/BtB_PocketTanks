@@ -1,0 +1,46 @@
+.imgHeader{
+  margin: 50px auto 20px auto;
+}
+
+.container{
+  position: relative;
+}
+
+.card{
+  width: 40%;
+  max-width: 800px;
+  min-width: 400px;
+  margin: 20vh auto 0 auto;
+}
+
+.card-header, .card-footer{
+  background-color: #3f51b5 !important;  
+}
+.card-body{
+  background-color: #eceef1;
+}
+
+h2, h6{
+  color: white;
+  margin-bottom: 0;
+}
+
+h6{
+  cursor: pointer;
+  outline: none;
+}
+  
+mat-form-field{
+  width: 100%;
+}
+
+button{
+  outline: none;
+}
+
+@media(max-width: 600px){
+
+  .card{
+    min-width: 300px;
+  }
+}

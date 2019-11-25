@@ -1,31 +1,34 @@
 import functools
 from utils.response_wrapper import Response_wrapper
-from utils.classifier import Classifier
+from utils.Textkit import Textkit
+
+# initializing objects
+Response_wrapper = Response_wrapper()
+Textkit = Textkit()
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
-bp = Blueprint('api', __name__, url_prefix='/api')
+bp = Blueprint('utils', __name__, url_prefix='/api')
 
-@bp.route('/ignition', methods=('GET', 'POST'))
-def register():
-    return '[controller.py] Machine Learning microservice is up and running'
-
-@bp.route('/testresponsewrapper', methods=('GET', 'POST'))
-def testresponsewrapper():
-    return Response_wrapper.create_response(200, 'Working')
-
-@bp.route('/sentiment', methods=('GET', 'POST'))
+@bp.route('/wordcloud', methods=('GET', 'POST'))
 def get_sentiments():
     if request.method == 'GET':
-        temp_array = ['Good Movie']
-        try:
-            results = Classifier.sentiments_from_array(temp_array)
-        except Exception as e:
-            print(e)
-            return Response_wrapper.create_response(500, str(e))
-        return Response_wrapper.create_response(200, results, "These are samples to test the api")
+        temp_array = [{ "text": "javascript", "size": 40 },
+    	{ "text": "D3.js", "size": 15 },
+    	{ "text": "coffeescript", "size": 25 },
+    	{ "text": "shaving sheep", "size": 25 },
+    	{ "text": "AngularJS", "size": 30 },
+    	{ "text": "Ruby", "size": 30 },
+    	{ "text": "ECMAScript", "size": 15 },
+    	{ "text": "Actionscript", "size": 10 },
+    	{ "text": "Linux", "size": 20 },
+    	{ "text": "C++", "size": 20 },
+    	{ "text": "C#", "size": 25 },
+    	{ "text": "JAVA", "size": 38 }]
+
+        return Response_wrapper.create_response(200, temp_array, "These are samples to test the api")
 
     elif request.method == 'POST':
         try:
@@ -44,7 +47,7 @@ def get_sentiments():
             return Response_wrapper.create_response(400, 'empty sentences array in request')
 
         try:
-            results = Classifier.sentiments_from_array(text_array)
+            results = Textkit.get_wordcloud(text_array)
         except Exception as e:
             print(e)
             return Response_wrapper.create_response(500, str(e))

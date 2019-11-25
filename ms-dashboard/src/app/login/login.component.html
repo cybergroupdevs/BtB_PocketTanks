@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="card">
+      <div class="card-header text-center  py-4">
+        <h2 *ngIf="isSignup">Create</h2>
+        <h2 *ngIf="!isSignup">Login</h2>
+      </div>
+
+      <div class="card-body py-4">
+          <div class="col-sm-12">
+              <div *ngIf="incorrectCredentials" class="alert alert-danger text-center">
+                  {{errorDisplay}}
+              </div>
+          </div>
+          <div class="col-sm-8 offset-sm-2 text-center my-3">
+              <form #f="ngForm" (ngSubmit)="Submit(f)">
+                  <div *ngIf="isSignup" class="form-group">
+                      <mat-form-field>
+                        <input required matInput placeholder="Frst Name" [value]="firstname" 
+                               name="firstname" ngModel>
+                      </mat-form-field>
+                  </div>
+                  <div *ngIf="isSignup" class="form-group">
+                    <mat-form-field>
+                      <input required matInput placeholder="Last Name" [value]="lastname" 
+                             name="lastname" ngModel>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input required matInput email type="email" placeholder="Email" [value]="username" 
+                               name="username" ngModel #username="ngModel">
+                      </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input required matInput type="password" placeholder="Password" [value]="password" 
+                               name="password" ngModel #password="ngModel">
+                      </mat-form-field>                            
+                  </div>
+                  <button [disabled]="!f.valid" color="primary" mat-stroked-button type="submit">Submit</button>
+              </form>
+  
+          </div>
+        </div>
+      <div class="card-footer text-center">
+        <h6 *ngIf="isSignup" routerLink="/login">go to Log In</h6>
+        <h6 *ngIf="!isSignup" routerLink="/signup">Go to SignUp</h6>
+      </div>
+    </div>
+  </div>
+  

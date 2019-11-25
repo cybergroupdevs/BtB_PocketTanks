@@ -25,10 +25,11 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/')
     def hello():
-        return 'Hello, World!'
+        return 'Please go to API docs.'
 
-    from . import routes
-    app.register_blueprint(routes.controller.bp)
+    from . import controllers
+    app.register_blueprint(controllers.sentiment.bp)
+    app.register_blueprint(controllers.wordcloud.bp)    
     CORS(app)
 
     return app

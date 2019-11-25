@@ -1,8 +1,8 @@
 # Response wrapper to send uniform responses from the microservices
 from flask import jsonify
 
-class Response_wrapper():
-    def create_response(status, data, message=""):
+class Response_wrapper:
+    def create_response(self, status, data, message=""):
         return jsonify({
             "status" : status,
             "data" : data,

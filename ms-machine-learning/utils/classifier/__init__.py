@@ -58,8 +58,8 @@ def spit_results(text_array,vec,model):
     df.drop(['final','inf'],axis=1,inplace=True)
     return df
 
-class Classifier():
-    def sentiments_from_array(text_array):
+class Classifier:
+    def sentiments_from_array(self, text_array):
         try:
             loaded_vec = feature_extraction.text.CountVectorizer(decode_error="replace",vocabulary=pkl.load(open("assets/vect.pkl", "rb")))
         except Exception as e:

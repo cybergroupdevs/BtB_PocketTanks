@@ -18,16 +18,6 @@
       <span class="navbar-toggler-bar navbar-kebab"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
-      <!-- <form>
-        <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search...">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <i class="nc-icon nc-zoom-split"></i>
-            </div>
-          </div>
-        </div>
-      </form> -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link btn-magnify" href="javascript:void(0)" (click)="openTheme()" matTooltip="App Theme">
@@ -45,8 +35,10 @@
             </p>
           </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link btn-magnify" href="javascript:void(0)" matTooltip="New Post">
+          <a class="nav-link btn-magnify" href="javascript:void(0)" 
+              matTooltip="New Post" (click)="openDialog()">
             <i class="nc-icon nc-simple-add"></i>
             <p>
               <span class="d-lg-none d-md-block">New Post</span>
@@ -54,26 +46,17 @@
           </a>
         </li>
 
-        <!-- <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
-          <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink" >
-            <i class="nc-icon nc-bell-55"></i>
+        <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
+          <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink" matTooltip="Account">
+            <i class="nc-icon nc-badge"></i>
             <p>
-              <span class="d-lg-none d-md-block">New Post</span>
+              <span class="d-lg-none d-md-block">Account</span>
             </p>
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-            <a ngbDropdownItem href="javascript:void(0)">Action</a>
-            <a ngbDropdownItem href="javascript:void(0)">Another action</a>
-            <a ngbDropdownItem href="javascript:void(0)">Something else here</a>
+            <a ngbDropdownItem routerLink="/user">My Profile</a>
+            <a ngbDropdownItem routerLink="/login" (click)="localStorage.removeItem('token');">Logout</a>
           </div>
-        </li> -->
-        <li class="nav-item">
-          <a class="nav-link btn-rotate" href="javascript:void(0)" matTooltip="Profile">
-            <i class="nc-icon nc-badge"></i>
-            <p>
-              <span class="d-lg-none d-md-block">Logout</span>
-            </p>
-          </a>
         </li>
       </ul>
     </div>

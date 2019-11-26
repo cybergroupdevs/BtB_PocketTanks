@@ -4,7 +4,7 @@ nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 import numpy as np
 
-class Textkit:
+class Text_kit:
     '''Toolkit for processing texts'''
     def __init__(self, text_array = ['sampleText1', 'sampleText1']):
         ''' Initialize text_toolkit '''

@@ -58,25 +58,40 @@ def spit_results(text_array,vec,model):
     df.drop(['final','inf'],axis=1,inplace=True)
     return df
 
+class ModelError(Exception):
+    ''' Exception for errors related to loading model / vectorizer ..'''
+    pass
+
 class Classifier:
+    '''
+    Sentiment Classifier class which loads the vectorizer and the NB model
+    Processes the text into vectors and then predicts the sentiment
+    '''
     def sentiments_from_array(self, text_array):
+        ''' Function which does the extracting sentiments functionality of the classifier class'''
+
+        # Loading Vectorizer from saved pkl file
         try:
             loaded_vec = feature_extraction.text.CountVectorizer(decode_error="replace",vocabulary=pkl.load(open("assets/vect.pkl", "rb")))
         except Exception as e:
             print(e)
-            return "Error in Loading CountVectorizer"
+            raise ModelError("Error in Loading CountVectorizer")
+
+        # Loading Model
         try:
             loaded_model = pkl.load(open("assets/naiveBayes.pkl", 'rb'))
         except Exception as e:
             print(e)
-            return "Error in loading model"
+            raise ModelError("Error in Loading CountVectorizer")
+
+        # Predicting sentiments on the dataframe
         try:
             df_with_sentiment = spit_results(text_array,loaded_vec,loaded_model)
         except Exception as e:
             print(e)
-            return "Error in analyzing sentiments"
+            raise ModelError("Error in Loading CountVectorizer")
 
         if(len(df_with_sentiment) > 0):
             return df_with_sentiment.to_dict(orient='records')
         else:
-            return "Empty Array"
+            raise ModelError("Error in Loading CountVectorizer")

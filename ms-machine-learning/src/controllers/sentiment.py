@@ -1,6 +1,6 @@
 import functools
-from utils.response_wrapper import Response_wrapper
-from utils.classifier import Classifier, ModelError
+from utils.Response_wrapper import Response_wrapper
+from utils.Classifier import Classifier, ModelError
 
 
 # initializing objects

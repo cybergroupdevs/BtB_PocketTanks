@@ -1,5 +1,5 @@
 import functools
-from utils.response_wrapper import Response_wrapper
+from utils.Response_wrapper import Response_wrapper
 from utils.Text_kit import Text_kit
 
 # initializing objects

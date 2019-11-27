@@ -1,6 +1,6 @@
 import functools
-from utils.response_wrapper import Response_wrapper
-from utils.classifier import Classifier
+from utils.Response_wrapper import Response_wrapper
+from utils.Classifier import Classifier, ModelError
 
 
 # initializing objects
@@ -24,6 +24,7 @@ def testresponsewrapper():
 @bp.route('/sentiment', methods=('GET', 'POST'))
 def get_sentiments():
     if request.method == 'GET':
+        ''' Samples to test the response format of this API and its working'''
         temp_array = ['Good Movie']
         try:
             results = Classifier.sentiments_from_array(temp_array)
@@ -33,15 +34,16 @@ def get_sentiments():
         return Response_wrapper.create_response(200, results, "These are samples to test the api")
 
     elif request.method == 'POST':
+        ''' Works by accepting an array of strings as input and returns their respective predicted sentiments'''
         try:
             text_array = request.json['data']
-        except Exception as e:
+        except KeyError as e:
             print(e)
             return Response_wrapper.create_response(400, "data object not found in request")
 
         try:
             text_array = text_array['sentences']
-        except Exception as e:
+        except KeyError as e:
             print(e)
             return Response_wrapper.create_response(400, 'sentences array not found in request')
 
@@ -50,7 +52,7 @@ def get_sentiments():
 
         try:
             results = Classifier.sentiments_from_array(text_array)
-        except Exception as e:
+        except ModelError as e:
             print(e)
-            return Response_wrapper.create_response(500, str(e))
+            return Response_wrapper.create_response(500, "Error in loading model")
         return Response_wrapper.create_response(200, results, "")

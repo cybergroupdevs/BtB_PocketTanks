@@ -1,10 +1,10 @@
 import functools
-from utils.response_wrapper import Response_wrapper
-from utils.Textkit import Textkit
+from utils.Response_wrapper import Response_wrapper
+from utils.Text_kit import Text_kit
 
 # initializing objects
 Response_wrapper = Response_wrapper()
-Textkit = Textkit()
+Text_kit = Text_kit()
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
@@ -33,13 +33,13 @@ def get_sentiments():
     elif request.method == 'POST':
         try:
             text_array = request.json['data']
-        except Exception as e:
+        except KeyError as e:
             print(e)
             return Response_wrapper.create_response(400, "data object not found in request")
 
         try:
             text_array = text_array['sentences']
-        except Exception as e:
+        except KeyError as e:
             print(e)
             return Response_wrapper.create_response(400, 'sentences array not found in request')
 
@@ -47,7 +47,7 @@ def get_sentiments():
             return Response_wrapper.create_response(400, 'empty sentences array in request')
 
         try:
-            results = Textkit.get_wordcloud(text_array)
+            results = Text_kit.get_wordcloud(text_array)
         except Exception as e:
             print(e)
             return Response_wrapper.create_response(500, str(e))

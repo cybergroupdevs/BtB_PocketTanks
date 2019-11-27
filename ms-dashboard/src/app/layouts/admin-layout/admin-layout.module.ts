@@ -7,6 +7,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { DashboardComponent }       from '../../pages/dashboard/dashboard.component';
 import { UserComponent }            from '../../pages/user/user.component';
+import { WordCloudComponent } from '../../charts/word-cloud/word-cloud.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -19,7 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   declarations: [
     DashboardComponent,
-    UserComponent
+    UserComponent,
+    WordCloudComponent
   ]
 })
 

@@ -1,0 +1,11 @@
+{
+    "DEV" : {
+        "ANALYTICS" : {
+            "IP" : "0.0.0.0",
+            "PORT" : "5001",
+            "PREFIX": "/api/soci/v0.1",
+            "DB_NAME": "socialize-dev",
+            "MONGO_DB_IP": "localhost"
+        }
+    }
+}

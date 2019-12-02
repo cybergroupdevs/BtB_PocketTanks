@@ -1,69 +1,103 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'app/auth.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  incorrectCredentials: boolean = false;
-  errorDisplay: String;
   isSignup: Boolean = false;
+
+  loginFormGroup: FormGroup;
 
   constructor(
     private service: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _fb: FormBuilder
   ) { }
 
   ngOnInit() {
     if (this.router.url === "/signup")
+    {
       this.isSignup = true;
-   }
-
-  Submit(f) {
-    let credentials = {
-      username: f.value.username,
-      password: f.value.password
+      this.loginFormGroup = this._fb.group({
+        firstname: [
+          "",
+          [
+            <any>Validators.required
+          ]
+        ],
+        lastname: [
+          "",
+          [
+            <any>Validators.required
+          ]
+        ],
+        username: [
+          "",
+          [
+            <any>Validators.required
+          ]
+        ],
+        password: [
+          "",
+          [
+            <any>Validators.required
+          ]
+        ]
+      });
     }
-
-    if (this.isSignup === false) {
-      // this.service.login(credentials)
-      // .subscribe(data => {
-      //   this.incorrectCredentials = false;
-        
-      //   localStorage.setItem("token", data["token"]);
-      //   f.reset();
-
-      //   this.router.navigateByUrl('/home');  
-      // },
-      // (error) => {
-      //   this.incorrectCredentials = true;
-      //   this.errorDisplay = error;
-      // })
-      this.router.navigateByUrl('/dashboard/twitter');  
-      localStorage.setItem("token", "Pocket T.A.N.K.S."); 
+    else
+    {
+      this.loginFormGroup = this._fb.group({
+        username: [
+          "",
+          [
+            <any>Validators.required
+          ]
+        ],
+        password: [
+          "",
+          [
+            <any>Validators.required
+          ]
+        ]
+      });
     }
-    else {
-      credentials["firstname"] = f.value.firstname
-      credentials["lastname"] = f.value.lastname
-      
-      this.router.navigateByUrl('/login'); 
-      // this.service.signup(credentials)
-      // .subscribe(data => {
-      //   f.reset();
-      //   this.router.navigateByUrl('/login');  
+  }
 
-      // },
-      // (error) => {
-      //   this.incorrectCredentials = true;
-      //   this.errorDisplay = error;
-      // })
+  submitForm() {
+    debugger;
+
+    this.markFormGroupTouched(this.loginFormGroup);
+
+    if(this.loginFormGroup.valid)
+    {
+      debugger;
+      if (this.isSignup === false) {
+          this.router.navigateByUrl('/dashboard/twitter');
+          localStorage.setItem("token", "Pocket T.A.N.K.S.");
+        }
+        else {  
+          this.router.navigateByUrl('/login');
+        }
     }
-    console.log(credentials);
-    
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      try {
+        control.markAsTouched();
+
+        if (control.controls) {
+          this.markFormGroupTouched(control);
+        }
+      } catch (e) {}
+    });
   }
 }

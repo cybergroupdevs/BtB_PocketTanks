@@ -6,3 +6,5 @@ mongoose.connect('mongodb://localhost:27017/socials', {
   useFindAndModify: false,
   useUnifiedTopology: true
 });
+
+module.exports = mongoose;

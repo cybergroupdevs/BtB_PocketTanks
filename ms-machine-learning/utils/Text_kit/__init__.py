@@ -1,6 +1,5 @@
-import string
 import nltk
-nltk.download('punkt')
+import string
 from nltk.tokenize import word_tokenize
 import numpy as np
 

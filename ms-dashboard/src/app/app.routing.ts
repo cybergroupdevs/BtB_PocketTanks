@@ -2,8 +2,13 @@ import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { TwitterAuthComponent } from './auth/twitter-auth/twitter-auth.component';
 
 export const AppRoutes: Routes = [
+  {
+    path: 'twittercallback/:oauth_token/:oauth_verifier',
+    component: TwitterAuthComponent
+  },
   {
     path: 'signup',
     component: LoginComponent

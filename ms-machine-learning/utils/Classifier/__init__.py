@@ -8,32 +8,39 @@ import numpy as np
 
 
 def remove_punct(text):
+    ''' Function to remove punctuation. '''
     text  = "".join([char for char in text if char not in string.punctuation])
     text = re.sub('[0-9]+', '', text)
     return text
 
 def tokenization(text):
+    ''' Function to tokenize text. '''
     text = re.split('\W+', text)
     return text
+
 
 stopword = nltk.corpus.stopwords.words('english')
 
 def remove_stopwords(text):
+    ''' Function to remove stopwords loaded from nltk package. '''
     text = [word for word in text if word not in stopword]
     return text
 
 ps = nltk.PorterStemmer()
 
 def stemming(text):
+    ''' Function to remove stem words loaded from nltk package. '''
     text = [ps.stem(word) for word in text]
     return text
 wn = nltk.WordNetLemmatizer()
 
 def lemmatizer(text):
+    ''' Function to remove lemmatize words i.e. process of grouping together the inflected forms of a word so they can be analysed as a single item. '''
     text = [wn.lemmatize(word) for word in text]
     return text
 
 def clean_text(text):
+    ''' Function to clean text. '''
     text_lc = "".join([word.lower() for word in text if word not in string.punctuation]) # remove puntuation
     text_rc = re.sub('[0-9]+', '', text_lc)
     tokens = re.split('\W+', text_rc)    # tokenization
@@ -41,6 +48,7 @@ def clean_text(text):
     return text
 
 def spit_results(text_array,vec,model):
+    ''' Function to apply all the above functions in order and then analyse through the saved model. '''
     df = pd.DataFrame()
     df['text'] = text_array
     df['Tweet_punct'] = df['text'].apply(lambda x: remove_punct(x))

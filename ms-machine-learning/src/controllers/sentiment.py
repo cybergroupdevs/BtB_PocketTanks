@@ -11,7 +11,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
-bp = Blueprint('sentiment', __name__, url_prefix='/api')
+bp = Blueprint('sentiment', __name__, url_prefix='/')
 
 @bp.route('/ignition', methods=('GET', 'POST'))
 def register():

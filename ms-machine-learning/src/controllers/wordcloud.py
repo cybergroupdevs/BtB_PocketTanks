@@ -10,7 +10,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
-bp = Blueprint('utils', __name__, url_prefix='/api')
+bp = Blueprint('utils', __name__, url_prefix='/')
 
 @bp.route('/wordcloud', methods=('GET', 'POST'))
 def get_sentiments():

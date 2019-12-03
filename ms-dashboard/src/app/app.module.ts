@@ -18,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule } from '@angular/material';
 import { NewpostComponent } from './newpost/newpost.component';
 import { NewpostDialogComponent } from './newpost-dialog/newpost-dialog.component';
+import { TwitterAuthComponent } from './auth/twitter-auth/twitter-auth.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { NewpostDialogComponent } from './newpost-dialog/newpost-dialog.componen
     AdminLayoutComponent,
     LoginComponent,
     NewpostComponent,
-    NewpostDialogComponent
+    NewpostDialogComponent,
+    TwitterAuthComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -50,7 +53,8 @@ import { NewpostDialogComponent } from './newpost-dialog/newpost-dialog.componen
     MatSelectModule,
     MatTabsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

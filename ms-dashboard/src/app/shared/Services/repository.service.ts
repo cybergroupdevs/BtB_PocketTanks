@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
   providedIn: "root"
 })
 export class RepositoryService {
-  private envUrl="{{Backend application URL here}}";
+  private envUrl="http://localhost:5001/api/soci/v0.1";
 
   constructor(
     private http: HttpClient
@@ -16,7 +16,7 @@ export class RepositoryService {
       this.createCompleteRoute(route, this.envUrl),
       headers
         ? headers
-        : this.generateHeaders(true, localStorage.getItem("authToken"))
+        : this.generateHeaders(false, localStorage.getItem("authToken"))
     );
   }
 
@@ -26,7 +26,7 @@ export class RepositoryService {
       body,
       headers
         ? headers
-        : this.generateHeaders(true, localStorage.getItem("authToken"))
+        : this.generateHeaders(false, localStorage.getItem("authToken"))
     );
   }
 
@@ -55,18 +55,12 @@ export class RepositoryService {
         headers: new HttpHeaders({
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
-          "Cache-Control": "no-cache",
-          Pragma: "no-cache",
-          Expires: "0"
         })
       };
     } else {
       return {
         headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-          Pragma: "no-cache",
-          Expires: "0"
+          "Content-Type": "application/json"
         })
       };
     }

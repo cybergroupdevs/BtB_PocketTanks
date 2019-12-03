@@ -10,7 +10,7 @@ export class UserService {
 
   getUserList(): any {
     return this.repositoryService.getData(
-      "api/user"
+      ""
     );
   }
   getUserDetails(userId): any {
@@ -18,10 +18,16 @@ export class UserService {
       `api/user/${userId}`
     );
   }
-  createUser(user): any {
+  createUser(createUserRequest): any {
     return this.repositoryService.create(
-      "api/user",
-      user
+      "registration",
+      createUserRequest
+    );
+  }
+  loginUser(loginUserRequest): any {
+    return this.repositoryService.create(
+      "login",
+      loginUserRequest
     );
   }
   updateUserDetails(userId, userDetails): any {

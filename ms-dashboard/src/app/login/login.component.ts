@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'app/auth.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UserService } from 'app/shared/Services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,15 +16,14 @@ export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup;
 
   constructor(
-    private service: AuthService,
+    private _userservice: UserService,
     private router: Router,
     private route: ActivatedRoute,
     private _fb: FormBuilder
   ) { }
 
   ngOnInit() {
-    if (this.router.url === "/signup")
-    {
+    if (this.router.url === "/signup") {
       this.isSignup = true;
       this.loginFormGroup = this._fb.group({
         firstname: [
@@ -52,8 +52,7 @@ export class LoginComponent implements OnInit {
         ]
       });
     }
-    else
-    {
+    else {
       this.loginFormGroup = this._fb.group({
         username: [
           "",
@@ -72,20 +71,54 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-    debugger;
 
     this.markFormGroupTouched(this.loginFormGroup);
 
-    if(this.loginFormGroup.valid)
-    {
-      debugger;
+    if (this.loginFormGroup.valid) {
       if (this.isSignup === false) {
-          this.router.navigateByUrl('/dashboard/twitter');
-          localStorage.setItem("token", "Pocket T.A.N.K.S.");
+        //API Call for login
+        let loginUserRequest = {
+          email: this.loginFormGroup.get('username').value,
+          password: this.loginFormGroup.get('password').value,
         }
-        else {  
-          this.router.navigateByUrl('/login');
+        this._userservice.loginUser(loginUserRequest).subscribe(
+          response => {
+            if (response.data_obj!=undefined) {
+              this.router.navigateByUrl('/dashboard/twitter');
+              localStorage.setItem("token", "Pocket T.A.N.K.S.");              
+            } else {
+              
+            }
+          },
+          error => {
+
+          }
+        );
+
+      }
+      else {
+        //API Call for register
+        let createUserRequest = {
+          email: this.loginFormGroup.get('username').value,
+          fullName: this.loginFormGroup.get('firstname').value + ' ' + this.loginFormGroup.get('lastname').value,
+          password: this.loginFormGroup.get('password').value,
+          emailVerified: false
         }
+        this._userservice.createUser(createUserRequest).subscribe(
+          response => {
+            debugger;
+            if (response.isSuccess) {
+              
+            } else {
+              
+            }
+          },
+          error => {
+
+          }
+        );
+        // this.router.navigateByUrl('/login');
+      }
     }
   }
 
@@ -97,7 +130,7 @@ export class LoginComponent implements OnInit {
         if (control.controls) {
           this.markFormGroupTouched(control);
         }
-      } catch (e) {}
+      } catch (e) { }
     });
   }
 }

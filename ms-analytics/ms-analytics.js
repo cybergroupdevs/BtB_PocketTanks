@@ -11,6 +11,7 @@ import globalConfig from '../config.json'
 // const globalConfig = require('../config.json');
 // const routes = require("./src/routes");
 import routes from './src/routes'
+import db from './app/db/mongoose'
 const app = express();
 
 // Required for twitter OAuth

@@ -4,10 +4,10 @@ class BaseModel {
     }
 
     async get(criteria = {}) {
-        return this.model.find(criteria).exec();
+        return await this.model.find(criteria);
     }
     async insert(object){
-        return this.model.create(object).exec();
+        return await this.model.create(object);
     }
     async update(criteria, updateObj){
         return this.model.update(criteria, updateObj).exec();

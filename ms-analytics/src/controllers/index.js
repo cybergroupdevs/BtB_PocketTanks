@@ -1,6 +1,6 @@
-import Users from './users'
+import users from './users'
 
-const users =  new  Users();
+// const users =  new  Users();
 export default {
     users: users
 }

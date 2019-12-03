@@ -15,7 +15,7 @@ class AppController {
         res.send(new Response(true, result.statusCode, result.message, result.data))
     }
     failure(req, res, result){
-        res.send(new Response(false, result.statusCode, result.message, result.data))
+        res.send(new Response(false, result['statusCode'], result['message']))
     }
 }
 

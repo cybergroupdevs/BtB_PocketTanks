@@ -3,6 +3,10 @@
 require("@babel/register")({
     presets: ["@babel/preset-env"]
 });
+require("regenerator-runtime/runtime");
+// require("@babel/register")({
+//   presets: ["babel-polyfill"]
+// });
 
 // ENV CONFIG
 process.env.ENGINE_NAME = "ANALYTICS";

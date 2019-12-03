@@ -8,6 +8,16 @@ class User extends BaseModel {
     constructor(){
         super(mongoose.model("User", userSchema));
     }
+    parseUser(user, token){
+        let obj = {
+            userId: user._id,
+            fullName: user.fullName,
+        }
+        if(token){
+            obj['token'] = token
+        }
+        return obj
+    }
 }
 
 export default User;

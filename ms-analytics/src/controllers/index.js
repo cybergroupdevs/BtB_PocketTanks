@@ -1,6 +1,8 @@
-import users from './users'
+import users from './users';
+import auth from './auth';
 
 // const users =  new  Users();
 export default {
-    users: users
+    users: users,
+    auth: auth
 }

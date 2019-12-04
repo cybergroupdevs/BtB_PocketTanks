@@ -1,15 +1,20 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import  *  as  data  from  '../../../../../config.json';
 
 @Injectable({
   providedIn: "root"
 })
 export class RepositoryService {
-  private envUrl="http://localhost:5001/api/soci/v0.1";
+  // Read json file
+  private devAnalytics = data.DEV.ANALYTICS;
+
+  private envUrl=`http://${this.devAnalytics.MONGO_DB_IP}:${this.devAnalytics.PORT}${this.devAnalytics.PREFIX}${this.devAnalytics.VERSION}`;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   public getData(route: string, headers?) {
     return this.http.get(
@@ -21,6 +26,7 @@ export class RepositoryService {
   }
 
   public create(route: string, body, headers?) {
+
     return this.http.post(
       this.createCompleteRoute(route, this.envUrl),
       body,

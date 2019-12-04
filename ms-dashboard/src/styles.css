@@ -21,3 +21,8 @@
   body {
     min-height: 100%;
   }
+
+  .primary-color
+  {
+    color: #000066;
+  }

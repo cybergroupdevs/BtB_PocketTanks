@@ -73,7 +73,9 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-
+debugger;
+console.log(localStorage.getItem('userid'));
+console.log(localStorage.getItem('authToken'));
     this.markFormGroupTouched(this.loginFormGroup);
 
     if (this.loginFormGroup.valid) {
@@ -85,15 +87,24 @@ export class LoginComponent implements OnInit {
         }
         this._userservice.loginUser(loginUserRequest).subscribe(
           response => {
-            if (response.data_obj != undefined) {
+            if (response.success) {
+              localStorage.setItem("userid", response.data.userId);
+              localStorage.setItem("authToken", response.data.token);
               this.router.navigateByUrl('/dashboard/twitter');
-              localStorage.setItem("token", "Pocket T.A.N.K.S.");
             } else {
-
+              Swal.fire({
+                title: 'Oops!',
+                text: response.message,
+                icon: 'error'
+              });
             }
           },
           error => {
-
+            Swal.fire({
+              title: 'Oops!',
+              text: error.message,
+              icon: 'error'
+            });
           }
         );
 
@@ -108,40 +119,33 @@ export class LoginComponent implements OnInit {
         }
         this._userservice.createUser(createUserRequest).subscribe(
           response => {
-            console.log(response);
-            if (response != undefined) {
-              if(!response.emailVerified)
+            if (response.success) {
+              if(!response.data.emailVerified)
               {
                 Swal.fire({
-                  title: 'Are you sure?',
-                  text: 'You will not be able to recover this imaginary file!',
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonText: 'Yes, delete it!',
-                  cancelButtonText: 'No, keep it'
-                }).then((result) => {
-                  if (result.value) {
-                    Swal.fire(
-                      'Deleted!',
-                      'Your imaginary file has been deleted.',
-                      'success'
-                    )
-                  } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    Swal.fire(
-                      'Cancelled',
-                      'Your imaginary file is safe :)',
-                      'error'
-                    )
-                  }
-                })
+                  title: 'Verify your email!',
+                  text: 'Please open your mailbox and verify your account!',
+                  icon: 'warning'
+                });
               }
-              this.router.navigateByUrl('/login');
+              else
+              {
+                this.router.navigateByUrl('/login');
+              }
             } else {
-
+              Swal.fire({
+                title: 'Oops!',
+                text: response.message,
+                icon: 'error'
+              });
             }
           },
           error => {
-
+            Swal.fire({
+              title: 'Oops!',
+              text: error.message,
+              icon: 'error'
+            });
           }
         );
       }

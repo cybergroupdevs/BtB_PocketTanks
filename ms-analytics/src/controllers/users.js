@@ -2,6 +2,7 @@ import AppController from './app.js'
 import User from '../models/user';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import Mailer from '../../wrappers/mailer/mailer'
 /**
  * The App controller class where other controller inherits or
  * overrides pre defined and existing properties
@@ -69,6 +70,30 @@ class Users extends AppController {
                 message: error.message
             })
         }
+    }
+    async forgotPassword(req, res) {
+        try{
+            const user = new User();
+            let data = await user.get({email: req.body.email});
+            if(data.length == 0){
+                super.failure(req,res,{statusCode: 400, message: "Email does not exist"})
+            }
+            else if(data.length >0 && data[0]['emailVerified'] ==  false){
+                super.failure(req,res,{statusCode: 400, message: "User's email is not verified yet"})
+            }
+            else{
+                const token = jwt.sign({data: data[0]['email']}, 'authenticate', {expiresIn: 60 * 60})
+                const mailer = new Mailer();
+                let message = '<p>Hi, </p><br/>Seems like you forgot your password. Click below link to reset your password.<br/> https:localhost:4200/changepassword/'+ token +'</br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Pocket Tanks.<br/><br/>Thanks,<br/>The Pocket Tanks Team<br/>pockettanks.com'
+                
+                mailer.sendEmail(data[0]['email'], "Forgot your password? Let's get you a new one.",message);
+                super.success(req, res, {statusCode: 200, message: "Forgot password link has been sent", data: null})
+            }
+        }
+        catch(error){
+            super.failure(req,res,{statusCode: 400, message: error.message})
+        }
+        
     }
 }
 export default new Users();

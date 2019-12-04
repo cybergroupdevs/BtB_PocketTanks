@@ -6,10 +6,13 @@ let apiRoutes = (router) => {
     router = express.Router();
     router.post('/registration', api.users.registration);
     router.post('/login', api.users.login);
+    router.post('/forgotpassword', api.users.forgotPassword);
 
     // Routes for OAuth
     router.get('/auth/twitter', PassportTwt.authenticate('twitter'));
     router.post('/auth/twitter/extracttokens', api.auth.twitter);
+    
+
     return router;
 }
 export default apiRoutes;

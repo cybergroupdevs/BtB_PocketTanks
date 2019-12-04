@@ -3,9 +3,14 @@
         "ANALYTICS" : {
             "IP" : "0.0.0.0",
             "PORT" : "5001",
-            "PREFIX": "/api/soci/v0.1",
+            "PREFIX": "/api/soci/",
             "DB_NAME": "socialize-dev",
             "MONGO_DB_IP": "localhost"
+        },
+        "ML" : {
+            "IP" : "0.0.0.0",
+            "PORT" : "5002",
+            "PREFIX" : "/api/ml/v0.1"
         }
     }
 }

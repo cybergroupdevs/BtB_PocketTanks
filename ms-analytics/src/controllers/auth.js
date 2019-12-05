@@ -16,7 +16,7 @@ class Auth extends AppController {
             let formData = querystring.stringify({
                 "oauth_token": String(req.body.oauth_token),
                 "oauth_verifier": String(req.body.oauth_verifier),
-                "oauth_consumer_key": String(req.body.oauth_consumer_key)
+                "oauth_consumer_key": String(process.env.OAUTH_CONSUMER_KEY)
             });
             const options = {
                 headers: {
@@ -43,7 +43,7 @@ class Auth extends AppController {
                     }
                 });
                 const user = new User();
-                let updatedUser = await user.update({"_id": req.body.userId}, {"$set":{"oAuthToken": tokens['oAuthToken'], "oAuthTokenSecret": tokens['oAuthTokenSecret']}})
+                let updatedUser = await user.update({"email": req.body.email}, {"$set":{"oAuthToken": tokens['oAuthToken'], "oAuthTokenSecret": tokens['oAuthTokenSecret']}})
                 super.success(req, res, {statusCode: 200, message: "OK", data: null})
             }
             else{

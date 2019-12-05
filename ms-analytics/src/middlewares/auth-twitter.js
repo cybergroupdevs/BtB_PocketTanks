@@ -5,7 +5,8 @@ const authTwitter= async (req, res, next)=>{
     try{
         const token = req.body.oauth_token;
         const decoded= jwt.verify(token, 'authenticate')
-
+        console.log(decoded)
+        req.body
         next()
     }
     catch(err){

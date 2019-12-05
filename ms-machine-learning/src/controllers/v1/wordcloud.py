@@ -12,7 +12,7 @@ from flask import (
 
 bp = Blueprint('utils', __name__, url_prefix='/')
 
-@bp.route('/wordcloud', methods=('GET', 'POST'))
+@bp.route('v0.1/wordcloud', methods=('GET', 'POST'))
 def get_sentiments():
     if request.method == 'GET':
         temp_array = [{ "text": "javascript", "size": 40 },

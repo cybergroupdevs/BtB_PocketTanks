@@ -17,18 +17,15 @@
     "express-validator": "^6.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.12",
-<<<<<<< HEAD
+
     "nodemailer": "^6.3.1",
-    "nodemon": "^2.0.0"
-=======
+
     "nodemon": "^2.0.0",
     "passport": "^0.4.0",
     "passport-twitter": "^1.0.4",
     "regenerator-runtime": "^0.13.3",
     "request": "^2.88.0"
-<<<<<<< HEAD
->>>>>>> 8812a17db4b6505adbc8dd45a998c5b8b63d95d0
-=======
+
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
@@ -36,6 +33,6 @@
     "@babel/node": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "babel-polyfill": "^6.26.0"
->>>>>>> 32c12b7a405d81439f732feb5acd42dd2d692516
+
   }
 }

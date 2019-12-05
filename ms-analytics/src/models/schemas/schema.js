@@ -25,7 +25,28 @@ const schemas= {
         emailVerified:{
           type:Boolean
         },
+<<<<<<< HEAD
 
+=======
+        previousPassword:{
+            type:String
+        },
+        passwordChangeAt:{
+            type:String
+        },
+        emailToken:{
+            type:String
+        },
+        passwordToken:{
+            type:String
+        },
+        oAuthToken:{
+            type: String
+        },
+        oAuthTokenSecret: {
+            type: String
+        }
+>>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59
       },
     userTokens: {
         userId: {

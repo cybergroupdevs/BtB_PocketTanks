@@ -8,6 +8,7 @@ const users = {
   registration: function(req, res) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 var regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
@@ -496,6 +497,17 @@ const users = {
 
     try {
 
+=======
+    let new_user = {
+      email: req.body.email,
+      fullName: req.body.fullName,
+      password: bcrypt.hashSync(req.body.password, 10),
+      emailVerified: req.body.emailVerified
+    };
+
+    try {
+
+>>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59
       User.model('User').create(new_user).then((user) => {
         console.log(user)
         res.status(200).send(user)
@@ -504,7 +516,10 @@ const users = {
       console.log(e)
     } finally {
       console.log("Final Statement")
+<<<<<<< HEAD
 >>>>>>> 32c12b7a405d81439f732feb5acd42dd2d692516
+=======
+>>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59
     }
   },
 
@@ -544,7 +559,11 @@ const users = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 module.exports = users
 =======
 module.exports = users
 >>>>>>> 32c12b7a405d81439f732feb5acd42dd2d692516
+=======
+module.exports = users
+>>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59

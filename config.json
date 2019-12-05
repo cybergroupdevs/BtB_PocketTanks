@@ -10,7 +10,7 @@
         "ML" : {
             "IP" : "0.0.0.0",
             "PORT" : "5002",
-            "PREFIX" : "/api/ml/v0.1"
+            "PREFIX" : "/api/ml/"
         }
     }
 }

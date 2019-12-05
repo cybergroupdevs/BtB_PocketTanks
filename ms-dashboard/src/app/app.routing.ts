@@ -7,7 +7,7 @@ import { EmailVerificationComponent } from './auth/email-verification/email-veri
 
 export const AppRoutes: Routes = [
   {
-    path: 'twittercallback/:oauth_token/:oauth_verifier',
+    path: 'twittercallback',
     component: TwitterAuthComponent
   },
   {

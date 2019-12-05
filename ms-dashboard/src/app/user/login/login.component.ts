@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from 'app/auth.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { UserService } from 'app/shared/Services/user.service';
-import swal from 'sweetalert2';
+import { UserService } from 'app/shared/Services/user/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -73,9 +71,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-debugger;
-console.log(localStorage.getItem('userid'));
-console.log(localStorage.getItem('authToken'));
+
     this.markFormGroupTouched(this.loginFormGroup);
 
     if (this.loginFormGroup.valid) {
@@ -90,6 +86,7 @@ console.log(localStorage.getItem('authToken'));
             if (response.success) {
               localStorage.setItem("userid", response.data.userId);
               localStorage.setItem("authToken", response.data.token);
+              localStorage.setItem("email", this.loginFormGroup.get('username').value);
               this.router.navigateByUrl('/dashboard/twitter');
             } else {
               Swal.fire({
@@ -102,7 +99,7 @@ console.log(localStorage.getItem('authToken'));
           error => {
             Swal.fire({
               title: 'Oops!',
-              text: error.message,
+              text: "Error occurred! Please try again later.",
               icon: 'error'
             });
           }

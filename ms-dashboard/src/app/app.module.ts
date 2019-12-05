@@ -24,7 +24,6 @@ import { EmailVerificationComponent } from './auth/email-verification/email-veri
 import { ResetPasswordVerificationComponent } from './user/reset-password-verification/reset-password-verification.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,9 +38,7 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
   ],
   imports: [
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes,{
-      useHash: true
-    }),
+    RouterModule.forRoot(AppRoutes),
     SidebarModule,
     NavbarModule,
     ToastrModule.forRoot(),

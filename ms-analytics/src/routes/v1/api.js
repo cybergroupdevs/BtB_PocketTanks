@@ -18,6 +18,7 @@ let apiRoutes = (router) => {
 
     // twitter analytics routes
     router.post('/twitter/kpis', api.twitter.kpis);
+    router.get('/tweets/:username', api.auth.fetchComment);
 
     return router;
 }

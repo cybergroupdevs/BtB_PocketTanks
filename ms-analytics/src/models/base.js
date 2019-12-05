@@ -15,5 +15,13 @@ class BaseModel {
     async delete(criteria){
         return this.model.delete(object).exec();
     }
+    async bulkInsert(data){
+        let bulk = this.model.collection.initializeOrderedBulkOp();
+        data.forEach(element => {
+            bulk.insert(element);
+        });
+        bulk.execute(function(){})
+        return ;
+    }
 }
 export default BaseModel;

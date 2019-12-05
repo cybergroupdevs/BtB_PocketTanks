@@ -19,7 +19,7 @@ const schemas = {
             required: true
         },
         createdAt: {
-            type: String,
+            type: Date,
             default: Date.now
         },
         emailVerified: {
@@ -81,22 +81,24 @@ const schemas = {
             type: Number
         },
         parentId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Post',
+            type: String,
             default: null
         },
         userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: true
+            type: String,
+            default: null
         },
         commentCount: {
             type: Number,
             default: 0
         },
-        timestamp: {
-            type: Date,
-            default: Date.now
+        createdAt: { 
+            type: Date, 
+            default: Date.now 
+        },
+        twitterPostId: {
+            type: String,
+            default: null
         },
         favoriteCount: {
             type: Number,
@@ -105,7 +107,7 @@ const schemas = {
         retweetCount: {
             type: Number,
             default: 0
-        },
+        }
     },
 
 }

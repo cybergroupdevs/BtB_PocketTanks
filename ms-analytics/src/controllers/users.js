@@ -2,10 +2,7 @@ import  AppController  from './app.js'
 import User from '../models/user';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-<<<<<<< HEAD
-=======
 import Mailer from '../../wrappers/mailer/mailer'
->>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59
 /**
  * The App controller class where other controller inherits or
  * overrides pre defined and existing properties
@@ -25,14 +22,11 @@ class Users extends AppController{
               };
             const user = new User();
             let userObj = await user.insert(new_user);
-<<<<<<< HEAD
-=======
-            const token = jwt.sign({data: req.body.email}, 'authenticateRegistration', {expiresIn: 60 * 60})
+            const token = jwt.sign({'_id': data[0]['_id']}, 'authenticateRegistration', {expiresIn: 60 * 60})
             const mailer = new Mailer();
             let message = '<p>Hi, </p><br/> Click below link to verify your account.<br/> https:localhost:4200/verfication/'+ token +'</br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Socialize.<br/><br/>Thanks,<br/>The Socialize Team<br/>socialize.com'
             
             mailer.sendEmail(req.body.email, "Forgot your password? Let's get you a new one.",message);
->>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59
             super.success(req, res, {statusCode: 200, message: "", data: userObj})
         }
         catch(error){
@@ -45,20 +39,12 @@ class Users extends AppController{
             const user = new User()
             let data = await user.get({email: req.body.email});
             if (data.length == 0) {
-<<<<<<< HEAD
-                super.failure(req,res,{statusCode: 401, message: "No email exists"})
-=======
                 throw new Error("No email exists");
->>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59
             }
             else{
                 const isMatched = await bcrypt.compare(req.body.password, data[0].password)
                 if (!isMatched) {
-<<<<<<< HEAD
-                    super.failure(req,res,{statusCode: 401, message: "Password is incorrect"})
-=======
                     throw new Error("Password is incorrect");
->>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59
                 }
                 else{
                     const token = jwt.sign({'_id': data[0]['_id']}, 'authenticate');
@@ -70,8 +56,6 @@ class Users extends AppController{
             super.failure(req,res,{statusCode: 400, message: error.message})
         }
     }
-<<<<<<< HEAD
-=======
     async forgotPassword(req, res) {
         try{
             const user = new User();
@@ -84,7 +68,7 @@ class Users extends AppController{
                 throw new Error("User's email is not verified yet");
             }
             else{
-                const token = jwt.sign({data: data[0]['email']}, 'authenticate', {expiresIn: 60 * 60})
+                const token = jwt.sign({'_id': data[0]['_id']}, 'authenticate', {expiresIn: 60 * 60})
                 console.log(token)
                 const mailer = new Mailer();
                 let message = '<p>Hi, </p><br/>Seems like you forgot your password. Click below link to reset your password.<br/><br/><center><a href="https:localhost:4200/changepassword/'+ token +'">Reset Your Password</a></center></br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Socialize.<br/><br/>Thanks,<br/>The Socialize Team<br/>socialize.com'
@@ -187,6 +171,5 @@ class Users extends AppController{
             super.failure(req,res,{statusCode: 400, message: error.message})
         }
     }
->>>>>>> 96f791d62ea94c3d110c80004cf2b07bae51db59
 }
 export default new Users();

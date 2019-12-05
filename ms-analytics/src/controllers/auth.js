@@ -2,6 +2,7 @@ import querystring from 'querystring';
 import AppController from './app';
 import HttpWrapper from '../../wrappers/httpwrapper';
 import User from '../models/user';
+import authTwitter from '../middlewares/auth-twitter'
 
 class Auth extends AppController {
 
@@ -10,7 +11,7 @@ class Auth extends AppController {
     }
 
     // Method to extract and save tokens
-    async twitter(req, res) {
+    async twitter(req, authTwitter, res) {
         try {
             console.log("[Auth.js Controller] Here");
             let formData = querystring.stringify({

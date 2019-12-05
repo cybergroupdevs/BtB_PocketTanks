@@ -10,13 +10,24 @@ import { UserComponent }            from '../../pages/user/user.component';
 import { WordCloudComponent } from '../../charts/word-cloud/word-cloud.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    NgbModule
+    NgbModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatTabsModule
   ],
   declarations: [
     DashboardComponent,

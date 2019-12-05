@@ -14,10 +14,6 @@ require('../db/mongoose');
 // }
 
 
-
-
-
-
 router.post('/registration', users['registration'])
 router.post('/login', users['login'])
 

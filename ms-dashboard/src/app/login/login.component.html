@@ -1,51 +1,72 @@
 <div class="container">
     <div class="card">
       <div class="card-header text-center  py-4">
-        <h2 *ngIf="isSignup">Create</h2>
+        <h2 *ngIf="isSignup">Register</h2>
         <h2 *ngIf="!isSignup">Login</h2>
       </div>
 
       <div class="card-body py-4">
-          <div class="col-sm-12">
-              <div *ngIf="incorrectCredentials" class="alert alert-danger text-center">
-                  {{errorDisplay}}
-              </div>
-          </div>
           <div class="col-sm-8 offset-sm-2 text-center my-3">
-              <form #f="ngForm" (ngSubmit)="Submit(f)">
+              <form [formGroup]="loginFormGroup" (ngSubmit)="submitForm()">
                   <div *ngIf="isSignup" class="form-group">
                       <mat-form-field>
-                        <input required matInput placeholder="Frst Name" [value]="firstname" 
-                               name="firstname" ngModel>
+                        <input required matInput placeholder="Frst Name" formControlName="firstname">
+                        <mat-error>
+                          <span *ngIf="
+                              !loginFormGroup.get('firstname').valid &&
+                              loginFormGroup.get('firstname').touched
+                            ">
+                            Please enter valid first name.
+                          </span>
+                        </mat-error>
                       </mat-form-field>
                   </div>
                   <div *ngIf="isSignup" class="form-group">
                     <mat-form-field>
-                      <input required matInput placeholder="Last Name" [value]="lastname" 
-                             name="lastname" ngModel>
+                      <input required matInput placeholder="Last Name" formControlName="lastname">
+                      <mat-error>
+                        <span *ngIf="
+                            !loginFormGroup.get('lastname').valid &&
+                            loginFormGroup.get('lastname').touched
+                          ">
+                          Please enter valid last name.
+                        </span>
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="form-group">
                       <mat-form-field>
-                        <input required matInput email type="email" placeholder="Email" [value]="username" 
-                               name="username" ngModel #username="ngModel">
+                        <input required matInput email type="email" placeholder="Email" formControlName="username">
+                        <mat-error>
+                          <span *ngIf="
+                              !loginFormGroup.get('username').valid &&
+                              loginFormGroup.get('username').touched
+                            ">
+                            Please enter valid username.
+                          </span>
+                        </mat-error>
                       </mat-form-field>
                   </div>
                   <div class="form-group">
                       <mat-form-field>
-                        <input required matInput type="password" placeholder="Password" [value]="password" 
-                               name="password" ngModel #password="ngModel">
-                      </mat-form-field>                            
+                        <input required matInput type="password" placeholder="Password" formControlName="password">
+                        <mat-error>
+                          <span *ngIf="
+                              !loginFormGroup.get('password').valid &&
+                              loginFormGroup.get('password').touched
+                            ">
+                            Please enter valid password.
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
                   </div>
-                  <button [disabled]="!f.valid" color="primary" mat-stroked-button type="submit">Submit</button>
-              </form>
-  
+                  <button color="primary" mat-stroked-button type="submit">Submit</button>
+              </form>  
           </div>
         </div>
       <div class="card-footer text-center">
-        <h6 *ngIf="isSignup" routerLink="/login">go to Log In</h6>
+        <h6 *ngIf="isSignup" routerLink="/login">Go to Log In</h6>
         <h6 *ngIf="!isSignup" routerLink="/signup">Go to SignUp</h6>
       </div>
     </div>
   </div>
-  

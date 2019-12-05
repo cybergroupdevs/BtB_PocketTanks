@@ -1,23 +1,36 @@
-<<<<<<< HEAD
+
 const express = require('express')
 const app = express();
-const userRoutes = require('./app/routes/user')
-=======
+
 const express = require('express');
 const app = express();
 const userRoutes = require('./app/routes/user');
 const oauthRoutes = require('./app/routes/oauth');
->>>>>>> 8812a17db4b6505adbc8dd45a998c5b8b63d95d0
 const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 //require('./app/db/mongoose');
 
+"use-strict";
 
-<<<<<<< HEAD
-app.use(function (req, res, next) {
-=======
+
+import express from 'express';
+import expressSession from 'express-session';
+import bodyParser from 'body-parser';
+import globalConfig from '../config.json';
+import routes from './src/routes';
+import db from './app/db/mongoose';
+const app = express();
+
+
+// Required for twitter OAuth
+app.use(expressSession({
+    secret: 'secretKeyFromEnv'
+}));
+
+
+
 app.use(function(req, res, next) {
->>>>>>> 8812a17db4b6505adbc8dd45a998c5b8b63d95d0
+
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -29,32 +42,42 @@ app.use(function(req, res, next) {
   );
   next();
 });
-<<<<<<< HEAD
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-app.use('/user', userRoutes)
 
 
 
-
-
-app.listen(4012, () => { console.log('running on port 4012') });
-
-=======
 app.listen(4012, () => {
   console.log('running on port 4012')
 });
 
 
-app.use(bodyParser.json());
+// Body parser config
+app.use(bodyParser.json({
+    limit: "50mb"
+}));
 app.use(bodyParser.urlencoded({
-  extended: true
+    limit: "50mb",
+    extended: true
 }));
-app.use(expressSession({
-  secret: 'secretKeyFromEnv'
-}));
+
 app.use('/user', userRoutes);
 app.use('/auth', oauthRoutes);
->>>>>>> 8812a17db4b6505adbc8dd45a998c5b8b63d95d0
+
+const port =
+    process.env.PORT ||
+    globalConfig[process.env.ENV][process.env.ENGINE_NAME]["PORT"];
+
+app.get('/', (req, res) => res.send('Welcome to the Pocket Tanks'));
+
+const server = app.listen(port, () => {
+    console.log(`Microservice running on PORT : ${port}`);
+    console.log("Current Environment : ", process.env.ENV);
+    console.log("Base for API", routes.version.apiBaseUri);
+});
+app.use(routes.version.apiBaseUri, routes.version.api(app));
+process.on("uncaughtException", function(err) {
+    console.error(new Date().toUTCString() + " uncaughtException:", err.message);
+    console.error(err.stack);
+    return false;
+    process.exit(1);
+});
+

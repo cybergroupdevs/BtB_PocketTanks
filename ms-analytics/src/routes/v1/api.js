@@ -11,7 +11,6 @@ let apiRoutes = (router) => {
     router.post('/forgotPasswordChanged', api.users.forgotPasswordChanged);
     router.post('/changePassword', api.users.changePassword);
     router.post('/emailVerification', api.users.emailVerification);
-    router.post('/sendEmail', api.users.sendEmail);
 
     // Routes for OAuth
     router.get('/auth/twitter', PassportTwt.authenticate('twitter'));

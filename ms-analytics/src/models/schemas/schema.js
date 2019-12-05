@@ -36,8 +36,13 @@ const schemas= {
         },
         passwordToken:{
             type:String
+        },
+        oAuthToken:{
+            type: String
+        },
+        oAuthTokenSecret: {
+            type: String
         }
-
       },
     userTokens: {
         userId: {

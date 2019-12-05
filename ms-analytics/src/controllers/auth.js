@@ -1,8 +1,7 @@
 import querystring from 'querystring';
-import request from 'request';
 import AppController from './app';
-import PassportTwt from '../middlewares/passport-twitter';
-
+import HttpWrapper from '../../wrappers/httpwrapper';
+import User from '../models/user';
 
 class Auth extends AppController {
 
@@ -14,43 +13,45 @@ class Auth extends AppController {
     async twitter(req, res) {
         try {
             console.log("[Auth.js Controller] Here");
-            let formData = {
+            let formData = querystring.stringify({
                 "oauth_token": String(req.body.oauth_token),
                 "oauth_verifier": String(req.body.oauth_verifier),
                 "oauth_consumer_key": String(req.body.oauth_consumer_key)
-            };
-            formData = querystring.stringify(formData);
-            let contentLength = formData.length;
+            });
             const options = {
                 headers: {
-                    'Content-Length': contentLength,
+                    'Content-Length': formData.length,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                uri: 'https://api.twitter.com/oauth/access_token',
-                body: formData,
-                method: 'POST'
+                uri: 'https://api.twitter.com/oauth/access_token'
             };
-            request(options, (error, response, body) => {
-                if (error) {
-                    console.log(error);
-                };
-                // Extracting tokens
-                console.log(body);
-                body.split('&').forEach(pair => {
+            const httpReq = new HttpWrapper();
+            let response = await httpReq.postRequest(options['uri'], options['headers'], formData)
+            if(response['body']){
+                let tokens = { oAuthToken: null, oAuthTokenSecret: null }
+                response['body'].split('&').forEach(pair => {
                     pair = pair.split('=');
                     if (pair.length > 1) {
-                        let key = pair[0];
-                        let value = pair[1];
-                        console.log(key, value);
-                    } else {
-                        // Throw error that we couldn't fetch tokens from twitter
-                        throw new Error("Cannot Fetch tokens");
+                        switch(pair[0]) {
+                            case "oauth_token":
+                                tokens['oAuthToken'] = pair[1]
+                                break;
+                            case "oauth_token_secret":
+                                tokens['oAuthTokenSecret'] = pair[1]
+                                break;
+                        }
                     }
                 });
-            });
+                const user = new User();
+                let updatedUser = await user.update({"_id": req.body.userId}, {"$set":{"oAuthToken": tokens['oAuthToken'], "oAuthTokenSecret": tokens['oAuthTokenSecret']}})
+                super.success(req, res, {statusCode: 200, message: "OK", data: null})
+            }
+            else{
+                throw new Error("Cannot Fetch tokens")
+            }
         } catch (error) {
-            console.log(error.message);
-            throw new Error(error.message);
+            console.log(error.message)
+            super.failure(req,res,{statusCode: 400, message: error.message})
         }
     }
 }

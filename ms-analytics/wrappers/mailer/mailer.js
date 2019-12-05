@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 class Mailer {
     constructor(){
         this.transporter = nodemailer.createTransport({
-            service: "gmail",
+            service: "Gmail",
             host: "smtp.gmail.com",
             secureConnection: true,
             auth: {
@@ -20,7 +20,7 @@ class Mailer {
                 subject: subject,
                 html: html
             }
-            await this.transporter.sendEmail(message)
+            await this.transporter.sendMail(message)
         }
         catch(error){
             throw new Error(error.message);

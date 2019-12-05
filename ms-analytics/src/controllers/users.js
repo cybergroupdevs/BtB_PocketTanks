@@ -22,6 +22,11 @@ class Users extends AppController{
               };
             const user = new User();
             let userObj = await user.insert(new_user);
+            const token = jwt.sign({data: req.body.email}, 'authenticateRegistration', {expiresIn: 60 * 60})
+            const mailer = new Mailer();
+            let message = '<p>Hi, </p><br/> Click below link to verify your account.<br/> https:localhost:4200/verfication/'+ token +'</br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Socialize.<br/><br/>Thanks,<br/>The Socialize Team<br/>socialize.com'
+            
+            mailer.sendEmail(req.body.email, "Forgot your password? Let's get you a new one.",message);
             super.success(req, res, {statusCode: 200, message: "", data: userObj})
         }
         catch(error){
@@ -55,6 +60,7 @@ class Users extends AppController{
         try{
             const user = new User();
             let data = await user.get({email: req.body.email});
+            console.log(data);
             if(data.length == 0){
                 throw new Error("Email does not exist");
             }
@@ -63,9 +69,10 @@ class Users extends AppController{
             }
             else{
                 const token = jwt.sign({data: data[0]['email']}, 'authenticate', {expiresIn: 60 * 60})
+                console.log(token)
                 const mailer = new Mailer();
-                let message = '<p>Hi, </p><br/>Seems like you forgot your password. Click below link to reset your password.<br/> https:localhost:4200/changepassword/'+ token +'</br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Pocket Tanks.<br/><br/>Thanks,<br/>The Pocket Tanks Team<br/>pockettanks.com'
-                
+                let message = '<p>Hi, </p><br/>Seems like you forgot your password. Click below link to reset your password.<br/><br/><center><a href="https:localhost:4200/changepassword/'+ token +'">Reset Your Password</a></center></br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Socialize.<br/><br/>Thanks,<br/>The Socialize Team<br/>socialize.com'
+                console.log(message);
                 mailer.sendEmail(data[0]['email'], "Forgot your password? Let's get you a new one.",message);
                 super.success(req, res, {statusCode: 200, message: "Forgot password link has been sent", data: null})
             }
@@ -158,30 +165,6 @@ class Users extends AppController{
             }
             else{
                 throw new Error("Email does not exist");
-            }
-        }
-        catch(error){
-            super.failure(req,res,{statusCode: 400, message: error.message})
-        }
-    }
-    async sendEmail(req, res) {
-        try{
-            const user = new User();
-            let data = await user.get({email: req.body.email});
-            if(data.length == 0){
-                throw new Error("Email does not exist");
-            }
-            else if(data.length >0 && data[0]['emailVerified'] ==  false){
-                const token = jwt.sign({data: data[0]['email']}, 'authenticateRegistration', {expiresIn: 60 * 60})
-                const mailer = new Mailer();
-                let message = '<p>Hi, </p><br/>Seems like you forgot your password. Click below link to reset your password.<br/> https:localhost:4200/changepassword/'+ token +'</br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Pocket Tanks.<br/><br/>Thanks,<br/>The Pocket Tanks Team<br/>pockettanks.com'
-                
-                mailer.sendEmail(data[0]['email'], "Forgot your password? Let's get you a new one.",message);
-                let updatedUser = await user.update({'email':req.body.email}, {$set:{'emailToken':token}})
-                super.success(req, res, {statusCode: 200, message: message, data: null})
-            }
-            else if(data[0]['emailVerified']==true){
-                throw new Error("User is already verified");
             }
         }
         catch(error){

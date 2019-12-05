@@ -29,8 +29,8 @@ def create_app(test_config=None):
         return 'Please go to API docs.'
 
     from . import controllers
-    app.register_blueprint(controllers.sentiment.bp)
-    app.register_blueprint(controllers.wordcloud.bp)
+    app.register_blueprint(controllers.v1.sentiment.bp)
+    app.register_blueprint(controllers.v1.wordcloud.bp)
     CORS(app)
 
     app = setAppConfig(app)

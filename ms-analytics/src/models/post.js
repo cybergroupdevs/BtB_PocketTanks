@@ -13,8 +13,11 @@ class Post extends BaseModel {
         return 0;
     }
 
-
     commentsCount(userId) {
+        return 0;
+    }
+
+    postsCount(userId) {
         return 0;
     }
 

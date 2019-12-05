@@ -17,7 +17,8 @@ let apiRoutes = (router) => {
     router.post('/auth/twitter/extracttokens', api.auth.twitter);
 
     // twitter analytics routes
-    router.post('/twitter/kpis', api.twitter.kpis);
+    router.get('/twitter/posts', api.twitter.posts);
+    router.get('/twitter/kpis', api.twitter.kpis);
 
     return router;
 }

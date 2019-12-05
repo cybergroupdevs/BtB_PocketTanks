@@ -19,9 +19,6 @@ class User extends BaseModel {
         return obj
     }
 
-    postsCount(userId) {
-        return 0;
-    }
 }
 
 export default User;

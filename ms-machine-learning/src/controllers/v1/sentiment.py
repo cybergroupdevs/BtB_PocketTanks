@@ -13,15 +13,15 @@ from flask import (
 
 bp = Blueprint('sentiment', __name__, url_prefix='/')
 
-@bp.route('/ignition', methods=('GET', 'POST'))
+@bp.route('v0.1/ignition', methods=('GET', 'POST'))
 def register():
     return '[controller.py] Machine Learning microservice is up and running'
 
-@bp.route('/testresponsewrapper', methods=('GET', 'POST'))
+@bp.route('v0.1/testresponsewrapper', methods=('GET', 'POST'))
 def testresponsewrapper():
     return Response_wrapper.create_response(200, 'Working')
 
-@bp.route('/sentiment', methods=('GET', 'POST'))
+@bp.route('v0.1/sentiment', methods=('GET', 'POST'))
 def get_sentiments():
     if request.method == 'GET':
         ''' Samples to test the response format of this API and its working'''

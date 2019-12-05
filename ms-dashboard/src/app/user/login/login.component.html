@@ -1,12 +1,12 @@
-<div class="container">
-    <div class="card">
-      <div class="card-header text-center  py-4">
-        <h2 *ngIf="isSignup">Register</h2>
-        <h2 *ngIf="!isSignup">Login</h2>
+<div class="wrapper wrapper-full-page">
+    <div class="card mat-elevation-z4 login-background">
+      <div class="text-center pt-2">
+        <h2 *ngIf="isSignup"><img src="../../../assets/img/logo.png" class="mb-2" alt="Socialize " width="40" height="40">Register</h2>
+        <h2 *ngIf="!isSignup"><img src="../../../assets/img/logo.png" class="mb-2" alt="Socialize " width="40" height="40">Login</h2>
       </div>
 
       <div class="card-body py-4">
-          <div class="col-sm-8 offset-sm-2 text-center my-3">
+          <div class="col-sm-8 offset-sm-2 text-center my-3 col-md-12 offset-md-0">
               <form [formGroup]="loginFormGroup" (ngSubmit)="submitForm()">
                   <div *ngIf="isSignup" class="form-group">
                       <mat-form-field>
@@ -60,13 +60,17 @@
                         </mat-error>
                       </mat-form-field>
                   </div>
+                  <div class="row">
+                    <div class="col-md-9">
+                  <button *ngIf="!isSignup" class="btn-link primary-color" type="button" routerLink="/signup">First time user? Register Here</button>
+                  <button *ngIf="isSignup" class="btn-link primary-color" type="button" routerLink="/login">Already Registered? Login Here</button>
+                </div>
+                <div class="col-md-3">
                   <button color="primary" mat-stroked-button type="submit">Submit</button>
+                </div>
+                </div>
               </form>  
           </div>
         </div>
-      <div class="card-footer text-center">
-        <h6 *ngIf="isSignup" routerLink="/login">Go to Log In</h6>
-        <h6 *ngIf="!isSignup" routerLink="/signup">Go to SignUp</h6>
-      </div>
     </div>
   </div>

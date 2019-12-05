@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.login-background {
+    background-color: #f2f2f2;
+  }
+  
+  
+  .white-background {
+    background-color: #fff;
+  }
+   
+
+  body {
+    overflow-x: hidden;
+  }
+    
+  html {
+    height: 100%;
+  }
+  body {
+    min-height: 100%;
+  }
+
+  .primary-color
+  {
+    color: #000066;
+  }

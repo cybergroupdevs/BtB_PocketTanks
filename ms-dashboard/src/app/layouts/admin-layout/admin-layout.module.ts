@@ -11,6 +11,7 @@ import { WordCloudComponent } from '../../charts/word-cloud/word-cloud.component
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule } from '@angular/material';
+import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,11 @@ import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, Mat
   declarations: [
     DashboardComponent,
     UserComponent,
-    WordCloudComponent
+    WordCloudComponent,
+    SocialAccountLoginComponent
+  ],
+  entryComponents:[
+    SocialAccountLoginComponent
   ]
 })
 

@@ -2,7 +2,7 @@
 import express from 'express';
 import api from '../../controllers';
 import PassportTwt from '../../middlewares/passport-twitter';
-import checkToken from '../../middlewares/auth-twitter'
+
 
 
 let apiRoutes = (router) => {
@@ -17,7 +17,13 @@ let apiRoutes = (router) => {
 
     // Routes for OAuth
     router.get('/auth/twitter', PassportTwt.authenticate('twitter'));
-    router.post('/auth/twitter/extracttokens', checkToken, api.auth.twitter);
+    router.post('/auth/twitter/extracttokens', api.auth.twitter);
+
+    // twitter analytics routes
+    router.get('/twitter/posts', api.twitter.posts);
+    router.get('/twitter/kpis', api.twitter.kpis);
+    router.get('/twitter/sentiment', api.twitter.sentiment);
+
 
     router.get('/profile/:username', api.auth.twitterProfile);
     

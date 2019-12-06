@@ -18,6 +18,17 @@ const schemas = {
             type: String,
             required: true
         },
+        twitter: {
+            oAuthToken: {
+                type: String
+            },
+            oAuthTokenSecret: {
+                type: String
+            },
+            screenName: {
+                type: String
+            }
+        },
         createdAt: {
             type: Date,
             default: Date.now
@@ -36,35 +47,6 @@ const schemas = {
         },
         passwordToken: {
             type: String
-        },
-        oAuthToken: {
-            type: String
-        },
-        oAuthTokenSecret: {
-            type: String
-        }
-    },
-    userTokens: {
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: true
-        },
-        source: {
-            type: String,
-            default: null
-        },
-        oAuthToken: {
-            type: String,
-            required: true
-        },
-        oAuthVerifier: {
-            type: String,
-            required: true
-        },
-        timestamp: {
-            type: Date,
-            default: Date.now
         }
     },
     posts: {
@@ -92,9 +74,9 @@ const schemas = {
             type: Number,
             default: 0
         },
-        createdAt: { 
-            type: Date, 
-            default: Date.now 
+        createdAt: {
+            type: Date,
+            default: Date.now
         },
         twitterPostId: {
             type: String,

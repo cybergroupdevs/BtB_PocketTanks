@@ -63,6 +63,43 @@ class Twitter extends AppController {
             });
         }
     }
+
+    async sentiment(req, res) {
+        try {
+            let countsData = null;
+            switch (req.query.type) {
+                case 'average':
+                    countsData = {
+                        positive: 240,
+                        negative: 120
+                    };
+                    break;
+                case 'timeseries':
+                    countsData = {
+                        positive: 240,
+                        negative: 120
+                    };
+                    break;
+                    // TODO: Add defaultcase
+                    // default:
+            }
+
+            super.success(req, res, {
+                statusCode: 200,
+                message: "",
+                data: {
+                    type: req.query.type,
+                    countsData: countsData
+                }
+            });
+        } catch (error) {
+            console.log(error.message)
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            });
+        }
+    }
 }
 
 export default new Twitter();

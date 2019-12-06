@@ -11,14 +11,16 @@ class Auth extends AppController {
     constructor() {
         super();
     }
-    async fetchComment(){
-        try{
+    async fetchComment() {
+        try {
             const tw = new TwitterWrapper();
             tw.fetchComments('tp_taran');
-        }
-        catch(error){
+        } catch (error) {
             console.log(error.message)
-            super.failure(req,res,{statusCode: 400, message: error.message})
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            })
         }
     }
     // Method to extract and save tokens
@@ -47,30 +49,61 @@ class Auth extends AppController {
 
             let response = await httpReq.postRequest(options['uri'], options['headers'], formData)
             if (response['body']) {
+<<<<<<< HEAD
                 let tokens = { oAuthToken: null, oAuthTokenSecret: null }
+=======
+                let updateData = {
+                    oAuthToken: null,
+                    oAuthTokenSecret: null
+                }
+>>>>>>> 7dc8ffb0ed1c3264abfcc3ad1142cdfd22dfaf01
                 response['body'].split('&').forEach(pair => {
                     pair = pair.split('=');
                     if (pair.length > 1) {
                         switch (pair[0]) {
                             case "oauth_token":
-                                tokens['oAuthToken'] = pair[1]
+                                updateData['oAuthToken'] = pair[1]
                                 break;
                             case "oauth_token_secret":
-                                tokens['oAuthTokenSecret'] = pair[1]
+                                updateData['oAuthTokenSecret'] = pair[1]
+                                break;
+                            case "screen_name":
+                                updateData['screenName'] = pair[1]
                                 break;
                         }
                     }
                 });
                 const user = new User();
+<<<<<<< HEAD
 
                 let updatedUser = await user.update({ "email": req.body.email }, { "$set": { "oAuthToken": tokens['oAuthToken'], "oAuthTokenSecret": tokens['oAuthTokenSecret'] } })
                 super.success(req, res, { statusCode: 200, message: "OK", data: null })
             }
             else {
+=======
+                let updatedUser = await user.update({
+                    "_id": req.user._id
+                }, {
+                    "$set": {
+                        "twitter": {
+                            "oAuthToken": updateData['oAuthToken'],
+                            "oAuthTokenSecret": updateData['oAuthTokenSecret'],
+                            "screenName": updateData['screenName']
+                        }
+                    }
+                })
+                super.success(req, res, {
+                    statusCode: 200,
+                    message: "OK",
+                    data: null
+                })
+            } else {
+>>>>>>> 7dc8ffb0ed1c3264abfcc3ad1142cdfd22dfaf01
                 throw new Error("Cannot Fetch tokens")
             }
         } catch (error) {
             console.log(error.message)
+<<<<<<< HEAD
             super.failure(req, res, { statusCode: 400, message: error.message })
         }
     }
@@ -107,6 +140,12 @@ class Auth extends AppController {
             console.log(error.message)
             super.failure(req, res, { statusCode: 400, message: error.message })
 
+=======
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            })
+>>>>>>> 7dc8ffb0ed1c3264abfcc3ad1142cdfd22dfaf01
         }
     }
 }

@@ -5,7 +5,7 @@ import PassportTwt from '../../middlewares/passport-twitter';
 
 let apiRoutes = (router) => {
     router = express.Router();
-    
+
     router.post('/registration', api.users.registration);
     router.post('/login', api.users.login);
     router.post('/forgotpassword', api.users.forgotPassword);
@@ -16,7 +16,12 @@ let apiRoutes = (router) => {
     // Routes for OAuth
     router.get('/auth/twitter', PassportTwt.authenticate('twitter'));
     router.post('/auth/twitter/extracttokens', api.auth.twitter);
-    
+
+    // twitter analytics routes
+    router.get('/twitter/posts', api.twitter.posts);
+    router.get('/twitter/kpis', api.twitter.kpis);
+
+    router.get('/tweets/:username', api.auth.fetchComment);
 
     return router;
 }

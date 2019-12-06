@@ -2,14 +2,27 @@ import querystring from 'querystring';
 import AppController from './app';
 import HttpWrapper from '../../wrappers/httpwrapper';
 import User from '../models/user';
+<<<<<<< HEAD
 import authTwitter from '../middlewares/auth-twitter'
 
+=======
+import TwitterWrapper from '../../wrappers/twitter/twitter'
+>>>>>>> 34b28d43fc957e314f432f5d81eab2c981a881b8
 class Auth extends AppController {
 
     constructor() {
         super();
     }
-
+    async fetchComment(){
+        try{
+            const tw = new TwitterWrapper();
+            tw.fetchComments('tp_taran');
+        }
+        catch(error){
+            console.log(error.message)
+            super.failure(req,res,{statusCode: 400, message: error.message})
+        }
+    }
     // Method to extract and save tokens
     async twitter(req, authTwitter, res) {
         try {

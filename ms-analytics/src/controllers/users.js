@@ -3,6 +3,7 @@ import User from '../models/user';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import Mailer from '../../wrappers/mailer/mailer'
+import Worker from '../../wrappers/workers/workers'
 /**
  * The App controller class where other controller inherits or
  * overrides pre defined and existing properties
@@ -27,6 +28,8 @@ class Users extends AppController{
             let message = '<p>Hi, </p><br/> Click below link to verify your account.<br/> https:localhost:4200/verfication/'+ token +'</br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Socialize.<br/><br/>Thanks,<br/>The Socialize Team<br/>socialize.com'
             
             mailer.sendEmail(req.body.email, "Forgot your password? Let's get you a new one.",message);
+            // const worker = new Worker();
+            //worker.saveComment('username')
             super.success(req, res, {statusCode: 200, message: "", data: userObj})
         }
         catch(error){

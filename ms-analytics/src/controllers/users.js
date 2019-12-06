@@ -50,7 +50,7 @@ class Users extends AppController{
                     throw new Error("Password is incorrect");
                 }
                 else{
-                    const token = jwt.sign({'_id': data[0]['_id']}, 'authenticate');
+                    const token = jwt.sign({'_id': data[0]['_id']}, 'authenticateRegistration');
                     super.success(req, res, {statusCode: 200, message: "", data: user.parseUser(data[0], token)})
                 }
             }
@@ -71,7 +71,7 @@ class Users extends AppController{
                 throw new Error("User's email is not verified yet");
             }
             else{
-                const token = jwt.sign({'_id': data[0]['_id']}, 'authenticate', {expiresIn: 60 * 60})
+                const token = jwt.sign({'_id': data[0]['_id']}, 'authenticateRegistration', {expiresIn: 60 * 60})
                 console.log(token)
                 const mailer = new Mailer();
                 let message = '<p>Hi, </p><br/>Seems like you forgot your password. Click below link to reset your password.<br/><br/><center><a href="https:localhost:4200/changepassword/'+ token +'">Reset Your Password</a></center></br><br/><b>Note:</b>The link will be valid for 30 minutes only.<br/><br/>If you have any questions or need help, contact us at pockettanks60@gmail.com<br/><br/>Thank You for using Socialize.<br/><br/>Thanks,<br/>The Socialize Team<br/>socialize.com'
@@ -90,7 +90,7 @@ class Users extends AppController{
             const date = new Date();
             let jwtResponse = null;
             try{
-                jwtResponse = jqt.verify(req.body.token, 'authenticate')
+                jwtResponse = jqt.verify(req.body.token, 'authenticateRegistration')
             }
             catch(error){
                 throw new Error("Token is expired or invalid signature");
@@ -143,7 +143,7 @@ class Users extends AppController{
             const user = new User();
             let jwtResponse = null;
             try{
-                jwtResponse = jqt.verify(req.body.token, 'authenticate')
+                jwtResponse = jqt.verify(req.body.token, 'authenticateRegistration')
             }
             catch(error){
                 throw new Error("Token is expired or invalid signature");

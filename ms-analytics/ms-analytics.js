@@ -8,7 +8,8 @@ import globalConfig from '../config.json';
 import routes from './src/routes';
 import db from './app/db/mongoose';
 const app = express();
-
+import Response from './wrappers/response';
+import Authentication from './src/middlewares/authentication'
 // Required for twitter OAuth
 app.use(expressSession({
     secret: 'secretKeyFromEnv'
@@ -41,6 +42,15 @@ const port =
     process.env.PORT ||
     globalConfig[process.env.ENV][process.env.ENGINE_NAME]["PORT"];
 
+// use JWT auth to secure the api
+app.use(new Authentication().authenticateRequest());
+app.use(function(err, req, res, next) {
+    if (err.name === "UnauthorizedError") {
+        console.log(err.message);
+        res.status(401).json(new Response(false, 401, "Invalid Signature"));
+    }
+    
+});
 app.get('/', (req, res) => res.send('Welcome to the Pocket Tanks'));
 
 const server = app.listen(port, () => {

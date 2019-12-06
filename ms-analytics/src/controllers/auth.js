@@ -3,7 +3,6 @@ import AppController from './app';
 import HttpWrapper from '../../wrappers/httpwrapper';
 import User from '../models/user';
 
-import authTwitter from '../middlewares/auth-twitter'
 
 import TwitterWrapper from '../../wrappers/twitter/twitter'
 

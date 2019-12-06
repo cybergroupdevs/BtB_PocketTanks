@@ -3,9 +3,13 @@ import AppController from './app';
 import HttpWrapper from '../../wrappers/httpwrapper';
 import User from '../models/user';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 import authTwitter from '../middlewares/auth-twitter'
 =======
+=======
+
+>>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
 

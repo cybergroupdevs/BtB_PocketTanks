@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
 import { TwitterAuthComponent } from './auth/twitter-auth/twitter-auth.component';
+// import { NewpostComponent } from './pages/newpost/newpost.component';
 
 export const AppRoutes: Routes = [
   {

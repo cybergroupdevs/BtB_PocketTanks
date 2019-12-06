@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+/* date time picker */
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+/*  Used in newPost component's drag and drop  */
+.afu-dragndrop-box{
+    margin: auto !important;
+}

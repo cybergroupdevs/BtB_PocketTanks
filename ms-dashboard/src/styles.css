@@ -1,28 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+/* date time picker */
+/* @import "~ng-pick-datetime/assets/style/picker.min.css"; */
+
+/*  Used in newPost component's drag and drop  */
+/* .afu-dragndrop-box{
+    margin: auto !important;
+} */
 
 
 .login-background {
-    background-color: #f2f2f2;
-  }
-  
-  
-  .white-background {
-    background-color: #fff;
-  }
-   
+  background-color: #f2f2f2;
+}
 
-  body {
-    overflow-x: hidden;
-  }
-    
-  html {
-    height: 100%;
-  }
-  body {
-    min-height: 100%;
-  }
 
-  .primary-color
-  {
-    color: #000066;
-  }
+.white-background {
+  background-color: #fff;
+}
+  
+
+body {
+  overflow-x: hidden;
+}
+  
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+
+.primary-color
+{
+  color: #000066;
+}

@@ -13,14 +13,16 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { FixedPluginComponent } from './shared/Components/fixedplugin/fixedplugin.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './user/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule } from '@angular/material';
 // import { NewpostComponent } from './pages/newpost/newpost.component';
 import { NewpostDialogComponent } from './newpost-dialog/newpost-dialog.component';
 import { TwitterAuthComponent } from './auth/twitter-auth/twitter-auth.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { EmailVerificationComponent } from './auth/email-verification/email-verification.component';
+import { ResetPasswordVerificationComponent } from './user/reset-password-verification/reset-password-verification.component';
+import { ChangePasswordComponent } from './user/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +31,14 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     // NewpostComponent,
     NewpostDialogComponent,
-    TwitterAuthComponent
+    TwitterAuthComponent,
+    EmailVerificationComponent,
+    ResetPasswordVerificationComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes,{
-      useHash: true
-    }),
+    RouterModule.forRoot(AppRoutes),
     SidebarModule,
     NavbarModule,
     ToastrModule.forRoot(),

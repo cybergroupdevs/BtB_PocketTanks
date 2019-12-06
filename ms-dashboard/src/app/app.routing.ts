@@ -1,14 +1,18 @@
 import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './user/login/login.component';
 import { TwitterAuthComponent } from './auth/twitter-auth/twitter-auth.component';
-// import { NewpostComponent } from './pages/newpost/newpost.component';
+import { EmailVerificationComponent } from './auth/email-verification/email-verification.component';
 
 export const AppRoutes: Routes = [
   {
-    path: 'twittercallback/:oauth_token/:oauth_verifier',
+    path: 'twittercallback',
     component: TwitterAuthComponent
+  },
+  {
+    path: 'emailverification/:token',
+    component: EmailVerificationComponent
   },
   {
     path: 'signup',

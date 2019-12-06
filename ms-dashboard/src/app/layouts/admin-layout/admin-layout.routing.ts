@@ -9,17 +9,17 @@ export const AdminLayoutRoutes: Routes = [
     { 
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuardService] 
+        // canActivate: [AuthGuardService] 
     },
     { 
         path: 'dashboard/:title',      
         component: DashboardComponent,    
-        canActivate: [AuthGuardService] 
+        // canActivate: [AuthGuardService] 
     },
     { 
         path: 'user',           
         component: UserComponent,     
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
     },
     {
         path: 'new',

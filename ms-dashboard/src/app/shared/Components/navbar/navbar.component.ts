@@ -113,6 +113,16 @@ export class NavbarComponent implements OnInit{
     })
   }
 
+  logoutUser()
+  {
+    if(localStorage != undefined)
+    {
+      localStorage.removeItem('userid');
+      localStorage.removeItem('authToken');
+    }
+
+    this.router.navigateByUrl("/login");
+  }
 
   // openDialog(): void {
   //   const dialogRef = this._dialog.open(NewpostDialogComponent, {

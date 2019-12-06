@@ -15,6 +15,7 @@ import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
 import { NewpostComponent } from 'app/pages/newpost/newpost.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { AngularFileUploaderModule } from "angular-file-uploader";
+import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,11 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
     DashboardComponent,
     UserComponent,
     WordCloudComponent,
-    NewpostComponent
+    NewpostComponent,
+    SocialAccountLoginComponent
+  ],
+  entryComponents:[
+    SocialAccountLoginComponent
   ]
 })
 

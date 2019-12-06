@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from 'app/auth.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { UserService } from 'app/shared/Services/user.service';
+import { UserService } from 'app/shared/Services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -83,15 +83,25 @@ export class LoginComponent implements OnInit {
         }
         this._userservice.loginUser(loginUserRequest).subscribe(
           response => {
-            if (response.data_obj!=undefined) {
+            if (response.success) {
+              localStorage.setItem("userid", response.data.userId);
+              localStorage.setItem("authToken", response.data.token);
+              localStorage.setItem("email", this.loginFormGroup.get('username').value);
               this.router.navigateByUrl('/dashboard/twitter');
-              localStorage.setItem("token", "Pocket T.A.N.K.S.");              
             } else {
-              
+              Swal.fire({
+                title: 'Oops!',
+                text: response.message,
+                icon: 'error'
+              });
             }
           },
           error => {
-
+            Swal.fire({
+              title: 'Oops!',
+              text: "Error occurred! Please try again later.",
+              icon: 'error'
+            });
           }
         );
 
@@ -106,18 +116,35 @@ export class LoginComponent implements OnInit {
         }
         this._userservice.createUser(createUserRequest).subscribe(
           response => {
-            debugger;
-            if (response.isSuccess) {
-              
+            if (response.success) {
+              if(!response.data.emailVerified)
+              {
+                Swal.fire({
+                  title: 'Verify your email!',
+                  text: 'Please open your mailbox and verify your account!',
+                  icon: 'warning'
+                });
+              }
+              else
+              {
+                this.router.navigateByUrl('/login');
+              }
             } else {
-              
+              Swal.fire({
+                title: 'Oops!',
+                text: response.message,
+                icon: 'error'
+              });
             }
           },
           error => {
-
+            Swal.fire({
+              title: 'Oops!',
+              text: error.message,
+              icon: 'error'
+            });
           }
         );
-        // this.router.navigateByUrl('/login');
       }
     }
   }
@@ -126,7 +153,6 @@ export class LoginComponent implements OnInit {
     (<any>Object).values(formGroup.controls).forEach(control => {
       try {
         control.markAsTouched();
-
         if (control.controls) {
           this.markFormGroupTouched(control);
         }

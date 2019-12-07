@@ -1,10 +1,9 @@
 import AppController from './app.js'
 import User from '../models/user';
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import Mailer from '../../wrappers/mailer/mailer'
-import Worker from '../../wrappers/workers/workers'
-import globalConfig from '../../../config.json'
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import Mailer from '../../wrappers/mailer/mailer';
+import globalConfig from '../../../config.json';
 /**
  * The App controller class where other controller inherits or
  * overrides pre defined and existing properties

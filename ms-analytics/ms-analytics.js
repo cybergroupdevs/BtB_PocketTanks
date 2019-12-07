@@ -50,9 +50,9 @@ app.use(function(err, req, res, next) {
         console.log(err.message);
         res.status(401).json(new Response(false, 401, "Invalid Signature"));
     }
-    
+
 });
-app.use(new Authorization().isAuthorized); //Middleware to check Request authorization
+// app.use(new Authorization().isAuthorized); //Middleware to check Request authorization
 app.get('/', (req, res) => res.send('Welcome to the Pocket Tanks'));
 
 const server = app.listen(port, () => {

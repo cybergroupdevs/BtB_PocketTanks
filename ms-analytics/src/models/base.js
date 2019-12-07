@@ -22,12 +22,16 @@ class BaseModel {
         return this.model.delete(object).exec();
     }
     async bulkInsert(data) {
-        let bulk = this.model.collection.initializeOrderedBulkOp();
-        data.forEach(element => {
-            bulk.insert(element);
-        });
-        bulk.execute(function() {})
-        return;
+        try {
+            let bulk = this.model.collection.initializeOrderedBulkOp();
+            data.forEach(element => {
+                bulk.insert(element);
+            });
+            bulk.execute(function() {})
+            return;
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 export default BaseModel;

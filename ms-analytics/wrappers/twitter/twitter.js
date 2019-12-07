@@ -1,12 +1,12 @@
 import Twit from 'twit';
 
 class TwitterWrapper {
-    constructor(){
+    constructor(access_token, access_token_secret){
         this.twit = new Twit({
-            consumer_key: 'lW47S9ha17CqtimCJMOJyt1Rq',
-            consumer_secret: 'IdiRMbcvyI5iiW851EPduOtXoXXO555YqX3K3bMgCvjNaAQ1cJ',
-            access_token: '734237523925454848-HbznrQcFNbclbMAlNGXEp2101zhE5qe',
-            access_token_secret: '6tnjOuwNM6VJxaMyfuUPxnqPyLHivZkiMnDkwwEL9fJYL',
+            consumer_key: String(process.env.OAUTH_CONSUMER_KEY),
+            consumer_secret: String(process.env.OAUTH_CONSUMER_SECRET),
+            access_token: access_token ,//'734237523925454848-HbznrQcFNbclbMAlNGXEp2101zhE5qe',
+            access_token_secret: access_token_secret //'6tnjOuwNM6VJxaMyfuUPxnqPyLHivZkiMnDkwwEL9fJYL',
         });
     }
     async asyncForEach(array, callback) {
@@ -88,6 +88,20 @@ class TwitterWrapper {
         }
         catch(error){
             throw new Error(error.message);
+        }
+    }
+    async getProfile(userName){
+        try{
+            const result = await this.twit.get('statuses/user_timeline', {screen_name: userName, count: 1})
+            if(result.data && result.data.length){
+                return result.data[0]['user']
+            }
+            else{
+                return null;
+            }
+        }
+        catch(error){
+            throw new Error(error.message)
         }
     }
 }

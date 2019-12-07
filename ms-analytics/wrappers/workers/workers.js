@@ -5,7 +5,7 @@ let saveCommentQueue = new Queue('Save Comment Queue',  'redis://127.0.0.1:6379'
 
 saveCommentQueue.process((job) => {
     try{
-        const tw = new TwitterWrapper();
+        const tw = new TwitterWrapper(job['access_token'], job['access_token_secret']);
         const response = tw.fetchComments(job['userName']);
         const comments = [];
         if(response && Array.isArray(response) && response.length){
@@ -55,8 +55,8 @@ class Workers {
     constructor(){
         //intilize
     }
-    saveComment(userName='tp_taran', userId = null) {
-        saveCommentQueue.add({ userName: userName});
+    saveComment(userName='tp_taran', access_token, access_token_secret, userId = null) {
+        saveCommentQueue.add({ userName: userName, access_token: access_token, access_token_secret: access_token_secret});
     }
 }
 export default Workers;

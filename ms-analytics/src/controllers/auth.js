@@ -27,10 +27,7 @@ class Auth extends AppController {
     async twitter(req, res) {
 
         try {
-            console.log("[Auth.js Controller] Here");
-            console.log("********************************")
-            console.log(req.decoded)
-            console.log("********************************")
+        
             let formData = querystring.stringify({
                 "oauth_token": String(req.body.oauth_token),
                 "oauth_verifier": String(req.body.oauth_verifier),
@@ -49,14 +46,10 @@ class Auth extends AppController {
 
             let response = await httpReq.postRequest(options['uri'], options['headers'], formData)
             if (response['body']) {
-<<<<<<< HEAD
-                let tokens = { oAuthToken: null, oAuthTokenSecret: null }
-=======
                 let updateData = {
                     oAuthToken: null,
                     oAuthTokenSecret: null
                 }
->>>>>>> 7dc8ffb0ed1c3264abfcc3ad1142cdfd22dfaf01
                 response['body'].split('&').forEach(pair => {
                     pair = pair.split('=');
                     if (pair.length > 1) {
@@ -74,13 +67,6 @@ class Auth extends AppController {
                     }
                 });
                 const user = new User();
-<<<<<<< HEAD
-
-                let updatedUser = await user.update({ "email": req.body.email }, { "$set": { "oAuthToken": tokens['oAuthToken'], "oAuthTokenSecret": tokens['oAuthTokenSecret'] } })
-                super.success(req, res, { statusCode: 200, message: "OK", data: null })
-            }
-            else {
-=======
                 let updatedUser = await user.update({
                     "_id": req.user._id
                 }, {
@@ -98,54 +84,69 @@ class Auth extends AppController {
                     data: null
                 })
             } else {
->>>>>>> 7dc8ffb0ed1c3264abfcc3ad1142cdfd22dfaf01
                 throw new Error("Cannot Fetch tokens")
             }
         } catch (error) {
             console.log(error.message)
-<<<<<<< HEAD
-            super.failure(req, res, { statusCode: 400, message: error.message })
-        }
-    }
-
-    async twitterProfile(req, res) {
-        try {
-            let username=req.params.username;
-            let url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=' + username;
-            let reqParams = {
-                url: url,
-                oauth: oauth
-            }
-            request.get(reqParams, (err, response, data) => {
-                if (err){
-                    res.sendStatus(400);
-                } 
-                data = JSON.parse(data);
-                let responseData = {
-                    "profile_image": data[0].user.profile_image_url,
-                    "background_image": data[0].user.profile_background_image_url,
-                    "followers_count": data[0].user.followers_count,
-                    "following_count": data[0].user.friends_count,
-                    "screen_name": data[0].user.screen_name,
-                    "name": data[0].user.name,
-                    "description": data[0].user.description,
-                    "statuses_count": data[0].user.statuses_count,
-                    "created_at": data[0].user.created_at
-                }
-                super.success(req, res, { statusCode: 200, message: "OK", data: responseData })
-            });
-        }
-
-        catch (error) {
-            console.log(error.message)
-            super.failure(req, res, { statusCode: 400, message: error.message })
-
-=======
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
             })
->>>>>>> 7dc8ffb0ed1c3264abfcc3ad1142cdfd22dfaf01
+        }
+    }
+
+    async twitterProfile(req,res){
+        try{
+
+            const user = new User()
+            let data = await user.get({
+                _id: req.user._id
+            });
+            if (data.length == 0) {
+                throw new Error("No email exists");
+            }
+            else{
+                let username = data[0]['twitter']['screenName'];
+                console.log(data[0])
+                const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'],data[0]['twitter']['oAuthTokenSecret'] );
+                let profile  = await tw.getProfile(username);
+
+
+                let updatedUser = await user.update({
+                    "_id": req.user._id
+                    // "twitter":{$exists : true}
+                }, {
+                    "$set": {
+                            "twitter.profileImage": profile.profile_image_url,
+                            "twitter.backgroundImage": profile.profile_background_image_url,
+                            "twitter.followersCount": profile.followers_count,
+                            "twitter.followingCount": profile.friends_count,
+                            "twitter.name": profile.name,
+                            "twitter.description": profile.description,
+                            "twitter.statusesCount": profile.statuses_count,
+                            "twitter.createdat": profile.created_at
+                        
+                    }
+                })
+                  super.success(req, res, {
+                    statusCode: 200,
+                    message: "OK",
+                    data: null
+                })
+    
+            //     });
+             }
+            
+            
+        
+
+        }
+        catch(error){
+            console.log(error.message)
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            })
         }
     }
 }

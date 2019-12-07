@@ -10,6 +10,7 @@ import db from './app/db/mongoose';
 const app = express();
 import Response from './wrappers/response';
 import Authentication from './src/middlewares/authentication'
+import Authorization from './src/middlewares/authorization'
 // Required for twitter OAuth
 app.use(expressSession({
     secret: 'secretKeyFromEnv'
@@ -51,6 +52,7 @@ app.use(function(err, req, res, next) {
     }
     
 });
+app.use(new Authorization().isAuthorized); //Middleware to check Request authorization
 app.get('/', (req, res) => res.send('Welcome to the Pocket Tanks'));
 
 const server = app.listen(port, () => {

@@ -5,6 +5,7 @@ import { Location} from '@angular/common';
 import { MatDialog } from "@angular/material";
 import { FixedPluginComponent } from '../fixedplugin/fixedplugin.component';
 import { NewpostDialogComponent } from 'app/newpost-dialog/newpost-dialog.component';
+import { ProfileDialogComponent } from 'app/user/profile-dialog/profile-dialog.component';
 
 @Component({
     moduleId: module.id,
@@ -122,6 +123,18 @@ export class NavbarComponent implements OnInit{
     }
 
     this.router.navigateByUrl("/login");
+  }
+
+
+  openDialog(): void {
+    const dialogRef = this._dialog.open(ProfileDialogComponent, {
+      width: '400px',
+      data: {} 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      result = JSON.stringify(result)
+      console.log("data: "+ result)
+    });
   }
 
 }

@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmailVerificationComponent } from './auth/email-verification/email-verification.component';
 import { ResetPasswordVerificationComponent } from './user/reset-password-verification/reset-password-verification.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
-import { SentimentLinechartComponent } from './charts/sentiment-linechart/sentiment-linechart.component';
+import { ProfileDialogComponent } from './user/profile-dialog/profile-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { SentimentLinechartComponent } from './charts/sentiment-linechart/sentim
     EmailVerificationComponent,
     ResetPasswordVerificationComponent,
     ChangePasswordComponent,
-    SentimentLinechartComponent
+    ProfileDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -63,7 +63,8 @@ import { SentimentLinechartComponent } from './charts/sentiment-linechart/sentim
   bootstrap: [AppComponent],
   entryComponents:[
     FixedPluginComponent,
-    NewpostDialogComponent
+    NewpostDialogComponent,
+    ProfileDialogComponent
   ]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -10,8 +10,10 @@ import { UserComponent }            from '../../pages/user/user.component';
 import { WordCloudComponent } from '../../charts/word-cloud/word-cloud.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule, MatSlideToggleModule, MatCardModule } from '@angular/material';
 import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
+import { NewpostComponent } from 'app/pages/newpost/newpost.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   imports: [
@@ -28,12 +30,18 @@ import { SocialAccountLoginComponent } from 'app/pages/social-account-login/soci
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule
   ],
   declarations: [
     DashboardComponent,
     UserComponent,
     WordCloudComponent,
+    NewpostComponent,
     SocialAccountLoginComponent
   ],
   entryComponents:[

@@ -99,32 +99,7 @@
     <div class="card h-75">
       <mat-tab-group>
         <mat-tab label="Recent 10 Tweets">
-          <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let kpiItem of KPIList">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center">
-                      <i class="{{kpiItem.iconClass}}"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">{{kpiItem.cardTitle}}</p>
-                      <p class="card-title">{{kpiItem.cardNumbers}}
-                        <p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="{{kpiItem.footerIconClass}}"></i> {{kpiItem.footerText}}
-                </div>
-              </div>
-            </div>
-          </div>
+          10 tweets
         </mat-tab>
         <mat-tab label="Recent 20 Mentions">Recent 20 Mentions</mat-tab>
       </mat-tab-group>

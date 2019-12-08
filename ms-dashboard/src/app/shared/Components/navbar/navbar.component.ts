@@ -124,47 +124,4 @@ export class NavbarComponent implements OnInit{
     this.router.navigateByUrl("/login");
   }
 
-  openDialog(): void {
-    const dialogRef = this._dialog.open(NewpostDialogComponent, {
-      width: '400px',
-      // data: this.projects 
-      data: {} 
-    });
-
-    
-    dialogRef.afterClosed().subscribe(result => {
-
-      result = JSON.stringify(result)
-      
-      console.log("data: "+ result)
-
-      // if(result["name"]){
-      //   console.log("selected project: "+ result);
-      //   let newProject = {
-      //     "name": result["name"],
-      //     "personalProject": Boolean(result["personalProject"])        
-      //   }
-        // this.timersService.addProject(newProject)
-        // .subscribe((res)=>{
-        //   console.log("added: ",res);
-        //   this.openSnackBar(res["name"]+" project", "Added!")
-        //   this.timersService.getProject(this.token["user"])
-        //   .subscribe((res: project[])=>{
-        //     this.projects = res;
-        //   },
-        //   (err)=>{
-        //     console.log(err);
-        //   })
-        // },
-        // err=>{
-        //   console.log("issue")          
-        // })
-      // }
-      // else{
-      //   console.log("invalid name of project")
-      // }
-
-
-    });
-  }
 }

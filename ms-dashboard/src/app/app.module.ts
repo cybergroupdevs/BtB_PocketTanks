@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmailVerificationComponent } from './auth/email-verification/email-verification.component';
 import { ResetPasswordVerificationComponent } from './user/reset-password-verification/reset-password-verification.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
+import { ProfileDialogComponent } from './user/profile-dialog/profile-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
     TwitterAuthComponent,
     EmailVerificationComponent,
     ResetPasswordVerificationComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProfileDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -61,7 +63,8 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
   bootstrap: [AppComponent],
   entryComponents:[
     FixedPluginComponent,
-    NewpostDialogComponent
+    NewpostDialogComponent,
+    ProfileDialogComponent
   ]
 })
 export class AppModule { }

@@ -22,7 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmailVerificationComponent } from './auth/email-verification/email-verification.component';
 import { ResetPasswordVerificationComponent } from './user/reset-password-verification/reset-password-verification.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
-import { SentimentLinechartComponent } from './charts/sentiment-linechart/sentiment-linechart.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +32,7 @@ import { SentimentLinechartComponent } from './charts/sentiment-linechart/sentim
     TwitterAuthComponent,
     EmailVerificationComponent,
     ResetPasswordVerificationComponent,
-    ChangePasswordComponent,
-    SentimentLinechartComponent
+    ChangePasswordComponent
   ],
   imports: [
     BrowserAnimationsModule,

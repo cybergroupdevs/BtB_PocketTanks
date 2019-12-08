@@ -14,6 +14,7 @@ import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, Mat
 import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
 import { NewpostComponent } from 'app/pages/newpost/newpost.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { SentimentLinechartComponent } from 'app/charts/sentiment-linechart/sentiment-linechart.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     UserComponent,
     WordCloudComponent,
     NewpostComponent,
-    SocialAccountLoginComponent
+    SocialAccountLoginComponent,
+    SentimentLinechartComponent
   ],
   entryComponents:[
     SocialAccountLoginComponent

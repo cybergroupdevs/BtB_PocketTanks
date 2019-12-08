@@ -18,6 +18,52 @@ export class DashboardComponent implements OnInit {
   public chartEmail;
   public chartHours;
 
+  
+  tweets = [
+    {
+      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
+      "screen_name": "ZeeNewsHindi",
+      "name": "Zee News Hindi",
+      "created_at": "12 Nov 2012",
+      "tweet": "hi there, I am tweeting from Nodejs and angular."
+    },
+    {
+      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
+      "screen_name": "ZeeNewsHindi",
+      "name": "Zee News Hindi",
+      "created_at": "12 Jan 2013",
+      "tweet": "Hey, you still there?"
+    },
+    {
+      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
+      "screen_name": "ZeeNewsHindi",
+      "name": "Zee News Hindi",
+      "created_at": "2 Nov 2012",
+      "tweet": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aliquid, itaque, dolor eius facilis alias quisquam odio ad debitis, quos consectetur velit sint distinctio similique neque sit cupiditate voluptates nostrum."
+    },
+    {
+      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
+      "screen_name": "ZeeNewsHindi",
+      "name": "Zee News Hindi",
+      "created_at": "12 Nov 2012",
+      "tweet": "hi there, I am tweeting from Nodejs and angular."
+    },
+    {
+      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
+      "screen_name": "ZeeNewsHindi",
+      "name": "Zee News Hindi",
+      "created_at": "12 Jan 2013",
+      "tweet": "Hey, you still there?"
+    },
+    {
+      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
+      "screen_name": "ZeeNewsHindi",
+      "name": "Zee News Hindi",
+      "created_at": "2 Nov 2012",
+      "tweet": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aliquid, itaque, dolor eius facilis alias quisquam odio ad debitis, quos consectetur velit sint distinctio similique neque sit cupiditate voluptates nostrum."
+    }
+  ]
+
   constructor(public _dialog: MatDialog)
   {
     

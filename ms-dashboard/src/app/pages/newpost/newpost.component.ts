@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-newpost',
   templateUrl: './newpost.component.html',
@@ -14,7 +15,6 @@ export class NewpostComponent implements OnInit {
   facebookSelected = false;
   imageUploaded = false;
   
-  // public startAt = new Date(2019, 2, 15, 20, 30);
   newPostFormGroup: FormGroup;
   constructor(
     private _fb: FormBuilder
@@ -50,7 +50,7 @@ export class NewpostComponent implements OnInit {
       let newPost = {
         text: this.newPostFormGroup.get('text').value,
         scheduleIt: this.newPostFormGroup.get('scheduleIt').value,
-        dateTime: this.newPostFormGroup.get('dateTime').value
+        // dateTime: this.newPostFormGroup.get('dateTime').value
       }
       console.log(newPost);
     }

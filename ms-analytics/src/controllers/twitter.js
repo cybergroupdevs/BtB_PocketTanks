@@ -1,5 +1,8 @@
 import AppController from './app';
 import Post from '../models/post';
+import User from '../models/user';
+import Worker from '../../wrappers/workers/workers';
+
 
 class Twitter extends AppController {
     constructor() {
@@ -91,6 +94,28 @@ class Twitter extends AppController {
                     type: req.query.type,
                     countsData: countsData
                 }
+            });
+        } catch (error) {
+            console.log(error.message)
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            });
+        }
+    }
+
+    async fetchPostsFromTwitter(req, res) {
+        try {
+            const user = new User();
+            const data = await user.get({
+                _id: req.user._id
+            });
+            const worker = new Worker();
+            worker.saveComment(data[0]['twitter']['screenName'], req.user._id);
+            super.success(req, res, {
+                statusCode: 200,
+                message: "Process Started",
+                data: {}
             });
         } catch (error) {
             console.log(error.message)

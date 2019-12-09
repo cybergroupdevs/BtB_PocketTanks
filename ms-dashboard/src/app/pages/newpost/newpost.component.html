@@ -32,36 +32,8 @@
             </mat-error>
           </mat-form-field>
         </div>
-    <!-- ///////////////////////// -->
-    
-        <!-- <angular-file-uploader class="text-center"
-          [config]="afuConfig">
-        </angular-file-uploader> -->
-    
-        <!-- <angular-file-uploader
-          [config]="afuConfig"
-          [resetUpload]=resetVar
-          (ApiResponse)="DocUpload($event)"
-          >
-        </angular-file-uploader> -->
-    <!-- ///////////////////////// -->
-    
-        <!-- <div class="form-group">
-          <mat-checkbox color="primary" formControlName="scheduleIt">
-              <span>Schedule</span>
-          </mat-checkbox>
-    
-          formControlName="scheduleIt" 
-          (click)="newPostFormGroup.value.scheduleIt=!newPostFormGroup.value.scheduleIt" 
-    
-        </div> -->
-        <!-- <button color="primary" mat-stroked-button
-            (click)="dateTime.click()" 
-            type="button">
-            Schedule It 
-        </button> -->
-    
-        <div class="dragNdrop mx-auto mb-5" (click)="imageuploaded=!imageuploaded;"></div>
+  
+        <div class="dragNdrop mx-auto mb-5" (click)="imageUploaded=!imageUploaded;"></div>
 
         <div class="schedule">
           <div class="form-group">
@@ -98,8 +70,9 @@
         <mat-card-content>
           <p class="text-left">{{newPostFormGroup.value.text}}</p>
         </mat-card-content>
-        <img mat-card-image  *ngIf="imageuploaded" src="https://material.angular.io/assets/img/examples/shiba2.jpg" 
+        <img mat-card-image  *ngIf="imageUploaded" src="https://material.angular.io/assets/img/examples/shiba2.jpg" 
             alt="Photo of a Shiba Inu" class="image_upload">
+            
         <mat-card-actions>
           <div class="twitterActions mb-3">
             <i class="fa fa-comment-o"></i>

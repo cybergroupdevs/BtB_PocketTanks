@@ -1,0 +1,45 @@
+
+<div class="card card-user">
+    <div class="image">
+    <img [src]="userInfo.background_image" alt="...">
+    </div>
+    <div class="card-body">
+    <div class="author">
+        <a href="#">
+        <img class="avatar border-gray" [src]="userInfo.profile_image" alt="...">
+        <h5 class="title">{{userInfo.name}}</h5>
+        </a>
+        <p class="description">
+            @{{userInfo.screen_name}}
+        </p>
+    </div>
+    <p class="description text-center">
+        {{userInfo.description}}
+    </p>
+    </div>
+    <div class="card-footer">
+    <hr>
+    <div class="button-container">
+        <div class="row">
+        <div class="col-lg-3 col-md-6 col-6 ml-auto">
+            <h5>{{userInfo.followers_count}}
+            <br>
+            <small>Followers</small>
+            </h5>
+        </div>
+        <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
+            <h5>{{userInfo.following_count}}
+            <br>
+            <small>Following</small>
+            </h5>
+        </div>
+        <div class="col-lg-3 mr-auto">
+            <h5>{{userInfo.statuses_count}}
+            <br>
+            <small>Posts</small>
+            </h5>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>

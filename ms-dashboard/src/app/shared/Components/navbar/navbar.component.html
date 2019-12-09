@@ -10,6 +10,9 @@
         </button>
       </div>
       <a class="navbar-brand" href="javascript:void(0)">{{getTitle()}}</a>
+      <button color="primary" mat-stroked-button (click)="openDialog()" type="button">
+        View Profile
+      </button>
     </div>
     <button class="navbar-toggler" type="button" (click)="collapse()"
       [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
@@ -35,6 +38,7 @@
             </p>
           </a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link btn-magnify" href="javascript:void(0)" 
               matTooltip="New Post" routerLink="/new">

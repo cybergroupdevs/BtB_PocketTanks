@@ -10,12 +10,12 @@ import { UserComponent }            from '../../pages/user/user.component';
 import { WordCloudComponent } from '../../charts/word-cloud/word-cloud.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, 
-  MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule, MatCardModule, MatSliderModule, MatSlideToggleModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule, MatSlideToggleModule, MatCardModule } from '@angular/material';
+import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
 import { NewpostComponent } from 'app/pages/newpost/newpost.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { AngularFileUploaderModule } from "angular-file-uploader";
-import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
+import { SentimentLinechartComponent } from 'app/charts/sentiment-linechart/sentiment-linechart.component';
+import { TweetCardComponent } from 'app/user/tweet-card/tweet-card.component';
 
 @NgModule({
   imports: [
@@ -33,19 +33,20 @@ import { SocialAccountLoginComponent } from 'app/pages/social-account-login/soci
     MatNativeDateModule,
     MatSelectModule,
     MatTabsModule,
-    ReactiveFormsModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
+    MatSlideToggleModule,
     MatCardModule,
-    AngularFileUploaderModule,
-    MatSlideToggleModule
+    ReactiveFormsModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule
   ],
   declarations: [
     DashboardComponent,
     UserComponent,
     WordCloudComponent,
     NewpostComponent,
-    SocialAccountLoginComponent
+    SocialAccountLoginComponent,
+    SentimentLinechartComponent,
+    TweetCardComponent
   ],
   entryComponents:[
     SocialAccountLoginComponent

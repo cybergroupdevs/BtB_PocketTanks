@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewpostDialogComponent } from './newpost-dialog.component';
+import { KpiComponent } from './kpi.component';
 
-describe('NewpostDialogComponent', () => {
-  let component: NewpostDialogComponent;
-  let fixture: ComponentFixture<NewpostDialogComponent>;
+describe('KpiComponent', () => {
+  let component: KpiComponent;
+  let fixture: ComponentFixture<KpiComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewpostDialogComponent ]
+      declarations: [ KpiComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewpostDialogComponent);
+    fixture = TestBed.createComponent(KpiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

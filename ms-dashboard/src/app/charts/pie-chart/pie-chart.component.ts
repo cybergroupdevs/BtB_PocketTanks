@@ -15,24 +15,39 @@ export class PieChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+  //   {
+  //     "success": true,
+  //     "status": 200,
+  //     "message": "",
+  //     "data": {
+  //         "type": "average",
+  //         "countsData": {
+  //             "positive": 240,
+  //             "negative": 120
+  //         }
+  //     }
+  // }
+  
+
     this.canvas = document.getElementById("chartEmail");
     this.ctx = this.canvas.getContext("2d");
     this.chartEmail = new Chart(this.ctx, {
       type: 'pie',
       data: {
-        labels: [1, 2, 3],
+        labels: ["Positive", "Negative"],
         datasets: [{
           label: "Emails",
           pointRadius: 0,
           pointHoverRadius: 0,
           backgroundColor: [
-            '#e3e3e3',
-            '#4acccd',
-            '#fcc468',
-            '#ef8157'
+            '#4acccd',//Positive
+            '#ef8157' //Negative
           ],
           borderWidth: 0,
-          data: [342, 480, 530, 120]
+          data: [70 //Positive
+            , 30    //Negative
+          ]
         }]
       },
 
@@ -49,7 +64,7 @@ export class PieChartComponent implements OnInit {
         },
 
         tooltips: {
-          enabled: false
+          enabled: true
         },
 
         scales: {

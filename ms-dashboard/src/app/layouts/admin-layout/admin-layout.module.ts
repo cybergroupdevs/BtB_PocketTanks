@@ -15,14 +15,15 @@ import { TweetCardComponent } from 'app/user/tweet-card/tweet-card.component';
 import {
   MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
   MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, 
-  MatSelectModule, MatTabsModule, MatCardModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule
+  MatSelectModule, MatTabsModule, MatCardModule, MatSlideToggleModule, MatTooltipModule
 } from '@angular/material';
 import { NewpostComponent } from 'app/pages/newpost/newpost.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { AngularFileUploaderModule } from "angular-file-uploader";
 import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
 import { PieChartComponent } from 'app/charts/pie-chart/pie-chart.component';
 import { DragAndDropDirective } from 'app/shared/Directives/drag-and-drop.directive';
+import { HistogramComponent } from 'app/charts/histogram/histogram.component';
+import { KpiComponent } from 'app/user/kpi/kpi.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,9 @@ import { DragAndDropDirective } from 'app/shared/Directives/drag-and-drop.direct
     SentimentLinechartComponent,
     TweetCardComponent,
     PieChartComponent,
-    DragAndDropDirective
+    DragAndDropDirective,
+    HistogramComponent,
+    KpiComponent
   ],
   entryComponents: [
     SocialAccountLoginComponent

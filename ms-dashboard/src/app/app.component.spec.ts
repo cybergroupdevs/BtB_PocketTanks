@@ -1,8 +1,17 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+
+import {Component, DebugElement} from "@angular/core";
+import {ComponentFixture} from '@angular/core/testing';
+
+
 
 describe('AppComponent', () => {
+
+    
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -29,4 +38,53 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!!');
   }));
+
+  it("check if email is empty", async (()=>{
+
+    
+    
+
+  }))
+
+
+
+
+
+
 });
+
+
+describe(' Login Component', ()=>{
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+  let inputEl: DebugElement;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [LoginComponent]
+    });
+
+    fixture = TestBed.createComponent(LoginComponent);
+    
+
+  }));
+
+  it('check add', () => {
+    const a = new AppComponent();
+    expect(22).toEqual(a.add(10, 12));
+  })
+
+  
+ it('email id is blank', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const email= fixture.debugElement.componentInstance;
+    console.log(email)
+  }));
+  
+    
+
+ 
+
+});
+
+

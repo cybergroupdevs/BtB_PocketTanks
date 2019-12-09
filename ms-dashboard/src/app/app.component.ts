@@ -6,4 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent{}
+
+export class AppComponent{
+
+  add(a, b) {
+    var c = a + b;
+    return c;
+
+  }
+
+}
+

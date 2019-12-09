@@ -49,7 +49,7 @@ const schemas = {
             statusesCount:{
                 type:Number
             },
-            createdat:{
+            createdAt:{
                 type:Date
             }
 

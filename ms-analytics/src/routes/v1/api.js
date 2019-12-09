@@ -25,8 +25,8 @@ let apiRoutes = (router) => {
     router.get('/twitter/sentiment', api.twitter.sentiment);
     router.get('/twitter/fetchPosts', api.twitter.fetchPostsFromTwitter);
 
-
-    router.get('/profile/:username', api.auth.twitterProfile);
+    router.get('/tweets/:username', api.auth.fetchComment);
+    router.get('/profile/:username', api.twitter.twitterProfile);
     
 
     return router;

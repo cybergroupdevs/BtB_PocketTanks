@@ -29,23 +29,26 @@ class TwitterWrapper {
         responseTweet['text'] = tweet['text'];
         responseTweet['source'] = tweet['source'];
         responseTweet['created_at'] = tweet['created_at'];
-        responseTweet['location'] =  tweet['user']['location'] ? tweet['user']['location'] : null,
-        responseTweet['favorite_count'] = tweet['favorite_count']
+        responseTweet['location'] = tweet['user']['location'] ? tweet['user']['location'] : null,
+            responseTweet['favorite_count'] = tweet['favorite_count']
         responseTweet['retweet_count'] = tweet['retweet_count']
         responseTweet['userId'] = tweet['user']['id_str']
         return responseTweet;
     }
     async fetchComments(userName) {
-        try{
+        try {
             const count = 20;
             const responseData = [];
             const parentTweets = [];
 
             let data = [];
             let lastPostId = "";
-
-            const result = await this.twit.get('statuses/user_timeline', {screen_name: userName, count: count})
-            if(result.data.length){
+            console.log("userName:" + userName)
+            const result = await this.twit.get('statuses/user_timeline', {
+                screen_name: userName,
+                count: count
+            })
+            if (result.data.length) {
                 data = result.data
             }
             const twtWrapper = new TwitterWrapper()
@@ -58,35 +61,34 @@ class TwitterWrapper {
                     }
                 }
             });
-            
+
             await twtWrapper.asyncForEach(parentTweets, async (tweet) => {
                 const query = "to:" + tweet.user.screen_name;
                 const sinceID = tweet.id;
                 const commentsArray = [];
                 let responseTweet = null;
-        
+
                 let tempComments = await this.twit.get('search/tweets', {
                     q: query,
                     sinceID: sinceID
                 });
-        
+
                 tempComments = tempComments.data.statuses;
-        
+
                 tempComments.forEach(comment => {
                     if (comment.in_reply_to_status_id == sinceID) {
                         commentsArray.push(twtWrapper.formatTweet(comment));
                     }
                 });
-        
+
                 responseTweet = twtWrapper.formatTweet(tweet);
                 responseTweet['comments'] = commentsArray;
-        
+
                 responseData.push(responseTweet);
             });
             return responseData;
 
-        }
-        catch(error){
+        } catch (error) {
             throw new Error(error.message);
         }
     }

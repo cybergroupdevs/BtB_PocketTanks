@@ -71,22 +71,34 @@ class Twitter extends AppController {
 
     async sentiment(req, res) {
         try {
-            let countsData = null;
+            const post = new Post();
+
+            let countsData = {};
+            const userId = req.user._id;
+
             switch (req.query.type) {
                 case 'average':
-                    countsData = {
-                        positive: 240,
-                        negative: 120
-                    };
+                    countsData['positive'] = (await post.get({
+                        userId: userId,
+                        sentiment: 1
+                    })).length;
+
+                    countsData['negative'] = (await post.get({
+                        userId: userId,
+                        sentiment: 0
+                    })).length;
                     break;
                 case 'timeseries':
                     countsData = {
                         positive: 240,
                         negative: 120
                     };
+                default:
+                    countsData = {
+                        positive: 240,
+                        negative: 120
+                    };
                     break;
-                    // TODO: Add defaultcase
-                    // default:
             }
 
             super.success(req, res, {

@@ -72,7 +72,7 @@ export class SentimentLinechartComponent implements OnInit {
       modifiedData.date.push(element.date)
     })
 
-    console.log(modifiedData);
+    // console.log(modifiedData);
     
     //Chart Data and Styling
     this.chartColor = "#FFFFFF";
@@ -143,11 +143,5 @@ export class SentimentLinechartComponent implements OnInit {
       options: chartOptions
     });
   }
-
-    this._dialog
-    .open(SocialAccountLoginComponent, {
-      width: "400px",
-      maxHeight: "400px"
-    })
   }
 }

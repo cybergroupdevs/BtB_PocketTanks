@@ -1,0 +1,27 @@
+
+.twitterActions{
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.twitterActions .fa{
+    font-size: 1.1em;
+}
+
+mat-card-title{
+    font-size: 14px !important;
+    margin-bottom: 5px !important;
+}
+
+mat-card-subtitle{
+    font-size: 12px !important;
+    margin-bottom: 5px !important;
+}
+
+mat-card-content{
+    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+}
+
+

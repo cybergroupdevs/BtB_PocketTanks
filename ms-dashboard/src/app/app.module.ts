@@ -16,25 +16,25 @@ import { FixedPluginComponent } from './shared/Components/fixedplugin/fixedplugi
 import { LoginComponent } from './user/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule } from '@angular/material';
-import { NewpostComponent } from './newpost/newpost.component';
 import { NewpostDialogComponent } from './newpost-dialog/newpost-dialog.component';
 import { TwitterAuthComponent } from './auth/twitter-auth/twitter-auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EmailVerificationComponent } from './auth/email-verification/email-verification.component';
 import { ResetPasswordVerificationComponent } from './user/reset-password-verification/reset-password-verification.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
+import { ProfileDialogComponent } from './user/profile-dialog/profile-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    NewpostComponent,
     NewpostDialogComponent,
     TwitterAuthComponent,
     EmailVerificationComponent,
     ResetPasswordVerificationComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProfileDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -63,7 +63,8 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
   bootstrap: [AppComponent],
   entryComponents:[
     FixedPluginComponent,
-    NewpostDialogComponent
+    NewpostDialogComponent,
+    ProfileDialogComponent
   ]
 })
 export class AppModule { }

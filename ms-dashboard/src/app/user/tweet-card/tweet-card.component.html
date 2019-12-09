@@ -1,0 +1,27 @@
+<mat-card class="twitter-card mx-auto my-1">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+        <img [src]="tweetObj.profile_image" 
+            alt="Photo of a Shiba Inu" class="profile-img">
+        </div>
+        <mat-card-title>
+        {{tweetObj.name}}<small class="ml-2">{{tweetObj.created_at}}</small>
+        </mat-card-title>
+        <mat-card-subtitle class="text-left">
+        @{{tweetObj.screen_name}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p class="text-left">{{tweetObj.tweet}}</p>
+    </mat-card-content>
+    <!-- <img mat-card-image [src]="twitter.profile_image" 
+        alt="Photo of a Shiba Inu" class="image_upload"> -->                
+    <mat-card-actions>
+        <div class="twitterActions mb-1">
+        <i class="fa fa-comment-o"><span><small class="mx-1">12</small></span></i>
+        <i class="fa fa-retweet"><span><small class="mx-1">22</small></span></i>  
+        <i class="fa fa-heart-o"><span><small class="mx-1">15</small></span></i>
+        </div>
+    </mat-card-actions>
+</mat-card>
+    

@@ -1,28 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 
 .login-background {
-    background-color: #f2f2f2;
-  }
-  
-  
-  .white-background {
-    background-color: #fff;
-  }
-   
+  background-color: #f2f2f2;
+}
 
-  body {
-    overflow-x: hidden;
-  }
-    
-  html {
-    height: 100%;
-  }
-  body {
-    min-height: 100%;
-  }
+.white-background {
+  background-color: #fff;
+} 
 
-  .primary-color
-  {
-    color: #000066;
-  }
+body {
+  overflow-x: hidden;
+}
+  
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.primary-color
+{
+  color: #000066;
+}
+
+mat-dialog-container, .mat-dialog-container{
+  padding: 0 !important;
+  border-radius: 15px !important;
+}
+
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}

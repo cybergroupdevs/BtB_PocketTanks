@@ -16,6 +16,8 @@ import { NewpostComponent } from 'app/pages/newpost/newpost.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SentimentLinechartComponent } from 'app/charts/sentiment-linechart/sentiment-linechart.component';
 import { TweetCardComponent } from 'app/user/tweet-card/tweet-card.component';
+import { HistogramComponent } from 'app/charts/histogram/histogram.component';
+import { KpiComponent } from 'app/user/kpi/kpi.component';
 
 @NgModule({
   imports: [
@@ -46,7 +48,9 @@ import { TweetCardComponent } from 'app/user/tweet-card/tweet-card.component';
     NewpostComponent,
     SocialAccountLoginComponent,
     SentimentLinechartComponent,
-    TweetCardComponent
+    TweetCardComponent,
+    HistogramComponent,
+    KpiComponent
   ],
   entryComponents:[
     SocialAccountLoginComponent

@@ -2,6 +2,8 @@ import AppController from './app';
 import Post from '../models/post';
 import User from '../models/user';
 import Worker from '../../wrappers/workers/workers';
+import TwitterWrapper from '../../wrappers/twitter/twitter'
+
 
 
 class Twitter extends AppController {
@@ -137,6 +139,55 @@ class Twitter extends AppController {
             });
         }
     }
+
+    async twitterProfile(req,res){
+        try{
+
+            const user = new User()
+            let data = await user.get({
+                _id: req.user._id
+            });
+            if (data.length == 0) {
+                throw new Error("No email exists");
+            }
+            else{
+                let username = data[0]['twitter']['screenName'];
+                const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'],data[0]['twitter']['oAuthTokenSecret'] );
+                let profile  = await tw.getProfile(username);
+
+
+                let updatedUser = await user.update({
+                    "_id": req.user._id
+                }, {
+                    "$set": {
+                            "twitter.profileImage": profile.profile_image_url,
+                            "twitter.backgroundImage": profile.profile_background_image_url,
+                            "twitter.followersCount": profile.followers_count,
+                            "twitter.followingCount": profile.friends_count,
+                            "twitter.name": profile.name,
+                            "twitter.description": profile.description,
+                            "twitter.statusesCount": profile.statuses_count,
+                            "twitter.createdat": profile.created_at
+                        
+                    }
+                })
+                  super.success(req, res, {
+                    statusCode: 200,
+                    message: "OK",
+                    data: null
+                })
+             }
+        }
+        catch(error){
+            console.log(error.message)
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            })
+        }
+    }
+
+
 }
 
 export default new Twitter();

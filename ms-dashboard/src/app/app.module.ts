@@ -24,6 +24,7 @@ import { ResetPasswordVerificationComponent } from './user/reset-password-verifi
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
 import { ProfileDialogComponent } from './user/profile-dialog/profile-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,7 @@ import { ProfileDialogComponent } from './user/profile-dialog/profile-dialog.com
     EmailVerificationComponent,
     ResetPasswordVerificationComponent,
     ChangePasswordComponent,
-    ProfileDialogComponent
+    ProfileDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,

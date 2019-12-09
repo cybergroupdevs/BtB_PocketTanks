@@ -44,3 +44,8 @@ html {
 ::-webkit-scrollbar-thumb {
   background: #FF0000;
 }
+
+
+.mat-tooltip{
+  font-size: 1em !important;
+}

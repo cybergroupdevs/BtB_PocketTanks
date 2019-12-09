@@ -60,7 +60,7 @@ class Users extends AppController {
                 } else {
                     const token = jwt.sign({
                         '_id': data[0]['_id']
-                    }, globalConfig[process.env.ENV]['JWTSECRETKEY']);
+                    }, 'authenticate');
                     super.success(req, res, {
                         statusCode: 200,
                         message: "",

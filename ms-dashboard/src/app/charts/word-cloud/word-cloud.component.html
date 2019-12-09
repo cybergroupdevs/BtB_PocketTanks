@@ -1,4 +1,16 @@
-<div class="box card px-3 py-2">
-  <h3> Testing wordcloud </h3>
+<div class="card px-3 py-2">
+  <div class="card-subHeader">
+    <h3> Word Cloud </h3>
+    <i class="fa fa-info-circle mt-3 " 
+      matTooltip="A Line chart showing the number of positive, negative and the Total comments that you have received on your posts with respect to time."
+      matTooltipPosition="above">
+    </i>  
+  </div>
+  <mat-radio-group color="primary" class="mx-auto mb-3" (click)="toggleTo()" aria-label="Select an option" name="tabSelected" [(ngModel)]="tabSelected">
+    <mat-radio-button value="Posts" class="mx-2">For Posts</mat-radio-button>
+    <mat-radio-button value="Comments" class="mx-2">For Comments</mat-radio-button>
+  </mat-radio-group>
+
   <div id="cloud"></div>
+
 </div>

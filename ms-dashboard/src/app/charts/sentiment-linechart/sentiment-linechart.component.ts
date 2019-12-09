@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { MatDialog } from '@angular/material';
-import { SocialAccountLoginComponent } from '../../pages/social-account-login/social-account-login.component';
 import { ChartsService } from 'app/shared/Services/charts/charts.service';
 
 

@@ -10,7 +10,7 @@ import { UserComponent }            from '../../pages/user/user.component';
 import { WordCloudComponent } from '../../charts/word-cloud/word-cloud.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule, MatSlideToggleModule, MatCardModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule, MatSlideToggleModule, MatCardModule, MatTooltipModule, MatRadioModule } from '@angular/material';
 import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
 import { NewpostComponent } from 'app/pages/newpost/newpost.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -39,7 +39,9 @@ import { KpiComponent } from 'app/user/kpi/kpi.component';
     MatCardModule,
     ReactiveFormsModule,
     OwlDateTimeModule, 
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    MatTooltipModule,
+    MatRadioModule
   ],
   declarations: [
     DashboardComponent,

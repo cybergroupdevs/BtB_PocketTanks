@@ -12,3 +12,8 @@
 .card-footer{
     margin: 0 !important;
 }
+
+.card-header{
+    display: flex;
+    justify-content: space-between;
+}

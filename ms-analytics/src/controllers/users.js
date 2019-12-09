@@ -29,8 +29,10 @@ class Users extends AppController {
                 expiresIn: 60 * 60
             })
             const mailer = new Mailer();
-            let message = '<p>Hi, </p> <br/> Click below link to verify your account. <br/> http://127.0.0.1:4200/emailverfication/' + token + '</br><br/> <b>Note:</b>The link will be valid for 30 minutes only. <br/> <br/>If you have any questions or need help, contact us at pockettanks60 @gmail.com <br/> <br/> Thank You for using Socialize. <br/> <br/> Thanks, <br/> The Socialize Team <br/> socialize.com ';
-            mailer.sendEmail(req.body.email, "Welcome to Socialize? Let's get you started.", message);
+            let message = '<p>Hi, </p> <br/> Click below link to verify your account. <br/> http://127.0.0.1:4200/emailverfication/' +
+                token +
+                '</br><br/> <b>Note:</b>The link will be valid for 30 minutes only. <br/> <br/>If you have any questions or need help, contact us at pockettanks60 @gmail.com <br/> <br/> Thank You for using Socialize. <br/> <br/> Thanks, <br/> The Socialize Team <br/> socialize.com ';
+            mailer.sendEmail(req.body.email, "Welcome to Socialize. Let's get you started.", message);
             super.success(req, res, {
                 statusCode: 200,
                 message: "",

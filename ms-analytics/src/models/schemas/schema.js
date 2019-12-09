@@ -67,8 +67,8 @@ const schemas = {
             default: null
         },
         userId: {
-            type: String,
-            default: null
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
         },
         commentCount: {
             type: Number,

@@ -1,6 +1,7 @@
 import AppController from './app';
 import Post from '../models/post';
 import User from '../models/user';
+import mongoose from 'mongoose';
 import Worker from '../../wrappers/workers/workers';
 
 
@@ -73,7 +74,7 @@ class Twitter extends AppController {
 
             let countsData = {};
             const userId = req.user._id;
-
+            console.log('req.query.type', req.query.type);
             switch (req.query.type) {
                 case 'average':
                     countsData['positive'] = (await post.get({
@@ -87,13 +88,38 @@ class Twitter extends AppController {
                     })).length;
                     break;
                 case 'timeseries':
-                    countsData = {
-                        positive: 240,
-                        negative: 120
-                    };
+                    let criteria = [{
+                        $match: {
+                            parentId: {
+                                $eq: null
+                            },
+                            userId: mongoose.Types.ObjectId(userId)
+                        }
+                    }, {
+                        $project: {
+                            yearMonthDay: {
+                                $dateToString: {
+                                    format: "%Y-%m-%d",
+                                    date: "$createdAt"
+                                }
+                            }
+                        }
+                    }, {
+                        $group: {
+                            _id: "$yearMonthDay",
+                            "count": {
+                                $sum: 1
+                            }
+                        }
+                    }];
+                    let responseData = await post.getAggregate(criteria);
+                    responseData.forEach(elem => {
+                        countsData[elem['_id']] = elem.count;
+                    });
+                    break;
                 default:
                     countsData = {
-                        positive: 240,
+                        positive: 2410,
                         negative: 120
                     };
                     break;

@@ -7,7 +7,6 @@ const authTwitter = {
         try {
 
             let token = req.headers['x-access-token'] || req.headers['authorization'];
-            console.log(token)
             if (token) {
                 jwt.verify(token.split(" ")[1], 'authenticateRegistration', (err, decoded) => {
                     if (err) {
@@ -27,8 +26,7 @@ const authTwitter = {
                     message: 'Auth token is not supplied'
                 });
             }
-        }
-        catch (err) {
+        } catch (err) {
             res.status(401).send("err")
         }
     }

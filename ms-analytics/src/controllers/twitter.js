@@ -108,7 +108,6 @@ class Twitter extends AppController {
 
             let countsData = {};
             const userId = req.user._id;
-            console.log('req.query.type', req.query.type);
             switch (req.query.type) {
                 case 'average':
                     countsData['positive'] = (await post.get({
@@ -183,7 +182,7 @@ class Twitter extends AppController {
                 _id: req.user._id
             });
             const worker = new Worker();
-            worker.saveComment(data[0]['twitter']['screenName'], req.user._id);
+            worker.saveComment(data[0]['twitter']['screenName'], req.user._id, data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret']);
             super.success(req, res, {
                 statusCode: 200,
                 message: "Process Started",

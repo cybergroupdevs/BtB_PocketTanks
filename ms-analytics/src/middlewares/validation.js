@@ -7,32 +7,24 @@ class Validation extends AppController {
     }
     async registration(req, res, next) {
         try {
-            console.log(req.body.email)
             var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,11}$/
             if (!validator.isEmail(req.body.email)) {
                 throw new Error("Email is incorrect")
-            }
-            else if (validator.isEmpty(req.body.password)) {
+            } else if (validator.isEmpty(req.body.password)) {
                 throw new Error("Password Field is empty")
-            }
-            else if (validator.isEmpty(req.body.fullName)) {
+            } else if (validator.isEmpty(req.body.fullName)) {
                 throw new Error("Full Name Field is empty")
-            }
-            else if (validator.isEmpty(req.body.email)) {
+            } else if (validator.isEmpty(req.body.email)) {
                 throw new Error("Email Field is empty")
-            }
-            else if (regex.test(req.body.password) == false) {
+            } else if (regex.test(req.body.password) == false) {
                 throw new Error("Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character")
 
-            }
-            else if (!validator.isAlpha(req.body.fullName)) {
+            } else if (!validator.isAlpha(req.body.fullName)) {
                 throw new Error("Full Name field is incorrect")
-            }
-            else {
+            } else {
                 next();
             }
-        }
-        catch (error) {
+        } catch (error) {
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -42,18 +34,14 @@ class Validation extends AppController {
 
     async login(req, res, next) {
         try {
-            console.log(req.body.email)
             if (validator.isEmpty(req.body.password)) {
                 throw new Error("Password Field is empty")
-            }
-            else if (validator.isEmpty(req.body.email)) {
+            } else if (validator.isEmpty(req.body.email)) {
                 throw new Error("Email Field is empty")
-            }
-            else {
+            } else {
                 next();
             }
-        }
-        catch (error) {
+        } catch (error) {
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -64,15 +52,12 @@ class Validation extends AppController {
 
     async forgotPassword(req, res, next) {
         try {
-            console.log(req.body.email)
             if (validator.isEmpty(req.body.email)) {
                 throw new Error("Email field is empty")
-            }
-            else {
+            } else {
                 next();
             }
-        }
-        catch (error) {
+        } catch (error) {
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -85,18 +70,14 @@ class Validation extends AppController {
         try {
             if (validator.isEmpty(req.body.email)) {
                 throw new Error("Email Field is empty")
-            }
-            else if (validator.isEmpty(req.body.newPassword)) {
+            } else if (validator.isEmpty(req.body.newPassword)) {
                 throw new Error("New Password Field is empty")
-            }
-            else if (regex.test(req.body.newPassword) == false) {
+            } else if (regex.test(req.body.newPassword) == false) {
                 throw new Error("Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character")
-            }
-            else {
+            } else {
                 next();
             }
-        }
-        catch (error) {
+        } catch (error) {
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -109,22 +90,19 @@ class Validation extends AppController {
         try {
             if (validator.isEmpty(req.body.email)) {
                 throw new Error("Email Field is empty")
-            }
-            else if (validator.isEmpty(req.body.newPassword)) {
+            } else if (validator.isEmpty(req.body.newPassword)) {
                 throw new Error("New Password Field is empty")
-            }
-            else if (validator.isEmpty(req.body.oldPassword)) {
+            } else if (validator.isEmpty(req.body.oldPassword)) {
                 throw new Error("Old Password Field is empty")
-            }
-            else if (!validator.isLength(req.body.newPassword, { min: 6, max: 11 }) || regex.test(req.body.newPassword) == false) {
+            } else if (!validator.isLength(req.body.newPassword, {
+                    min: 6,
+                    max: 11
+                }) || regex.test(req.body.newPassword) == false) {
                 throw new Error("Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character")
-            }
-
-            else {
+            } else {
                 next();
             }
-        }
-        catch (error) {
+        } catch (error) {
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -137,15 +115,12 @@ class Validation extends AppController {
         try {
             if (validator.isEmpty(req.body.email)) {
                 throw new Error("Email Field is empty")
-            }
-            else if (validator.isEmpty(req.body.emailVerified)) {
+            } else if (validator.isEmpty(req.body.emailVerified)) {
                 throw new Error("Email Verfieid is empty")
-            }
-            else {
+            } else {
                 next();
             }
-        }
-        catch (error) {
+        } catch (error) {
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message

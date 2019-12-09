@@ -5,39 +5,30 @@ class Validation extends AppController {
     constructor() {
         super();
     }
-    async registration(req,res,next){
+    async registration(req, res, next) {
         try {
             console.log(req.body.email)
-            var regex= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
-            if(!validator.isEmail(req.body.email)){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Email is incorrect",
-                    data: null
-                })
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,11}$/
+            if (!validator.isEmail(req.body.email)) {
+                throw new Error("Email is incorrect")
             }
-            else if(validator.isEmpty(req.body.password) || validator.isEmpty(req.body.fullName) || validator.isEmpty(req.body.email)){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Field is empty",
-                    data: null
-                })  
+            else if (validator.isEmpty(req.body.password)) {
+                throw new Error("Password Field is empty")
             }
-            else if(!validator.isLength(req.body.password,{min:6, max: 11} ) || regex.test(req.body.password) == false){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character",
-                    data: null
-                })    
+            else if (validator.isEmpty(req.body.fullName)) {
+                throw new Error("Full Name Field is empty")
             }
-            else if(!validator.isAlpha(req.body.fullName)){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Full Name field is incorrect",
-                    data: null
-                }) 
+            else if (validator.isEmpty(req.body.email)) {
+                throw new Error("Email Field is empty")
             }
-            else{
+            else if (regex.test(req.body.password) == false) {
+                throw new Error("Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character")
+
+            }
+            else if (!validator.isAlpha(req.body.fullName)) {
+                throw new Error("Full Name field is incorrect")
+            }
+            else {
                 next();
             }
         }
@@ -49,17 +40,16 @@ class Validation extends AppController {
         }
     }
 
-    async login(req,res,next){
+    async login(req, res, next) {
         try {
             console.log(req.body.email)
-            if(validator.isEmpty(req.body.password) || validator.isEmpty(req.body.email)){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Field is empty",
-                    data: null
-                })  
+            if (validator.isEmpty(req.body.password)) {
+                throw new Error("Password Field is empty")
             }
-            else{
+            else if (validator.isEmpty(req.body.email)) {
+                throw new Error("Email Field is empty")
+            }
+            else {
                 next();
             }
         }
@@ -71,18 +61,14 @@ class Validation extends AppController {
         }
     }
 
-   
-    async forgotPassword(req,res,next){
+
+    async forgotPassword(req, res, next) {
         try {
             console.log(req.body.email)
-            if(validator.isEmpty(req.body.email)){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Email field is empty",
-                    data: null
-                })  
+            if (validator.isEmpty(req.body.email)) {
+                throw new Error("Email field is empty")
             }
-            else{
+            else {
                 next();
             }
         }
@@ -94,24 +80,19 @@ class Validation extends AppController {
         }
     }
 
-    async forgotPasswordChanged(req,res,next){
-        var regex= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+    async forgotPasswordChanged(req, res, next) {
+        var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
         try {
-            if(validator.isEmpty(req.body.email) || validator.isEmpty(req.body.newPassword) ){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Field is empty",
-                    data: null
-                })  
+            if (validator.isEmpty(req.body.email)) {
+                throw new Error("Email Field is empty")
             }
-            else if(!validator.isLength(req.body.newPassword,{min:6, max: 11} ) || regex.test(req.body.newPassword) == false){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character",
-                    data: null
-                })    
+            else if (validator.isEmpty(req.body.newPassword)) {
+                throw new Error("New Password Field is empty")
             }
-            else{
+            else if (regex.test(req.body.newPassword) == false) {
+                throw new Error("Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character")
+            }
+            else {
                 next();
             }
         }
@@ -123,25 +104,23 @@ class Validation extends AppController {
         }
     }
 
-    async changePassword(req,res,next){
-        var regex= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+    async changePassword(req, res, next) {
+        var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
         try {
-            if(validator.isEmpty(req.body.email) || validator.isEmpty(req.body.newPassword) || validator.isEmpty(req.body.oldPassword) ){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Field is empty",
-                    data: null
-                })  
+            if (validator.isEmpty(req.body.email)) {
+                throw new Error("Email Field is empty")
             }
-            else if(!validator.isLength(req.body.newPassword,{min:6, max: 11} ) || regex.test(req.body.newPassword) == false){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character",
-                    data: null
-                })    
+            else if (validator.isEmpty(req.body.newPassword)) {
+                throw new Error("New Password Field is empty")
+            }
+            else if (validator.isEmpty(req.body.oldPassword)) {
+                throw new Error("Old Password Field is empty")
+            }
+            else if (!validator.isLength(req.body.newPassword, { min: 6, max: 11 }) || regex.test(req.body.newPassword) == false) {
+                throw new Error("Password must contain only Alpha numeric characters, minimum of 6 characters long and must contain 1 uppercase,1 lower case character and 1 special character")
             }
 
-            else{
+            else {
                 next();
             }
         }
@@ -153,17 +132,16 @@ class Validation extends AppController {
         }
     }
 
-    async emailVerification(req,res,next){
-        
+    async emailVerification(req, res, next) {
+
         try {
-            if(validator.isEmpty(req.body.email) || validator.isEmpty(req.body.emailVerified)){
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Field is empty",
-                    data: null
-                })  
+            if (validator.isEmpty(req.body.email)) {
+                throw new Error("Email Field is empty")
             }
-            else{
+            else if (validator.isEmpty(req.body.emailVerified)) {
+                throw new Error("Email Verfieid is empty")
+            }
+            else {
                 next();
             }
         }
@@ -179,7 +157,7 @@ class Validation extends AppController {
 
 
 
-    
+
 }
 
 

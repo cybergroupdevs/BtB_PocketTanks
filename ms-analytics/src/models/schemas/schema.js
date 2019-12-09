@@ -27,7 +27,32 @@ const schemas = {
             },
             screenName: {
                 type: String
+            },
+            profileImage:{
+                type:String
+            },
+            backgroundImage:{
+                type:String
+            },
+            followersCount:{
+                type:Number
+            },
+            followingCount:{
+                type:Number
+            },
+            name:{
+                type:String
+            },
+            description:{
+                type:String
+            },
+            statusesCount:{
+                type:Number
+            },
+            createdAt:{
+                type:Date
             }
+
         },
         createdAt: {
             type: Date,

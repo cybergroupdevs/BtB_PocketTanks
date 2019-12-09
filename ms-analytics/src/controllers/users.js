@@ -55,7 +55,11 @@ class Users extends AppController {
             console.log('here', data);
             if (data.length == 0) {
                 throw new Error("No email exists");
-            } else {
+            }
+            else if (data[0].emailVerified==false){
+                throw new Error("Email is not verified")
+            }
+            else {
                 const isMatched = await bcrypt.compare(req.body.password, data[0].password)
                 if (!isMatched) {
                     throw new Error("Password is incorrect");
@@ -79,6 +83,7 @@ class Users extends AppController {
     }
     async forgotPassword(req, res) {
         try {
+            
             const user = new User();
             let data = await user.get({
                 email: req.body.email
@@ -126,7 +131,7 @@ class Users extends AppController {
                 email: req.body.email
             })
             const isMatched = await bcrypt.compare(req.body.newPassword, data[0].password)
-            if (data.length != 0 && req.body.newPassword.length > 6 && regex.test(req.body.newPassword) == true && isMatched == false) {
+            if (data.length != 0 && isMatched == false) {
                 let hashednewPassword = bcrypt.hashSync(req.body.newPassword, 10);
                 await user.update({
                     'email': req.body.email

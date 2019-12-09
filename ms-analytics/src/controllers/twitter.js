@@ -82,9 +82,12 @@ class Twitter extends AppController {
                         positive: 240,
                         negative: 120
                     };
+                default:
+                    countsData = {
+                        positive: 240,
+                        negative: 120
+                    };
                     break;
-                    // TODO: Add defaultcase
-                    // default:
             }
 
             super.success(req, res, {

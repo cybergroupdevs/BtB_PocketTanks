@@ -13,7 +13,7 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { FixedPluginComponent } from './shared/Components/fixedplugin/fixedplugin.component';
-import { LoginComponent } from './user/login/login.component';
+import { LoginComponent } from './user/register-login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule } from '@angular/material';
 import { NewpostDialogComponent } from './newpost-dialog/newpost-dialog.component';

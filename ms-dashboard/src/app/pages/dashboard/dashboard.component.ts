@@ -6,7 +6,8 @@ import { SocialAccountLoginComponent } from '../social-account-login/social-acco
 @Component({
   selector: 'dashboard-cmp',
   moduleId: module.id,
-  templateUrl: 'dashboard.component.html'
+  templateUrl: 'dashboard.component.html',
+  styleUrls:['./dashboard.component.scss']
 })
 
 export class DashboardComponent implements OnInit {
@@ -247,6 +248,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  //Check if twitter logged in
     this._dialog
     .open(SocialAccountLoginComponent, {
       width: "400px",

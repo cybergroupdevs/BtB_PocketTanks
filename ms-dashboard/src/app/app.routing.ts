@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { LoginComponent } from './user/login/login.component';
+import { LoginComponent } from './user/register-login/login.component';
 import { TwitterAuthComponent } from './auth/twitter-auth/twitter-auth.component';
 import { EmailVerificationComponent } from './auth/email-verification/email-verification.component';
 

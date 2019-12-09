@@ -21,7 +21,7 @@ export class RepositoryService {
       this.createCompleteRoute(route, this.envUrl),
       headers
         ? headers
-        : this.generateHeaders(false, localStorage.getItem("authToken"))
+        : this.generateHeaders(true, localStorage.getItem("authToken"))
     );
   }
 
@@ -32,7 +32,7 @@ export class RepositoryService {
       body,
       headers
         ? headers
-        : this.generateHeaders(false, localStorage.getItem("authToken"))
+        : this.generateHeaders(true, localStorage.getItem("authToken"))
     );
   }
 

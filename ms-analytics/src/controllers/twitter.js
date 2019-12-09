@@ -17,14 +17,46 @@ class Twitter extends AppController {
             const post = new Post();
 
             // Extracting userId from request body
-            // TODO: Remove the ternary operator
-            const userId = req.body.userId ? req.body.userId : 123;
+            const userId = req.user._id;
 
             // Fetching KPI's from db
             const responseData = {
-                postsCount: post.postsCount(userId),
-                likesCount: post.likesCount(userId),
-                commentsCount: post.commentsCount(userId)
+                postsCount: await post.getCount({
+                    userId: userId,
+                    parentId: {
+                        $eq: null
+                    }
+                }),
+                commentsCount: await post.getCount({
+                    userId: userId,
+                    parentId: {
+                        $ne: null
+                    }
+                }),
+                favoriteCount: (await post.getAggregate([{
+                    $match: {
+                        userId: mongoose.Types.ObjectId(userId)
+                    }
+                }, {
+                    $group: {
+                        _id: null,
+                        "sumFavoriteCount": {
+                            $sum: "$favoriteCount"
+                        }
+                    }
+                }]))[0]['sumFavoriteCount'],
+                retweetCount: (await post.getAggregate([{
+                    $match: {
+                        userId: mongoose.Types.ObjectId(userId)
+                    }
+                }, {
+                    $group: {
+                        _id: null,
+                        "sumRetweetCount": {
+                            $sum: "$retweetCount"
+                        }
+                    }
+                }]))[0]['sumRetweetCount']
             };
 
             super.success(req, res, {
@@ -46,7 +78,7 @@ class Twitter extends AppController {
             const post = new Post();
 
             // Extracting userId from request body
-            const userId = req.body.userId;
+            const userId = req.user._id;
             const postCount = req.query.postCount ? req.query.postCount : 10; // $_GET["postCount"]
 
             const posts = await post.get({
@@ -166,8 +198,8 @@ class Twitter extends AppController {
         }
     }
 
-    async twitterProfile(req,res){
-        try{
+    async twitterProfile(req, res) {
+        try {
 
             const user = new User()
             let data = await user.get({
@@ -175,36 +207,34 @@ class Twitter extends AppController {
             });
             if (data.length == 0) {
                 throw new Error("No email exists");
-            }
-            else{
+            } else {
                 let username = data[0]['twitter']['screenName'];
-                const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'],data[0]['twitter']['oAuthTokenSecret'] );
-                let profile  = await tw.getProfile(username);
+                const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret']);
+                let profile = await tw.getProfile(username);
 
 
                 let updatedUser = await user.update({
                     "_id": req.user._id
                 }, {
                     "$set": {
-                            "twitter.profileImage": profile.profile_image_url,
-                            "twitter.backgroundImage": profile.profile_background_image_url,
-                            "twitter.followersCount": profile.followers_count,
-                            "twitter.followingCount": profile.friends_count,
-                            "twitter.name": profile.name,
-                            "twitter.description": profile.description,
-                            "twitter.statusesCount": profile.statuses_count,
-                            "twitter.createdat": profile.created_at
-                        
+                        "twitter.profileImage": profile.profile_image_url,
+                        "twitter.backgroundImage": profile.profile_background_image_url,
+                        "twitter.followersCount": profile.followers_count,
+                        "twitter.followingCount": profile.friends_count,
+                        "twitter.name": profile.name,
+                        "twitter.description": profile.description,
+                        "twitter.statusesCount": profile.statuses_count,
+                        "twitter.createdat": profile.created_at
+
                     }
                 })
-                  super.success(req, res, {
+                super.success(req, res, {
                     statusCode: 200,
                     message: "OK",
                     data: null
                 })
-             }
-        }
-        catch(error){
+            }
+        } catch (error) {
             console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,

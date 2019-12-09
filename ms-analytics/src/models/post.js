@@ -9,18 +9,9 @@ class Post extends BaseModel {
         super(mongoose.model("Post", postSchema));
     }
 
-    likesCount(userId) {
-        return 0;
-    }
-
-    commentsCount(userId) {
-        return 0;
-    }
-
-    postsCount(userId) {
-        return 0;
-    }
-
-}
+    async getCount(criteria) {
+        return await this.model.countDocuments(criteria);
+    };
+};
 
 export default Post;

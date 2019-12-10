@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RepositoryService } from '../repository.service';
 // import { RepositoryService } from '../repository.service';
 
 @Injectable({
@@ -6,7 +7,14 @@ import { Injectable } from '@angular/core';
 })
 export class ChartsService {
 
-  constructor() {}
+  constructor(private repositoryService: RepositoryService) {}
+
+  getPieChartData() :any
+  {
+    return this.repositoryService.getData(
+      "twitter/sentiment?type=average"
+    );
+  }
 
   // getSentimentLine(){
   //   let data=[

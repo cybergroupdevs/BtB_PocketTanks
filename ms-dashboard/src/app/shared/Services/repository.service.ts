@@ -57,7 +57,6 @@ export class RepositoryService {
 
   public generateHeaders(isAuthRequired: boolean, token?: any) {
     if (isAuthRequired) {
-      debugger;
       return {
         headers: new HttpHeaders({
           "x_api_key" : this.devData["X-API-KEY"],

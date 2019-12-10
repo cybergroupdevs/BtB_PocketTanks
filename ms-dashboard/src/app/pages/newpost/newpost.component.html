@@ -33,7 +33,36 @@
           </mat-form-field>
         </div>
   
-        <div class="dragNdrop mx-auto mb-5" (click)="imageUploaded=!imageUploaded;"></div>
+        <div class="example-container d-flex flex-column" [ngClass] = "files.length>5?'overflowFiles':''">
+          <table>
+            <tr *ngFor="let item of files">
+              <td>
+                <div>
+                  <span class="float-left" style="white-space: normal;">{{ item.name }} </span>
+                  <span class="ml-1 float-right">
+                    <i class="fas fa-times float-right mr-2 dweb-font-color" (click)="remove(item.fileName)"
+                      matTooltip="Remove" matTooltipPosition="before"></i>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <mat-error class="text-center w-100">
+          <span *ngIf="fileImageError">
+            Please select an image
+          </span>
+        </mat-error>
+        <div class="example-container d-flex flex-column" ng-mouseenter="options=true" ng-mouseleave="options=false"
+          appDragAndDrop (filesChangeEmiter)="onDroppedFilesChange($event)" style="background-color: #eeeeee;">
+          <input type="file" #file (click)="file.value = null" style="display: none" (change)="onFilesAdded()" multiple />
+          <span class="floatingUpload align-self-center my-auto" (click)="addFiles()"><i
+              class="nc-icon nc-cloud-upload-94 my-5" matTooltip="Click upload icon to upload image OR drag & drop here"
+              matTooltipPosition="above"></i></span>
+          <div class="floatingUpload align-self-center my-auto" style="font-size: small">
+            Click upload icon to upload image OR drag & drop here 
+          </div>
+        </div>
 
         <div class="schedule">
           <div class="form-group">

@@ -15,8 +15,9 @@ export class EmailVerificationComponent implements OnInit {
     // router call to navigate
     // this.router.navigate(['/twittercallback', "123ABC", "456DEF"]);
     this._activatedRoute.params.forEach((urlParams) => {
+      debugger;
       console.log(urlParams);
-      this.router.navigateByUrl('dashboard/twitter');
+      this.router.navigateByUrl('/login');
     });
   }
 }

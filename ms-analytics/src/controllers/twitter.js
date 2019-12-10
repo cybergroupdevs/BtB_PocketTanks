@@ -258,8 +258,6 @@ class Twitter extends AppController {
         }
     }
 
-<<<<<<< HEAD
-=======
     async profileStats(req, res) {
         try {
 
@@ -311,7 +309,6 @@ class Twitter extends AppController {
             });
         }
     }
->>>>>>> ed1ab5775676cdc11b742e60871b7bc3bf80453a
 }
 
 export default new Twitter();

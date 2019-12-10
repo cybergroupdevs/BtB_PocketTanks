@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, x-auth,Authorization, Content-Type, Accept"
+        "Origin, X-Requested-With, x-auth,Authorization, Content-Type, Accept, x_api_key, x_api_secret_key"
     );
     res.header(
         "Access-Control-Allow-Methods",
@@ -52,7 +52,7 @@ app.use(function(err, req, res, next) {
     }
 
 });
-// app.use(new Authorization().isAuthorized); //Middleware to check Request authorization
+app.use(new Authorization().isAuthorized); //Middleware to check Request authorization
 app.get('/', (req, res) => res.send('Welcome to the Pocket Tanks'));
 
 const server = app.listen(port, () => {

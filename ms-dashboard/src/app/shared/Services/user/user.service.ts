@@ -9,29 +9,29 @@ export class UserService {
   constructor(private repositoryService: RepositoryService) {}
 
   getUserList(): any {
-    return this.repositoryService.getData(
+    return this.repositoryService.get(
       ""
     );
   }
   getUserDetails(userId): any {
-    return this.repositoryService.getData(
+    return this.repositoryService.get(
       `api/user/${userId}`
     );
   }
   createUser(createUserRequest): any {
-    return this.repositoryService.create(
+    return this.repositoryService.post(
       "registration",
       createUserRequest
     );
   }
   loginUser(loginUserRequest): any {
-    return this.repositoryService.create(
+    return this.repositoryService.post(
       "login",
       loginUserRequest
     );
   }
   updateUserDetails(userId, userDetails): any {
-    return this.repositoryService.update(
+    return this.repositoryService.put(
       `api/user/${userId}`,
       userDetails
     );

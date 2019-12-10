@@ -12,50 +12,73 @@ import { ChartsService } from 'app/shared/Services/charts/charts.service';
 export class SentimentLinechartComponent implements OnInit {
 
 
-  public KPIList: any[] = [];
   public canvas: any;
   public ctx;
   public chartColor;
+  lineChart;
 
+  noGridLines:Object = {
+    xAxes: [{
+        gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+        }
+    }],
+    yAxes: [{
+        gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+        }   
+    }]
+  }
+  
+  data=[
+    {
+      "positive":0,
+      "negative":0,
+      "total":0,
+      "date":"JAN"
+    },
+    {
+      "positive":19,
+      "negative":5,
+      "total":24,
+      "date":"FEB"
+    },
+    {
+      "positive":15,
+      "negative":10,
+      "total":25,
+      "date":"MAR"
+    },
+    {
+      "positive":20,
+      "negative":12,
+      "total":32,
+      "date":"APR"
+    }
+  ];
 
   constructor(
     public _dialog: MatDialog,
-    // private service: ChartsService
+    private service: ChartsService
   )
   { }
 
   ngOnInit() {
-    {
-      
-    let data=[
-      {
-        "positive":0,
-        "negative":0,
-        "total":0,
-        "date":"JAN"
-      },
-      {
-        "positive":19,
-        "negative":5,
-        "total":24,
-        "date":"FEB"
-      },
-      {
-        "positive":15,
-        "negative":10,
-        "total":25,
-        "date":"MAR"
-      },
-      {
-        "positive":20,
-        "negative":12,
-        "total":32,
-        "date":"APR"
-      }
-    ];
     
     // this.service.getSentimentLine()
-    // .subscribe(res=>{
+    //   .subscribe(res=>{
+    //     console.log(res);
+    //   },
+    //   err=>{
+
+    //   })
+
+    this.createChart()
+  }
+
+
+  createChart()    {
+      
 
     let modifiedData = {
       "positive":[],
@@ -64,7 +87,7 @@ export class SentimentLinechartComponent implements OnInit {
       "date":[]
     }
 
-    data.forEach((element)=>{
+    this.data.forEach((element)=>{
       modifiedData.positive.push(element.positive)
       modifiedData.negative.push(element.negative)
       modifiedData.total.push(element.total)
@@ -115,32 +138,44 @@ export class SentimentLinechartComponent implements OnInit {
       labels: modifiedData.date,
       datasets: [dataFirst, dataSecond, dataThird]
     };
-
+    
     var chartOptions = {
-      scales: {
-        xAxes: [{
-            gridLines: {
-                color: "rgba(0, 0, 0, 0)",
-            }
-        }],
-        yAxes: [{
-            gridLines: {
-                color: "rgba(0, 0, 0, 0)",
-            }   
-        }]
-      },
+      scales: this.noGridLines,
       legend: {
         display: false,
         position: 'top'
-      }
+      },
+      animation: false
     };
 
-    var lineChart = new Chart(speedCanvas, {
+    this.lineChart = new Chart(speedCanvas, {
       type: 'line',
-      hover: false,
+      hover: true,
       data: speedData,
       options: chartOptions
     });
   }
+
+  mouseEnter(){
+    this.noGridLines = {};
+    this.lineChart.destroy();
+    this.createChart()
+  }
+
+  mouseLeave(){
+    this.noGridLines = {
+      xAxes: [{
+          gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+          }
+      }],
+      yAxes: [{
+          gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+          }   
+      }]
+    }
+    this.lineChart.destroy();
+    this.createChart()
   }
 }

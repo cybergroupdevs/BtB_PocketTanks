@@ -10,6 +10,9 @@ export class HistogramComponent implements OnInit {
 
   public canvas: any;
   public ctx;
+  myBarChart;
+  noGridLines= {}
+
   data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "June"],
     datasets: [
@@ -31,32 +34,80 @@ export class HistogramComponent implements OnInit {
     ]
   };
   
-  options = {
-    barValueSpacing: 20,
-    scales: {
-        yAxes: [{
-            ticks: {
-                min: 0,
-            }
-        }]
-    },
-    legend:{
-      display: false
-    }
-  }
+  
+
   constructor() { }
 
   ngOnInit() {
-    
+    this.noGridLines = {
+      xAxes: [{
+        gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+          }
+      }],
+      yAxes: [{
+        gridLines: {
+          color: "rgba(0, 0, 0, 0)",
+        },
+        ticks: {
+            min: 0,
+        }
+      }]
+    }
+    this.createChart()
+  }
+
+  createChart(){
     this.canvas = document.getElementById("histogram");
     this.ctx = this.canvas.getContext("2d");
 
-    var myBarChart = new Chart(this.ctx, {
+    let options = {
+      barValueSpacing: 20,
+      scales: this.noGridLines,
+      legend:{
+        display: false
+      },
+      animation: false
+    }
+
+    this.myBarChart = new Chart(this.ctx, {
       type: 'bar',
       data: this.data,
-      options: this.options
+      options: options
     });
   }
 
+  mouseEnter(){
+    this.noGridLines= {
+      yAxes: [{
+        ticks: {
+            min: 0,
+        }
+      }]
+    };
+
+    this.myBarChart.destroy();
+    this.createChart()
+  }
+
+  mouseLeave(){    
+    this.noGridLines = {
+      xAxes: [{
+        gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+          }
+      }],
+      yAxes: [{
+        gridLines: {
+          color: "rgba(0, 0, 0, 0)",
+        },
+        ticks: {
+            min: 0,
+        }
+      }]
+    }
+    this.myBarChart.destroy();
+    this.createChart()
+  }
 
 }

@@ -5,19 +5,28 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
-import { DashboardComponent }       from '../../pages/dashboard/dashboard.component';
-import { UserComponent }            from '../../pages/user/user.component';
+import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
+import { UserComponent } from '../../user/user-profile/user.component';
 import { WordCloudComponent } from '../../charts/word-cloud/word-cloud.component';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatTabsModule, MatSlideToggleModule, MatCardModule, MatTooltipModule, MatRadioModule } from '@angular/material';
-import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
-import { NewpostComponent } from 'app/pages/newpost/newpost.component';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgbModule, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SentimentLinechartComponent } from 'app/charts/sentiment-linechart/sentiment-linechart.component';
 import { TweetCardComponent } from 'app/user/tweet-card/tweet-card.component';
+import {
+  MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
+  MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, 
+  MatSelectModule, MatTabsModule, MatCardModule, MatSlideToggleModule, MatTooltipModule, MatRadioModule
+} from '@angular/material';
+import { NewpostComponent } from 'app/pages/newpost/newpost.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { SocialAccountLoginComponent } from 'app/pages/social-account-login/social-account-login.component';
+import { PieChartComponent } from 'app/charts/pie-chart/pie-chart.component';
+import { DragAndDropDirective } from 'app/shared/Directives/drag-and-drop.directive';
 import { HistogramComponent } from 'app/charts/histogram/histogram.component';
 import { KpiComponent } from 'app/user/kpi/kpi.component';
+import { CalendarComponent } from 'app/pages/calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   imports: [
@@ -40,8 +49,12 @@ import { KpiComponent } from 'app/user/kpi/kpi.component';
     ReactiveFormsModule,
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
+    MatRadioModule,
     MatTooltipModule,
-    MatRadioModule
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   declarations: [
     DashboardComponent,
@@ -51,12 +64,15 @@ import { KpiComponent } from 'app/user/kpi/kpi.component';
     SocialAccountLoginComponent,
     SentimentLinechartComponent,
     TweetCardComponent,
+    PieChartComponent,
+    DragAndDropDirective,
     HistogramComponent,
-    KpiComponent
+    KpiComponent,
+    CalendarComponent
   ],
-  entryComponents:[
+  entryComponents: [
     SocialAccountLoginComponent
   ]
 })
 
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }

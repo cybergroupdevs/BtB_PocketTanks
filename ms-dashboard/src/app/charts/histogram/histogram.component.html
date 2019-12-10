@@ -7,7 +7,9 @@
         </i>
     </div>
     <div class="card-body">
-        <canvas id="histogram" width="400" height="150"></canvas>
+        <canvas id="histogram" width="400" height="150"
+            (mouseenter) ="mouseEnter()"  (mouseleave) ="mouseLeave()">
+        </canvas>
     </div>
     <div class="card-footer">
         <div class="chart-legend">

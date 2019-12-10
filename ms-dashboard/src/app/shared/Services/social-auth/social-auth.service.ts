@@ -9,7 +9,7 @@ export class SocialAuthService {
   constructor(private repositoryService: RepositoryService) { }
 
   verifyTwitterAccount(twitterAccountRequest): any {
-    return this.repositoryService.create(
+    return this.repositoryService.post(
       "auth/twitter/extracttokens",
       twitterAccountRequest
     );

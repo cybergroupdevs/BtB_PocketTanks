@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { UserComponent } from '../../pages/user/user.component';
+import { UserComponent } from '../../user/user-profile/user.component';
 import { AuthGuardService } from 'app/auth-guard.service';
 import { NewpostComponent } from 'app/pages/newpost/newpost.component';
+import { CalendarComponent } from 'app/pages/calendar/calendar.component';
 
 export const AdminLayoutRoutes: Routes = [
     { 
@@ -24,5 +25,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'new',
         component: NewpostComponent
+    },
+    {
+        path: 'calendar',
+        component: CalendarComponent
     }
 ];

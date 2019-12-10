@@ -1,7 +1,7 @@
 {
     "DEV" : {
         "ANALYTICS" : {
-            "IP" : "0.0.0.0",
+            "IP" : "172.25.120.163",
             "PORT" : "5001",
             "PREFIX": "/api/soci/",
             "DB_NAME": "socialize-dev",

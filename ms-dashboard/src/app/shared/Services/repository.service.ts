@@ -9,34 +9,34 @@ export class RepositoryService {
   // Read json file
   private devAnalytics = data.DEV.ANALYTICS;
 
-  private envUrl=`http://${this.devAnalytics.MONGO_DB_IP}:${this.devAnalytics.PORT}${this.devAnalytics.PREFIX}${this.devAnalytics.VERSION}`;
+  private envUrl='http://${this.devAnalytics.MONGO_DB_IP}:${this.devAnalytics.PORT}${this.devAnalytics.PREFIX}${this.devAnalytics.VERSION}';
 
   constructor(
     private http: HttpClient
   ) {
   }
 
-  public getData(route: string, headers?) {
+  public get(route: string, headers?) {
     return this.http.get(
       this.createCompleteRoute(route, this.envUrl),
       headers
         ? headers
-        : this.generateHeaders(false, localStorage.getItem("authToken"))
+        : this.generateHeaders(true, localStorage.getItem("authToken"))
     );
   }
 
-  public create(route: string, body, headers?) {
+  public post(route: string, body, headers?) {
 
     return this.http.post(
       this.createCompleteRoute(route, this.envUrl),
       body,
       headers
         ? headers
-        : this.generateHeaders(false, localStorage.getItem("authToken"))
+        : this.generateHeaders(true, localStorage.getItem("authToken"))
     );
   }
 
-  public update(route: string, body) {
+  public put(route: string, body) {
     return this.http.put(
       this.createCompleteRoute(route, this.envUrl),
       body,

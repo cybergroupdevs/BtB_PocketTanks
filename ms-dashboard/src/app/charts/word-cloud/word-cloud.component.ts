@@ -10,6 +10,11 @@ import * as d3Cloud from 'd3-cloud';
 })
 export class WordCloudComponent implements OnInit {
 
+    foods = [
+        {value: 'Posts', viewValue: 'Posts'},
+        {value: 'Comments', viewValue: 'Comments'}
+      ];
+
     tabSelected = "Comments";
     commentsData = [
         { text: 'Taran', size: 40 },
@@ -69,8 +74,17 @@ export class WordCloudComponent implements OnInit {
         this.createWordCloud(this.commentsData);
     }
 
-    toggleTo(){
-        console.log(this.tabSelected);
+    // toggleTo(){
+    //     console.log(this.tabSelected);
+    //     d3.select("svg").remove();  
+
+    //     if(this.tabSelected === "Posts")
+    //         this.createWordCloud(this.postsData)
+    //     else
+    //        this.createWordCloud(this.commentsData)
+    // }
+
+    toggle(){
         d3.select("svg").remove();  
 
         if(this.tabSelected === "Posts")

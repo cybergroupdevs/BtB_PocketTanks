@@ -43,6 +43,7 @@ const port =
     process.env.PORT ||
     globalConfig[process.env.ENV][process.env.ENGINE_NAME]["PORT"];
 
+
 // use JWT auth to secure the api
 app.use(new Authentication().authenticateRequest());
 app.use(function(err, req, res, next) {
@@ -52,6 +53,8 @@ app.use(function(err, req, res, next) {
     }
 
 });
+
+app.use(routes.version.apiBaseUri, routes.version.api(app));
 app.use(new Authorization().isAuthorized); //Middleware to check Request authorization
 app.get('/', (req, res) => res.send('Welcome to the Pocket Tanks'));
 
@@ -60,7 +63,6 @@ const server = app.listen(port, () => {
     console.log("Current Environment : ", process.env.ENV);
     console.log("Base for API", routes.version.apiBaseUri);
 });
-app.use(routes.version.apiBaseUri, routes.version.api(app));
 process.on("uncaughtException", function(err) {
     console.error(new Date().toUTCString() + " uncaughtException:", err.message);
     console.error(err.stack);

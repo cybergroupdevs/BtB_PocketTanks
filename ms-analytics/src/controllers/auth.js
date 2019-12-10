@@ -27,7 +27,6 @@ class Auth extends AppController {
     async twitter(req, res) {
 
         try {
-        
             let formData = querystring.stringify({
                 "oauth_token": String(req.body.oauth_token),
                 "oauth_verifier": String(req.body.oauth_verifier),
@@ -68,7 +67,7 @@ class Auth extends AppController {
                 });
                 const user = new User();
                 let updatedUser = await user.update({
-                    "_id": req.user._id
+                    _id: req.user._id
                 }, {
                     "$set": {
                         "twitter": {
@@ -95,7 +94,7 @@ class Auth extends AppController {
         }
     }
 
-    
+
 }
 
 export default new Auth();

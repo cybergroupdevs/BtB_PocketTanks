@@ -111,21 +111,7 @@ class Validation extends AppController {
     }
 
     async emailVerification(req, res, next) {
-
-        try {
-            if (validator.isEmpty(req.body.email)) {
-                throw new Error("Email Field is empty")
-            } else if (validator.isEmpty(req.body.emailVerified)) {
-                throw new Error("Email Verfieid is empty")
-            } else {
-                next();
-            }
-        } catch (error) {
-            super.failure(req, res, {
-                statusCode: 400,
-                message: error.message
-            })
-        }
+        next();
     }
 
 

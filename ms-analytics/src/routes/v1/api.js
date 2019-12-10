@@ -1,4 +1,3 @@
-
 import express from 'express';
 import api from '../../controllers';
 import PassportTwt from '../../middlewares/passport-twitter';
@@ -16,8 +15,8 @@ let apiRoutes = (router) => {
     router.post('/forgotpassword', validation.forgotPassword, api.users.forgotPassword);
     router.post('/forgotPasswordChanged', validation.forgotPasswordChanged, api.users.forgotPasswordChanged);
     router.post('/changePassword', validation.changePassword, api.users.changePassword);
-    router.post('/emailVerification',validation.emailVerification, api.users.emailVerification);
-    
+    router.post('/emailverification', validation.emailVerification, api.users.emailVerification);
+
     // Routes for OAuth
     router.get('/auth/twitter', PassportTwt.authenticate('twitter'));
     router.post('/auth/twitter/extracttokens', api.auth.twitter);
@@ -27,9 +26,14 @@ let apiRoutes = (router) => {
     router.get('/twitter/kpis', api.twitter.kpis);
     router.get('/twitter/sentiment', api.twitter.sentiment);
     router.get('/twitter/fetchPosts', api.twitter.fetchPostsFromTwitter);
+    router.get('/twitter/profilestats', api.twitter.profileStats);
 
     router.get('/tweets/:username', api.auth.fetchComment);
     router.get('/profile/:username', api.twitter.twitterProfile);
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed1ab5775676cdc11b742e60871b7bc3bf80453a
 
     return router;
 }

@@ -247,17 +247,71 @@ class Twitter extends AppController {
                     statusCode: 200,
                     message: "OK",
                     data: null
-                })
+                });
             }
         } catch (error) {
             console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
-            })
+            });
         }
     }
 
+<<<<<<< HEAD
+=======
+    async profileStats(req, res) {
+        try {
+
+            const post = new Post();
+
+            let data = await post.getAggregate([{
+                $match: {
+                    userId: mongoose.Types.ObjectId(req.user._id)
+                }
+            }, {
+                $project: {
+                    month: {
+                        $dateToString: {
+                            format: "%Y-%m",
+                            date: "$createdAt"
+                        }
+                    }
+                }
+            }, {
+                $group: {
+                    _id: "$month",
+                    sumFavoriteCount: {
+                        $sum: "$favoriteCount"
+                    },
+                    sumCommentCount: {
+                        $sum: "$commentCount"
+                    },
+                    sumRetweetCount: {
+                        $sum: "$retweetCount"
+                    }
+                }
+            }]);
+
+            data.forEach(elem => {
+                elem['month'] = elem['_id'];
+                delete elem["_id"];
+            });
+
+            super.success(req, res, {
+                statusCode: 200,
+                message: "OK",
+                data: data
+            });
+        } catch (error) {
+            console.log(error.message)
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            });
+        }
+    }
+>>>>>>> ed1ab5775676cdc11b742e60871b7bc3bf80453a
 }
 
 export default new Twitter();

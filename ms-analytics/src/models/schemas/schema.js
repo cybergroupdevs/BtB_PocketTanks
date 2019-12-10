@@ -72,7 +72,9 @@ const schemas = {
         },
         passwordToken: {
             type: String
-        }
+        },
+        sentiments: [],
+        wordCloud: []
     },
     posts: {
         text: {
@@ -107,6 +109,7 @@ const schemas = {
             type: String,
             default: null,
             unique: true,
+            index: true,
             required: true
         },
         favoriteCount: {

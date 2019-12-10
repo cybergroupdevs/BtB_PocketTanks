@@ -25,6 +25,9 @@ class Auth extends AppController {
     }
     // Method to extract and save tokens
     async twitter(req, res) {
+        console.log(req.user)
+        console.log(req.user._id)
+        
 
         try {
         
@@ -67,6 +70,8 @@ class Auth extends AppController {
                     }
                 });
                 const user = new User();
+                console.log("************")
+                console.log(req.user._id)
                 let updatedUser = await user.update({
                     "_id": req.user._id
                 }, {

@@ -13,7 +13,8 @@ class Authentication {
             // public routes that don't require authentication
             '/api/soci/v0.1/registration',
             '/api/soci/v0.1/login',
-            '/api/soci/v0.1/auth/twitter' //TODO: Need to explore whether token is required or not
+            '/api/soci/v0.1/auth/twitter',//TODO: Need to explore whether token is required or not
+            
         ]
         });
     }

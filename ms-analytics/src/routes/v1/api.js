@@ -30,10 +30,6 @@ let apiRoutes = (router) => {
 
     router.get('/tweets/:username', api.auth.fetchComment);
     router.get('/profile/:username', api.twitter.twitterProfile);
-<<<<<<< HEAD
-=======
-
->>>>>>> ed1ab5775676cdc11b742e60871b7bc3bf80453a
 
     return router;
 }

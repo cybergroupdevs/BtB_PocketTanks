@@ -3,6 +3,9 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import { MatDialog } from '@angular/material';
+import { ProfileDialogComponent } from 'app/user/profile-dialog/profile-dialog.component';
+import { TweetDialogComponent } from 'app/user/tweet-dialog/tweet-dialog.component';
 
 
 const colors: any = {
@@ -65,50 +68,50 @@ export class CalendarComponent{
 
   events: CalendarEvent[] = [
     {
-      start: new Date(),
-      end: new Date(),
+      start: new Date('Tue Dec 9 2019 17:20:09'),
+      end: new Date('Tue Dec 9 2019 17:20:09'),
       title: 'taran',
-      color: colors.red,
+      color: colors.blue,
       actions: this.actions,
       allDay: true,
       resizable: {
         beforeStart: true,
         afterEnd: true
-      },
-      draggable: true
+      }
     },
     {
-      start: startOfDay(new Date()),
+      start: new Date(),
+      end: new Date(),
       title: 'An event with no end date',
-      color: colors.yellow,
+      color: colors.blue,
       actions: this.actions
     },
     {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
+      start: new Date('Tue Dec 11 2019 17:20:09'),
+      end:  new Date('Tue Dec 11 2019 17:20:09'),
+      title: 'Taran 2',
       color: colors.blue,
-      allDay: true
+      actions: this.actions
     },
     {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
+      start: new Date('Tue Nov 10 2019 17:20:09'),
+      end:  new Date('Tue Nov 10 2019 17:20:09'),
+      title: 'Taran 2',
+      color: colors.blue,
+      actions: this.actions
     }
   ];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(
+    private modal: NgbModal, 
+    public _dialog: MatDialog
+  ) {}
 
+  // reqd for openeing and closing of the black bar below the days
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -120,6 +123,7 @@ export class CalendarComponent{
       }
       this.viewDate = date;
     }
+
   }
 
   eventTimesChanged({
@@ -127,6 +131,7 @@ export class CalendarComponent{
     newStart,
     newEnd
   }: CalendarEventTimesChangedEvent): void {
+    debugger;
     this.events = this.events.map(iEvent => {
       if (iEvent === event) {
         return {
@@ -140,27 +145,37 @@ export class CalendarComponent{
     this.handleEvent('Dropped or resized', event);
   }
 
+  // is triggered when the event is clicked
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    console.log(action);
+    
+    const dialogRef = this._dialog.open(TweetDialogComponent, {
+      width: '400px',
+      data: {} 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    // this.modalData = { event, action };
+    // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        }
-      }
-    ];
-  }
+  // addEvent(): void {
+  //   this.events = [
+  //     ...this.events,
+  //     {
+  //       title: 'New event',
+  //       start: startOfDay(new Date()),
+  //       end: endOfDay(new Date()),
+  //       color: colors.red,
+  //       draggable: true,
+  //       resizable: {
+  //         beforeStart: true,
+  //         afterEnd: true
+  //       }
+  //     }
+  //   ];
+  // }
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter(event => event !== eventToDelete);

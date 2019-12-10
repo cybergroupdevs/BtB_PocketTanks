@@ -131,8 +131,6 @@ export class NavbarComponent implements OnInit{
       data: {} 
     });
     dialogRef.afterClosed().subscribe(result => {
-      result = JSON.stringify(result)
-      console.log("data: "+ result)
     });
   }
 

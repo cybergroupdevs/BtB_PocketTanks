@@ -1,0 +1,25 @@
+<mat-card class="twitter-card mx-auto text-center">
+    <div class="sub-header">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image">
+                <img [src]="tweet.profile_image" 
+                    alt="Photo of a Shiba Inu" class="profile-img mt-2">
+            </div>
+            <mat-card-title>{{tweet.username}}</mat-card-title>
+            <mat-card-subtitle class="text-left">{{tweet.screen_name}}</mat-card-subtitle>
+        </mat-card-header>
+        <i class="fa fa-pencil fa-lg mt-4 mr-4" matTooltip="Edit this Tweet."></i>
+    </div>
+    <mat-card-content>
+        <p class="text-left">{{tweet.tweet}}</p>
+    </mat-card-content>
+    <img mat-card-image [src]="tweet.image" 
+        alt="Photo of a Shiba Inu" class="image_upload">
+    <mat-card-actions>
+        <div class="twitterActions mb-3">
+            <i class="fa fa-comment-o"></i>
+            <i class="fa fa-retweet"></i>  
+            <i class="fa fa-heart-o"></i>
+        </div>
+    </mat-card-actions>
+</mat-card>

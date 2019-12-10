@@ -27,6 +27,7 @@ import { KpiComponent } from 'app/user/kpi/kpi.component';
 import { CalendarComponent } from 'app/pages/calendar/calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { TweetDialogComponent } from 'app/user/tweet-dialog/tweet-dialog.component';
 
 @NgModule({
   imports: [
@@ -68,10 +69,12 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     DragAndDropDirective,
     HistogramComponent,
     KpiComponent,
-    CalendarComponent
+    CalendarComponent,
+    TweetDialogComponent
   ],
   entryComponents: [
-    SocialAccountLoginComponent
+    SocialAccountLoginComponent,
+    TweetDialogComponent
   ]
 })
 

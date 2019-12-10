@@ -202,16 +202,11 @@ class Users extends AppController {
     async emailVerification(req, res) {
         try {
             const user = new User();
-            let jwtResponse = null;
-            try {
-                jwtResponse = jqt.verify(req.body.token, globalConfig[process.env.ENV]['JWTSECRETKEY'])
-            } catch (error) {
-                throw new Error("Token is expired or invalid signature");
-            }
 
             const data = await user.get({
-                email: req.body.email
-            })
+                email: req.user._id
+            });
+
             if (data.length > 0 && data[0]['emailVerified'] == false && data[0]['emailToken'] == req.body.token) {
                 if (req.body.emailVerified == "true") {
                     await user.update({

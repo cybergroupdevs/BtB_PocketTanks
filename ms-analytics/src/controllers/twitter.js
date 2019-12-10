@@ -68,8 +68,43 @@ class Twitter extends AppController {
     }
 
     async sentiment(req, res) {
+
+        const _createCriteriaTimeSeries = (sentiment, userId) => {
+            return [{
+                $match: {
+                    parentId: {
+                        $eq: null
+                    },
+                    sentiment: sentiment,
+                    userId: mongoose.Types.ObjectId(userId)
+                }
+            }, {
+                $project: {
+                    yearMonthDay: {
+                        $dateToString: {
+                            format: "%Y-%m-%d",
+                            date: "$createdAt"
+                        }
+                    }
+                }
+            }, {
+                $group: {
+                    _id: "$yearMonthDay",
+                    "count": {
+                        $sum: 1
+                    }
+                }
+            }];
+        };
+
         try {
-            let countsData = null;
+            const post = new Post();
+
+            let countsData = {
+                'positive': {},
+                'negative': {}
+            };
+            const userId = req.user._id;
             switch (req.query.type) {
                 case 'average':
                     countsData = {
@@ -78,10 +113,16 @@ class Twitter extends AppController {
                     };
                     break;
                 case 'timeseries':
-                    countsData = {
-                        positive: 240,
-                        negative: 120
-                    };
+                    // Getting positive sentiment posts, i.e. Sentiment = 1
+                    (await post.getAggregate(_createCriteriaTimeSeries(1, userId))).forEach(elem => {
+                        countsData['positive'][elem['_id']] = elem.count;
+                    });;
+                    // Getting negative sentiment posts, i.e. Sentiment = 0
+                    (await post.getAggregate(_createCriteriaTimeSeries(0, userId))).forEach(elem => {
+                        countsData['negative'][elem['_id']] = elem.count;
+                    });;
+
+                    break;
                 default:
                     countsData = {
                         positive: 240,

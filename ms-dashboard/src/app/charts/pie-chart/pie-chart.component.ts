@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import { ChartsService } from 'app/shared/Services/charts/charts.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -7,28 +8,33 @@ import Chart from 'chart.js';
   styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent implements OnInit {
-  
+
   public canvas: any;
   public ctx;
   public chartEmail;
 
-  constructor() { }
+  constructor(private _chartService: ChartsService) { }
 
   ngOnInit() {
+    this._chartService.getPieChartData().subscribe(
+      response => {
+        if (response.success && response.data.type == "average") {
 
-  //   {
-  //     "success": true,
-  //     "status": 200,
-  //     "message": "",
-  //     "data": {
-  //         "type": "average",
-  //         "countsData": {
-  //             "positive": 240,
-  //             "negative": 120
-  //         }
-  //     }
-  // }
-  
+          if (response.data["countsData"].positive == 0)
+            response.data["countsData"].positive = 60;
+
+          if (response.data["countsData"].negative == 0)
+            response.data["countsData"].negative = 40;
+
+          this.createChart(response.data["countsData"].positive, response.data["countsData"].negative);
+        }
+      },
+      error => {
+        this.createChart(60, 40);
+      });
+  }
+
+  createChart(positiveData, negativeData) {
 
     this.canvas = document.getElementById("chartEmail");
     this.ctx = this.canvas.getContext("2d");
@@ -45,8 +51,8 @@ export class PieChartComponent implements OnInit {
             '#ef8157' //Negative
           ],
           borderWidth: 0,
-          data: [70 //Positive
-            , 30    //Negative
+          data: [positiveData
+            , negativeData
           ]
         }]
       },
@@ -96,5 +102,4 @@ export class PieChartComponent implements OnInit {
       }
     });
   }
-
 }

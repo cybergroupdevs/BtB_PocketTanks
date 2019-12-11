@@ -28,8 +28,15 @@ class Users extends AppController {
             }, globalConfig[process.env.ENV]['JWTSECRETKEY'], {
                 expiresIn: 60 * 60
             })
+            user.update({
+                'email': req.body.email
+            }, {
+                $set: {
+                    'emailToken': token
+                }
+            });
             const mailer = new Mailer();
-            let message = '<p>Hi, </p> <br/> Click below link to verify your account. <br/> http://127.0.0.1:4200/emailverfication/' +
+            let message = '<p>Hi, </p> <br/> Click below link to verify your account. <br/> http://127.0.0.1:4200/emailverification/' +
                 token +
                 '</br><br/> <b>Note:</b>The link will be valid for 30 minutes only. <br/> <br/>If you have any questions or need help, contact us at pockettanks60 @gmail.com <br/> <br/> Thank You for using Socialize. <br/> <br/> Thanks, <br/> The Socialize Team <br/> socialize.com ';
             mailer.sendEmail(req.body.email, "Welcome to Socialize. Let's get you started.", message);
@@ -202,36 +209,34 @@ class Users extends AppController {
     async emailVerification(req, res) {
         try {
             const user = new User();
+            console.log('req.body.token', req.body.token);
 
             const data = await user.get({
-                email: req.user._id
+                emailToken: req.body.token
             });
+            console.log('data', data);
 
-            if (data.length > 0 && data[0]['emailVerified'] == false && data[0]['emailToken'] == req.body.token) {
-                if (req.body.emailVerified == "true") {
-                    await user.update({
-                        'email': req.body.email
-                    }, {
-                        $unset: {
-                            'emailToken': 1
-                        }
-                    })
-                    let updatedUser = await user.update({
-                        'email': req.body.email
-                    }, {
-                        $set: {
-                            'emailVerified': true,
-                            'createdAt': date.getTime()
-                        }
-                    })
-                    super.success(req, res, {
-                        statusCode: 200,
-                        message: "User is verified and database is updated",
-                        data: updatedUser
-                    });
-                } else {
-                    throw new Error("Email is not verified");
-                }
+            if (data.length > 0 && data[0]['emailVerified'] == false) {
+                await user.update({
+                    emailToken: req.body.token
+                }, {
+                    $unset: {
+                        'emailToken': 1
+                    }
+                });
+                let updatedUser = await user.update({
+                    email: data[0]['email']
+                }, {
+                    $set: {
+                        'emailVerified': true,
+                        'createdAt': new Date().getTime()
+                    }
+                });
+                super.success(req, res, {
+                    statusCode: 200,
+                    message: "User is verified and database is updated",
+                    data: {}
+                });
             } else if (data.length > 0 && data[0]['emailVerified'] == true) {
                 throw new Error("Email is already verified");
             } else if (data.length > 0 && data[0]['emailVerified'] == false && data[0]['emailToken'] != req.body.token) {

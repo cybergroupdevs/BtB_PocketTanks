@@ -23,7 +23,6 @@ class Auth extends AppController {
     // Method to extract and save tokens
     async twitter(req, res) {
         try {
-            console.log("[Auth.js Controller] Here");
             let formData = querystring.stringify({
                 "oauth_token": String(req.body.oauth_token),
                 "oauth_verifier": String(req.body.oauth_verifier),
@@ -61,7 +60,7 @@ class Auth extends AppController {
                 });
                 const user = new User();
                 let updatedUser = await user.update({
-                    "_id": req.user._id
+                    _id: req.user._id
                 }, {
                     "$set": {
                         "twitter": {
@@ -87,6 +86,11 @@ class Auth extends AppController {
             })
         }
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ed1ab5775676cdc11b742e60871b7bc3bf80453a
 }
 
 export default new Auth();

@@ -30,7 +30,7 @@ export class SentimentLinechartComponent implements OnInit {
     }]
   }
   
-  data=[
+  data =  [
     {
       "positive":0,
       "negative":0,
@@ -59,25 +59,56 @@ export class SentimentLinechartComponent implements OnInit {
 
   constructor(
     public _dialog: MatDialog,
-    private service: ChartsService
+    private _chartService: ChartsService
   )
   { }
 
   ngOnInit() {
     
-    // this.service.getSentimentLine()
-    //   .subscribe(res=>{
-    //     console.log(res);
+    // this._chartService.getSentimentLine().subscribe(
+    //   response => {
+    //     if (response.success && response.data.type == "timeseries") {
+
+
+    //       this.createChart(response.data["countsData"].positive, response.data["countsData"].negative);
+    //     }
     //   },
-    //   err=>{
+    //   error => {
+    //     this.data = [
+    //       {
+    //         "positive":0,
+    //         "negative":0,
+    //         "total":0,
+    //         "date":"JAN"
+    //       },
+    //       {
+    //         "positive":19,
+    //         "negative":5,
+    //         "total":24,
+    //         "date":"FEB"
+    //       },
+    //       {
+    //         "positive":15,
+    //         "negative":10,
+    //         "total":25,
+    //         "date":"MAR"
+    //       },
+    //       {
+    //         "positive":20,
+    //         "negative":12,
+    //         "total":32,
+    //         "date":"APR"
+    //       }
+    //     ];
+    //     this.createChart(this.data);
+    //   });
 
-    //   })
 
-    this.createChart()
+    this.createChart(this.data)
   }
 
 
-  createChart()    {
+  createChart(data)    {
       
 
     let modifiedData = {
@@ -87,7 +118,7 @@ export class SentimentLinechartComponent implements OnInit {
       "date":[]
     }
 
-    this.data.forEach((element)=>{
+    data.forEach((element)=>{
       modifiedData.positive.push(element.positive)
       modifiedData.negative.push(element.negative)
       modifiedData.total.push(element.total)
@@ -159,7 +190,7 @@ export class SentimentLinechartComponent implements OnInit {
   mouseEnter(){
     this.noGridLines = {};
     this.lineChart.destroy();
-    this.createChart()
+    this.createChart(this.data)
   }
 
   mouseLeave(){
@@ -176,6 +207,6 @@ export class SentimentLinechartComponent implements OnInit {
       }]
     }
     this.lineChart.destroy();
-    this.createChart()
+    this.createChart(this.data)
   }
 }

@@ -115,12 +115,6 @@ class Twitter extends AppController {
                     };
                     break;
                 case 'timeseries':
-<<<<<<< HEAD
-                    countsData = {
-                        positive: 240,
-                        negative: 120
-                    };
-=======
                     // Getting positive sentiment posts, i.e. Sentiment = 1
                     (await post.getAggregate(_createCriteriaTimeSeries(1, userId))).forEach(elem => {
                         countsData['positive'][elem['_id']] = elem.count;
@@ -131,7 +125,6 @@ class Twitter extends AppController {
                     });;
 
                     break;
->>>>>>> 1508140aa50d153ac377e5cb920f9708a239cd41
                 default:
                     countsData = {
                         positive: 240,
@@ -169,6 +162,103 @@ class Twitter extends AppController {
                 statusCode: 200,
                 message: "Process Started",
                 data: {}
+            });
+        } catch (error) {
+            console.log(error.message)
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            });
+        }
+    }
+
+    async twitterProfile(req, res) {
+        try {
+
+            const user = new User()
+            let data = await user.get({
+                _id: req.user._id
+            });
+            if (data.length == 0) {
+                throw new Error("No email exists");
+            } else {
+                let username = data[0]['twitter']['screenName'];
+                const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret']);
+                let profile = await tw.getProfile(username);
+
+
+                let updatedUser = await user.update({
+                    "_id": req.user._id
+                }, {
+                    "$set": {
+                        "twitter.profileImage": profile.profile_image_url,
+                        "twitter.backgroundImage": profile.profile_background_image_url,
+                        "twitter.followersCount": profile.followers_count,
+                        "twitter.followingCount": profile.friends_count,
+                        "twitter.name": profile.name,
+                        "twitter.description": profile.description,
+                        "twitter.statusesCount": profile.statuses_count,
+                        "twitter.createdat": profile.created_at
+
+                    }
+                })
+                super.success(req, res, {
+                    statusCode: 200,
+                    message: "OK",
+                    data: null
+                });
+            }
+        } catch (error) {
+            console.log(error.message)
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            });
+        }
+    }
+
+    async profileStats(req, res) {
+        try {
+
+            const post = new Post();
+
+            let data = await post.getAggregate([{
+                $match: {
+                    userId: mongoose.Types.ObjectId(req.user._id)
+                }
+            }, {
+                $project: {
+                    month: {
+                        $dateToString: {
+                            format: "%Y-%m",
+                            date: "$createdAt"
+                        }
+                    }
+                }
+            }, {
+                $group: {
+                    _id: "$month",
+                    sumFavoriteCount: {
+                        $sum: "$favoriteCount"
+                    },
+                    sumCommentCount: {
+                        $sum: "$commentCount"
+                    },
+                    sumRetweetCount: {
+                        $sum: "$retweetCount"
+                    }
+                }
+            }]);
+
+            data.forEach(elem => {
+                elem['month'] = elem['_id'];
+                delete elem["_id"];
+            });
+
+            super.success(req, res, {
+                statusCode: 200,
+                message: "OK",
+                data: data
             });
         } catch (error) {
             console.log(error.message)

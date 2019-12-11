@@ -4,6 +4,7 @@ import User from '../models/user';
 import mongoose from 'mongoose';
 import Worker from '../../wrappers/workers/workers';
 import TwitterWrapper from '../../wrappers/twitter/twitter'
+import envs from '../utils/config';
 
 
 
@@ -133,7 +134,6 @@ class Twitter extends AppController {
         };
 
         try {
-            console.log('this', this);
             const post = new Post();
 
             let countsData = {

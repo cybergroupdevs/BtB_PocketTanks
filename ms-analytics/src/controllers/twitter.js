@@ -308,6 +308,30 @@ class Twitter extends AppController {
             });
         }
     }
+
+    async wordcloud(req, res) {
+        try {
+            const user = new User()
+            let data = await user.get({
+                _id: req.user._id
+            });
+            if (data.length) {
+                super.success(req, res, {
+                    statusCode: 200,
+                    message: "OK",
+                    data: (data[0].toObject())['wordCloud']
+                });
+            } else {
+                throw new Error("User doesn't exists");
+            }
+        } catch (error) {
+            console.log(error.message)
+            super.failure(req, res, {
+                statusCode: 400,
+                message: error.message
+            });
+        }
+    }
 }
 
 export default new Twitter();

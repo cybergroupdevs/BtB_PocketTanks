@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, Optional } from "@angular/core";
+import { Component, OnInit, Inject, ViewChild, Optional, Input } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -15,6 +15,7 @@ export class ImageFile {
   styleUrls: ['./newpost.component.css']
 })
 export class NewpostComponent implements OnInit {
+
   @ViewChild("file",{static:true}) file;
   private files: Array<File> = new Array();
   private fileImageError: boolean = false;
@@ -22,16 +23,65 @@ export class NewpostComponent implements OnInit {
   private fileImageBase64: any[] = [];
   listImageFile:ImageFile[]=[];
 
+  @Input() tweet;
+
   twitterSelected = true;
   instaSelected = false;
   facebookSelected = false;
   imageUploaded = false;
-  
+  editPost = true;
+
   newPostFormGroup: FormGroup;
+
   constructor(
     private _fb: FormBuilder
   ) { }
 
+  ngOnInit() {
+    this.tweet = {
+      
+    }
+    // If there's no input
+    // if(this.tweet === "")
+      this.editPost = false;
+
+    this.newPostFormGroup = this._fb.group({
+      text: [
+        "",
+        [
+          <any>Validators.required
+        ]
+      ],
+      scheduleIt: [
+        "",
+        [
+          <any>Validators.required
+        ]
+      ],
+      dateTime: [
+        "",
+        [
+          <any>Validators.required
+        ]
+      ]
+    });
+  }
+
+  submitForm(){
+    this.markFormGroupTouched(this.newPostFormGroup)
+
+    if(this.newPostFormGroup.valid){
+      let newPost = {
+        text: this.newPostFormGroup.get('text').value,
+        scheduleIt: this.newPostFormGroup.get('scheduleIt').value,
+        // dateTime: this.newPostFormGroup.get('dateTime').value
+      }
+      console.log(newPost);
+    }
+  }
+
+  
+  // #region drag N drop
   addFiles() {
     this.file.nativeElement.click();
   }
@@ -105,81 +155,8 @@ export class NewpostComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.newPostFormGroup = this._fb.group({
-      text: [
-        "",
-        [
-          <any>Validators.required
-        ]
-      ],
-      scheduleIt: [
-        "",
-        [
-          <any>Validators.required
-        ]
-      ],
-      dateTime: [
-        "",
-        [
-          <any>Validators.required
-        ]
-      ]
-    });
-  }
-
-  submitForm(){
-    this.markFormGroupTouched(this.newPostFormGroup)
-
-    if(this.newPostFormGroup.valid){
-      let newPost = {
-        text: this.newPostFormGroup.get('text').value,
-        scheduleIt: this.newPostFormGroup.get('scheduleIt').value,
-        // dateTime: this.newPostFormGroup.get('dateTime').value
-      }
-      console.log(newPost);
-    }
-  }
-
-  //#region drag N drop
-  // afuConfig = {
-  //   uploadAPI: {
-  //     url:"http://localhost:3000/upload"
-  //   }
-  // };
-
-  // afuConfig = {
-  //   multiple: false,
-  //   formatsAllowed: ".jpg,.png",
-  //   maxSize: "10",
-  //   uploadAPI:  {
-  //     url:"undefined",
-  //   //   headers: {
-  //   //  "Content-Type" : "text/plain;charset=UTF-8",
-  //   //  "Authorization" : `Bearer`
-  //   //   }
-  //   },
-  //   theme: "dragNDrop",
-  //   hideProgressBar: false,
-  //   hideResetBtn: true,
-  //   hideSelectBtn: false,
-  //   replaceTexts: {
-  //     selectFileBtn: 'Select Files',
-  //     resetBtn: 'Reset',
-  //     uploadBtn: 'Upload',
-  //     dragNDropBox: 'Drag N Drop',
-  //     attachPinBtn: 'Attach Files...',
-  //     afterUploadMsg_success: 'Successfully Uploaded !',
-  //     afterUploadMsg_error: 'Upload Failed !'
-  //   }
-  // };
-  // DocUpload(e){
-  //   console.log(e);
-  // }
-  //#endregion
+  // #endregion
   
-
-
   markFormGroupTouched(FormGroup: FormGroup){
     (<any>Object).values(FormGroup.controls).forEach(control => {
       try{

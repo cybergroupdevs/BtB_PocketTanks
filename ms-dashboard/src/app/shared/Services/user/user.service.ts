@@ -32,7 +32,7 @@ export class UserService {
   }
   verifyEmail(emailVerificationRequest): any {
     debugger;
-    return this.repositoryService.create(
+    return this.repositoryService.post(
       "emailverification",
       emailVerificationRequest
     );

@@ -59,10 +59,9 @@ class Users extends AppController {
             let data = await user.get({
                 email: req.body.email
             });
+            console.log('here', data);
             if (data.length == 0) {
                 throw new Error("No email exists");
-            } else if (data[0].emailVerified == false) {
-                throw new Error("Email is not verified")
             } else {
                 const isMatched = await bcrypt.compare(req.body.password, data[0].password)
                 if (!isMatched) {
@@ -87,11 +86,11 @@ class Users extends AppController {
     }
     async forgotPassword(req, res) {
         try {
-
             const user = new User();
             let data = await user.get({
                 email: req.body.email
             });
+            console.log(data);
             if (data.length == 0) {
                 throw new Error("Email does not exist");
             } else if (data.length > 0 && data[0]['emailVerified'] == false) {
@@ -101,9 +100,11 @@ class Users extends AppController {
                     data: data[0]['email']
                 }, globalConfig[process.env.ENV]['JWTSECRETKEY'], {
                     expiresIn: 60 * 60
-                });
+                })
+                console.log(token)
                 const mailer = new Mailer();
-                let message = '<p>Hi, </p> <br/> Seems like you forgot your password.Click below link to reset your password. <br/> <br/> <center> <a href="https:localhost:4200/changepassword/' + token + '">Reset Your Password</a> </center><br/> <br/> < b > Note: </b>The link will be valid for 30 minutes only. <br/> <br/>If you have any questions or need help, contact us at pockettanks60 @gmail.com <br/> <br/> Thank You for using Socialize. <br/> <br/>Thanks, <br/>The Socialize Team < br/> socialize.com ';
+                let message = '<p>Hi, </p> < br/> Seems like you forgot your password.Click below link to reset your password. < br/> <br/> < center > <a href="https:localhost:4200/changepassword/' + token + '">Reset Your Password</a> < /center><br/> <br/> < b > Note: </b>The link will be valid for 30 minutes only. < br/> <br/>If you have any questions or need help, contact us at pockettanks60 @gmail.com < br / > <br/> Thank You for using Socialize. < br / > <br/>Thanks, <br/>The Socialize Team < br / > socialize.com '
+                console.log(message);
                 mailer.sendEmail(data[0]['email'], "Forgot your password? Let's get you a new one.", message);
                 super.success(req, res, {
                     statusCode: 200,
@@ -132,7 +133,7 @@ class Users extends AppController {
                 email: req.body.email
             })
             const isMatched = await bcrypt.compare(req.body.newPassword, data[0].password)
-            if (data.length != 0 && isMatched == false) {
+            if (data.length != 0 && req.body.newPassword.length > 6 && regex.test(req.body.newPassword) == true && isMatched == false) {
                 let hashednewPassword = bcrypt.hashSync(req.body.newPassword, 10);
                 await user.update({
                     'email': req.body.email

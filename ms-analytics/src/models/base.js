@@ -16,10 +16,10 @@ class BaseModel {
         return await this.model.create(object);
     }
     async update(criteria, updateObj) {
-        return await this.model.update(criteria, updateObj);
+        return this.model.update(criteria, updateObj).exec();
     }
     async delete(criteria) {
-        return await this.model.delete(object);
+        return this.model.delete(object).exec();
     }
     async bulkInsert(data) {
         try {
@@ -32,9 +32,6 @@ class BaseModel {
         } catch (error) {
             console.log(error)
         }
-    }
-    async getAggregate(criteria) {
-        return await this.model.aggregate(criteria)
     }
 }
 export default BaseModel;

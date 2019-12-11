@@ -86,11 +86,8 @@ class Auth extends AppController {
             })
         }
     }
-<<<<<<< HEAD
-=======
 
 
->>>>>>> ed1ab5775676cdc11b742e60871b7bc3bf80453a
 }
 
 export default new Auth();

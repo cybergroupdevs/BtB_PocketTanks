@@ -1,12 +1,12 @@
 import Twit from 'twit';
 
 class TwitterWrapper {
-    constructor(accessToken, accessTokenSecret) {
+    constructor() {
         this.twit = new Twit({
-            consumer_key: String(process.env.OAUTH_CONSUMER_KEY),
-            consumer_secret: String(process.env.OAUTH_CONSUMER_SECRET),
-            access_token: accessToken, //'734237523925454848-HbznrQcFNbclbMAlNGXEp2101zhE5qe',
-            access_token_secret: accessTokenSecret //'6tnjOuwNM6VJxaMyfuUPxnqPyLHivZkiMnDkwwEL9fJYL',
+            consumer_key: 'lW47S9ha17CqtimCJMOJyt1Rq',
+            consumer_secret: 'IdiRMbcvyI5iiW851EPduOtXoXXO555YqX3K3bMgCvjNaAQ1cJ',
+            access_token: '734237523925454848-HbznrQcFNbclbMAlNGXEp2101zhE5qe',
+            access_token_secret: '6tnjOuwNM6VJxaMyfuUPxnqPyLHivZkiMnDkwwEL9fJYL',
         });
     }
     async asyncForEach(array, callback) {
@@ -23,6 +23,7 @@ class TwitterWrapper {
         return false;
     }
     formatTweet(tweet) {
+        // console.log(JSON.stringify(tweet))
         let responseTweet = {};
         responseTweet['id'] = tweet['id'];
         responseTweet['text'] = tweet['text'];
@@ -42,6 +43,7 @@ class TwitterWrapper {
 
             let data = [];
             let lastPostId = "";
+            console.log("userName:" + userName)
             const result = await this.twit.get('statuses/user_timeline', {
                 screen_name: userName,
                 count: count
@@ -49,17 +51,18 @@ class TwitterWrapper {
             if (result.data.length) {
                 data = result.data
             }
+            const twtWrapper = new TwitterWrapper()
             data.forEach(tweet => {
                 if (tweet.in_reply_to_status_id_str) {} else {
                     if (tweet.text.includes("RT")) {} else {
-                        if (this.containsObject(tweet, parentTweets)) {} else {
+                        if (twtWrapper.containsObject(tweet, parentTweets)) {} else {
                             parentTweets.push(tweet);
                         }
                     }
                 }
             });
 
-            await this.asyncForEach(parentTweets, async (tweet) => {
+            await twtWrapper.asyncForEach(parentTweets, async (tweet) => {
                 const query = "to:" + tweet.user.screen_name;
                 const sinceID = tweet.id;
                 const commentsArray = [];
@@ -74,11 +77,11 @@ class TwitterWrapper {
 
                 tempComments.forEach(comment => {
                     if (comment.in_reply_to_status_id == sinceID) {
-                        commentsArray.push(this.formatTweet(comment));
+                        commentsArray.push(twtWrapper.formatTweet(comment));
                     }
                 });
 
-                responseTweet = this.formatTweet(tweet);
+                responseTweet = twtWrapper.formatTweet(tweet);
                 responseTweet['comments'] = commentsArray;
 
                 responseData.push(responseTweet);
@@ -87,21 +90,6 @@ class TwitterWrapper {
 
         } catch (error) {
             throw new Error(error.message);
-        }
-    }
-    async getProfile(userName) {
-        try {
-            const result = await this.twit.get('statuses/user_timeline', {
-                screen_name: userName,
-                count: 1
-            })
-            if (result.data && result.data.length) {
-                return result.data[0]['user']
-            } else {
-                return null;
-            }
-        } catch (error) {
-            throw new Error(error.message)
         }
     }
 }

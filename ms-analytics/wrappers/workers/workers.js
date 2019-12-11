@@ -52,7 +52,7 @@ saveCommentQueue.process(async (job) => {
             await (new Post()).bulkInsert(comments);
             const worker = new Workers();
             console.log(1234)
-            worker.fetchWordsCloud(job['data']['userId'], comments);
+            //worker.fetchWordsCloud(job['data']['userId'], comments);
             worker.saveSentiments(job['data']['userId'], comments);
         } else {
             console.log('[WORKER.JS] WORKER DONE');
@@ -69,6 +69,7 @@ updateUserWordsCloudQueue.process(async (job) => {
         console.log(commentText)
         const url = 'http://139.59.15.204:5000/api/ml/v0.1/wordcloud';
         const httpWrapper = new HttpWrapper()
+       
         let response = await httpWrapper.postRequest(url, null, {"data": {"sentences": commentText}});
         console.log(response['body'])
         const user = new User();
@@ -89,7 +90,9 @@ saveSentimentsQueue.process(async (job) => {
         let commentText = job['data']['comments'].map((com) => {return com['text']})
         const url = 'http://139.59.15.204:5000/api/ml/v0.1/sentiment';
         const httpWrapper = new HttpWrapper()
+        console.log(httpWrapper)
         let response = await httpWrapper.postRequest(url, {'Content-Type':'application/json'}, {"data": {"sentences": commentText}});
+        console.log(response)
         if(response && response['body'] && response['body']['data'] && Array.isArray(response['body']['data']) && response['body']['data'].length){
             let count  = 0
             let sentiments = response['body']['data']

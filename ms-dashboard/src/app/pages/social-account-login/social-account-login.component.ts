@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialAuthService } from 'app/shared/Services/social-auth/social-auth.service';
 import  *  as  data  from  '../../../../../config.json';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-social-account-login',
@@ -16,7 +17,8 @@ export class SocialAccountLoginComponent implements OnInit {
 
   constructor(private _socialAuthservice: SocialAuthService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    public _dialog: MatDialogRef<SocialAccountLoginComponent>) { }
 
   ngOnInit() {
   }

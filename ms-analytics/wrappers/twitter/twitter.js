@@ -1,4 +1,5 @@
 import Twit from 'twit';
+import envs from '../../src/utils/config';
 
 class TwitterWrapper {
     constructor(accessToken, accessTokenSecret) {

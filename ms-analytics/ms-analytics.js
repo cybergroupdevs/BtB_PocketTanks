@@ -15,7 +15,9 @@ import Authorization from './src/middlewares/authorization'
 
 app.use(express.static('public'));
 app.use(expressSession({
-    secret: 'secretKeyFromEnv'
+    secret: 'secretKeyFromEnv',
+    resave: true,
+    saveUninitialized: true
 }));
 
 // Enabling CORS

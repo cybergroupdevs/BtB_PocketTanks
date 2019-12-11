@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import { UserService } from 'app/shared/Services/user/user.service';
 
 @Component({
   selector: 'app-email-verification',
@@ -8,15 +10,41 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class EmailVerificationComponent implements OnInit {
 
-  constructor(private _activatedRoute: ActivatedRoute,
-    private router: Router) { }
+  constructor(private _userservice: UserService,
+    private router: Router,
+    private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    // router call to navigate
-    // this.router.navigate(['/twittercallback', "123ABC", "456DEF"]);
+    
     this._activatedRoute.params.forEach((urlParams) => {
-      console.log(urlParams);
-      this.router.navigateByUrl('dashboard/twitter');
+      debugger;
+      let emailVerificationRequest = {
+        'token':urlParams.token
+      }
+
+      this._userservice.verifyEmail(emailVerificationRequest).subscribe(
+        response => {
+          debugger;
+          if (response.success) {
+            window.close();
+              // this.router.navigateByUrl('/login');
+            
+          } else {
+            Swal.fire({
+              title: 'Oops!',
+              text: response.message,
+              icon: 'error'
+            });
+          }
+        },
+        error => {
+          Swal.fire({
+            title: 'Oops!',
+            text: error.message,
+            icon: 'error'
+          });
+        }
+      );
     });
   }
 }

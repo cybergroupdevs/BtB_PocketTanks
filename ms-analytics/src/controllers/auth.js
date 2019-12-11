@@ -2,6 +2,7 @@ import querystring from 'querystring';
 import AppController from './app';
 import HttpWrapper from '../../wrappers/httpwrapper';
 import User from '../models/user';
+import envs from '../utils/config';
 
 
 import TwitterWrapper from '../../wrappers/twitter/twitter'

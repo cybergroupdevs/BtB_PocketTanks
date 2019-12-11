@@ -30,13 +30,6 @@ export class UserService {
       loginUserRequest
     );
   }
-  verifyEmail(emailVerificationRequest): any {
-    debugger;
-    return this.repositoryService.create(
-      "emailverification",
-      emailVerificationRequest
-    );
-  }
   updateUserDetails(userId, userDetails): any {
     return this.repositoryService.update(
       `api/user/${userId}`,

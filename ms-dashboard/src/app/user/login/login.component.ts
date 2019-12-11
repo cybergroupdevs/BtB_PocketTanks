@@ -110,11 +110,10 @@ export class LoginComponent implements OnInit {
         //API Call for register
         let createUserRequest = {
           email: this.loginFormGroup.get('username').value,
-          fullName: this.loginFormGroup.get('firstname').value + this.loginFormGroup.get('lastname').value,
+          fullName: this.loginFormGroup.get('firstname').value + ' ' + this.loginFormGroup.get('lastname').value,
           password: this.loginFormGroup.get('password').value,
           emailVerified: false
         }
-        
         this._userservice.createUser(createUserRequest).subscribe(
           response => {
             if (response.success) {
@@ -125,7 +124,6 @@ export class LoginComponent implements OnInit {
                   text: 'Please open your mailbox and verify your account!',
                   icon: 'warning'
                 });
-                this.router.navigateByUrl('/login');
               }
               else
               {

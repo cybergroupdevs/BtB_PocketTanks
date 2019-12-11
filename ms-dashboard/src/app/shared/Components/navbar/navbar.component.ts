@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import { MatDialog } from "@angular/material";
 import { FixedPluginComponent } from '../fixedplugin/fixedplugin.component';
+import { NewpostDialogComponent } from 'app/newpost-dialog/newpost-dialog.component';
 import { ProfileDialogComponent } from 'app/user/profile-dialog/profile-dialog.component';
 
 @Component({

@@ -81,23 +81,3 @@ textarea{
         display: block;
     }
 }
-
-i.nc-cloud-upload-94 {
-    cursor: pointer;
-  }
-  
-  i.nc-cloud-upload-94:hover,
-  .remove-document:hover {
-    color: #4354d9;
-  }
-
-  .add-image-pop-up {
-    margin-top: 1rem;
-    margin-right: 3.5%;
-    margin-left: 3.5%;
-  }
-
-  .overflowFiles{
-    overflow-x: auto;
-    height:9rem;
-  }

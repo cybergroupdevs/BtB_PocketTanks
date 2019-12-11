@@ -21,14 +21,14 @@ export class TwitterAuthComponent implements OnInit {
 
       var twitterAccountRequest = {
         "oauth_token": urlParams.oauth_token,
-        "oauth_verifier": urlParams.oauth_verifier
+        "oauth_verifier": urlParams.oauth_verifier,
+        "jwt_token": localStorage.getItem("authToken")
       }
-      localStorage.setItem('twitterAuth', '');
+
       this._socialAuthService.verifyTwitterAccount(twitterAccountRequest).subscribe(
         response => {
+          debugger;
           if (response.success) {
-            localStorage.setItem('twitterAuth', new Date().toString());
-            window.close();
           }
         });
     });

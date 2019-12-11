@@ -1,6 +1,11 @@
 import express from 'express';
 import api from '../../controllers';
 import PassportTwt from '../../middlewares/passport-twitter';
+import Validation from '../../middlewares/validation';
+
+
+
+const validation = new Validation()
 
 let apiRoutes = (router) => {
     router = express.Router();
@@ -23,13 +28,9 @@ let apiRoutes = (router) => {
     router.get('/twitter/fetchPosts', api.twitter.fetchPostsFromTwitter);
     router.get('/twitter/profilestats', api.twitter.profileStats);
 
-
     router.get('/tweets/:username', api.auth.fetchComment);
-<<<<<<< HEAD
-=======
     router.get('/profile/:username', api.twitter.twitterProfile);
 
->>>>>>> ed1ab5775676cdc11b742e60871b7bc3bf80453a
 
     return router;
 }

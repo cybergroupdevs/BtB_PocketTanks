@@ -44,7 +44,3 @@ html {
 ::-webkit-scrollbar-thumb {
   background: #FF0000;
 }
-
-.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
-  display: none !important;
-}

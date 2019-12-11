@@ -2,7 +2,10 @@ import querystring from 'querystring';
 import AppController from './app';
 import HttpWrapper from '../../wrappers/httpwrapper';
 import User from '../models/user';
+
+
 import TwitterWrapper from '../../wrappers/twitter/twitter'
+
 class Auth extends AppController {
 
     constructor() {
@@ -22,12 +25,14 @@ class Auth extends AppController {
     }
     // Method to extract and save tokens
     async twitter(req, res) {
+
         try {
             let formData = querystring.stringify({
                 "oauth_token": String(req.body.oauth_token),
                 "oauth_verifier": String(req.body.oauth_verifier),
                 "oauth_consumer_key": String(process.env.OAUTH_CONSUMER_KEY)
             });
+
             const options = {
                 headers: {
                     'Content-Length': formData.length,
@@ -36,6 +41,8 @@ class Auth extends AppController {
                 uri: 'https://api.twitter.com/oauth/access_token'
             };
             const httpReq = new HttpWrapper();
+
+
             let response = await httpReq.postRequest(options['uri'], options['headers'], formData)
             if (response['body']) {
                 let updateData = {
@@ -86,11 +93,8 @@ class Auth extends AppController {
             })
         }
     }
-<<<<<<< HEAD
-=======
 
 
->>>>>>> ed1ab5775676cdc11b742e60871b7bc3bf80453a
 }
 
 export default new Auth();

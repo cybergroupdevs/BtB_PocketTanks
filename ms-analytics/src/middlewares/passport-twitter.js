@@ -1,5 +1,6 @@
 import passport from 'passport';
 import passportTwitter from 'passport-twitter';
+import envs from '../utils/config';
 
 const TwitterStrategy = passportTwitter.Strategy;
 

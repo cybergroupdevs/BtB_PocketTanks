@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 saveCommentQueue.process(async (job) => {
     try {
-        const tw = new TwitterWrapper();
+        const tw = new TwitterWrapper(job['data']['accessToken'], job['data']['accessTokenSecret']);
         const response = await tw.fetchComments(job['data']['userName']);
         const comments = [];
         console.log('[WORKER.JS] STARTING WORKER');
@@ -43,7 +43,6 @@ saveCommentQueue.process(async (job) => {
                     })
                 }
             })
-            console.log("comments length:" + comments.length)
             console.log('[WORKER.JS] WORKER DONE');
             await (new Post()).bulkInsert(comments);
         } else {
@@ -58,10 +57,12 @@ class Workers {
     constructor() {
         //intilize
     }
-    async saveComment(userName, userId) {
+    async saveComment(userName, userId, accessToken, accessTokenSecret) {
         await saveCommentQueue.add({
             userName: userName,
-            userId: userId
+            userId: userId,
+            accessToken: accessToken,
+            accessTokenSecret: accessTokenSecret
         });
     }
 }

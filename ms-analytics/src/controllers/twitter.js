@@ -305,7 +305,7 @@ class Twitter extends AppController {
             });
         }
     }
-    
+
     async postTweet(req, res){
         try{
             const user = new User();
@@ -319,7 +319,7 @@ class Twitter extends AppController {
 
                     if(req.body.containsMedia){
                         const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret'])
-                        let postedTweet = await tw.postMediaTweet(req.body.status,req.body.media);
+                        let postedTweet = await tw.postMediaTweet(req.body.text,req.body.media);
                         super.success(req, res, {
                             statusCode: 200,
                             message: "Process Started",

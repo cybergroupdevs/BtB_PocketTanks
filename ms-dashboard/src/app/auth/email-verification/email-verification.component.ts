@@ -17,18 +17,14 @@ export class EmailVerificationComponent implements OnInit {
   ngOnInit() {
     
     this._activatedRoute.params.forEach((urlParams) => {
-      debugger;
       let emailVerificationRequest = {
         'token':urlParams.token
       }
 
       this._userservice.verifyEmail(emailVerificationRequest).subscribe(
         response => {
-          debugger;
           if (response.success) {
             window.close();
-              // this.router.navigateByUrl('/login');
-            
           } else {
             Swal.fire({
               title: 'Oops!',

@@ -12,14 +12,16 @@ class Twitter extends AppController {
     constructor() {
         super();
     }
-
+    //This API returns KPIS
+    /*
+     * 
+     * @param {Object} user The request object
+    */
     async kpis(req, res) {
         try {
             const post = new Post();
-
             // Extracting userId from request body
             const userId = req.user._id;
-
             // Fetching KPI's from db
             const responseData = {
                 postsCount: await post.getCount({
@@ -80,7 +82,6 @@ class Twitter extends AppController {
                 data: responseData
             });
         } catch (error) {
-            console.log(error.message);
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -118,7 +119,6 @@ class Twitter extends AppController {
     }
 
     async sentiment(req, res) {
-
         const _createCriteriaTimeSeries = (sentiment, userId) => {
             return [{
                 $match: {
@@ -195,7 +195,6 @@ class Twitter extends AppController {
                 }
             });
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -217,7 +216,6 @@ class Twitter extends AppController {
                 data: {}
             });
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -262,7 +260,6 @@ class Twitter extends AppController {
                 });
             }
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -314,7 +311,6 @@ class Twitter extends AppController {
                 data: data
             });
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -338,7 +334,6 @@ class Twitter extends AppController {
                 throw new Error("User doesn't exists");
             }
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message

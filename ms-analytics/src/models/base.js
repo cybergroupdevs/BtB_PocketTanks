@@ -19,7 +19,7 @@ class BaseModel {
         return await this.model.update(criteria, updateObj);
     }
     async delete(criteria) {
-        return await this.model.delete(object);
+        return await this.model.deleteOne(criteria);
     }
     async bulkInsert(data) {
         try {

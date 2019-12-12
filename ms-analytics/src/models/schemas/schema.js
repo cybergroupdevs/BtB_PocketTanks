@@ -118,6 +118,31 @@ const schemas = {
             default: 0
         }
     },
+    scheduledPost: {
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        text: {
+            type: String
+        },
+        mediaPath: {
+            type: String,
+            default: null
+        },
+        time: {
+            type: Number,
+            default: 0
+        },
+        isScheduled: {
+            type: Boolean,
+            default: null
+        },
+        containsMedia: {
+            type: Boolean,
+            dafault: null
+        }
+    }
 
 }
 export default {

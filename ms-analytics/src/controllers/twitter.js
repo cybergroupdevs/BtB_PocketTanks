@@ -155,7 +155,6 @@ class Twitter extends AppController {
                 'negative': {}
             };
             const userId = req.user._id;
-
             switch (req.query.type) {
                 case 'average':
                     countsData['positive'] = (await post.get({

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import Chart from 'chart.js';
 import { MatDialog } from '@angular/material';
-import { SocialAccountLoginComponent } from '../../pages/social-account-login/social-account-login.component';
 import { ChartsService } from 'app/shared/Services/charts/charts.service';
 
 
@@ -12,51 +11,39 @@ import { ChartsService } from 'app/shared/Services/charts/charts.service';
 })
 export class SentimentLinechartComponent implements OnInit {
 
-
-  public KPIList: any[] = [];
+@Input() lineChartData;
   public canvas: any;
   public ctx;
   public chartColor;
+  lineChart;
 
+  noGridLines:Object = {
+    xAxes: [{
+        gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+        }
+    }],
+    yAxes: [{
+        gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+        }   
+    }]
+  }
+  
 
   constructor(
     public _dialog: MatDialog,
-    // private service: ChartsService
+    private _chartService: ChartsService
   )
   { }
 
   ngOnInit() {
-    {
+    this.createChart(this.lineChartData)
+  }
+
+
+  createChart(data)    {
       
-    let data=[
-      {
-        "positive":0,
-        "negative":0,
-        "total":0,
-        "date":"JAN"
-      },
-      {
-        "positive":19,
-        "negative":5,
-        "total":24,
-        "date":"FEB"
-      },
-      {
-        "positive":15,
-        "negative":10,
-        "total":25,
-        "date":"MAR"
-      },
-      {
-        "positive":20,
-        "negative":12,
-        "total":32,
-        "date":"APR"
-      }
-    ];
-    
-    // this.service.getSentimentLine()
-    // .subscribe(res=>{
 
     let modifiedData = {
       "positive":[],
@@ -116,32 +103,44 @@ export class SentimentLinechartComponent implements OnInit {
       labels: modifiedData.date,
       datasets: [dataFirst, dataSecond, dataThird]
     };
-
+    
     var chartOptions = {
-      scales: {
-        xAxes: [{
-            gridLines: {
-                color: "rgba(0, 0, 0, 0)",
-            }
-        }],
-        yAxes: [{
-            gridLines: {
-                color: "rgba(0, 0, 0, 0)",
-            }   
-        }]
-      },
+      scales: this.noGridLines,
       legend: {
         display: false,
         position: 'top'
-      }
+      },
+      animation: false
     };
 
-    var lineChart = new Chart(speedCanvas, {
+    this.lineChart = new Chart(speedCanvas, {
       type: 'line',
-      hover: false,
+      hover: true,
       data: speedData,
       options: chartOptions
     });
   }
+
+  mouseEnter(){
+    this.noGridLines = {};
+    this.lineChart.destroy();
+    this.createChart(this.lineChartData)
+  }
+
+  mouseLeave(){
+    this.noGridLines = {
+      xAxes: [{
+          gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+          }
+      }],
+      yAxes: [{
+          gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+          }   
+      }]
+    }
+    this.lineChart.destroy();
+    this.createChart(this.lineChartData)
   }
 }

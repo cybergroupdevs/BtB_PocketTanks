@@ -17,7 +17,6 @@ export class TwitterAuthComponent implements OnInit {
   ngOnInit() {
     // router call to navigate
     this._activatedRoute.queryParams.forEach((urlParams) => {
-      console.log(urlParams);
 
       var twitterAccountRequest = {
         "oauth_token": urlParams.oauth_token,

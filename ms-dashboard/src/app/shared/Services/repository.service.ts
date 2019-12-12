@@ -7,7 +7,8 @@ import  *  as  data  from  '../../../../../config.json';
 })
 export class RepositoryService {
   // Read json file
-  private devAnalytics = data.DEV.ANALYTICS;
+  private devData = data.DEV;
+  private devAnalytics = this.devData.ANALYTICS;
 
   private envUrl=`http://${this.devAnalytics.MONGO_DB_IP}:${this.devAnalytics.PORT}${this.devAnalytics.PREFIX}${this.devAnalytics.VERSION}`;
 
@@ -26,7 +27,6 @@ export class RepositoryService {
   }
 
   public create(route: string, body, headers?) {
-
     return this.http.post(
       this.createCompleteRoute(route, this.envUrl),
       body,
@@ -59,8 +59,10 @@ export class RepositoryService {
     if (isAuthRequired) {
       return {
         headers: new HttpHeaders({
+          "x_api_key" : this.devData["X-API-KEY"],
+          "x_api_secret_key" : this.devData["X-API-SECRET_KEY"],
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          Authorization: "Bearer " + token
         })
       };
     } else {

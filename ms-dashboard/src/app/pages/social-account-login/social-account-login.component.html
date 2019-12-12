@@ -2,6 +2,6 @@
 <h5>Login with Twitter to proceed!</h5>
 <div>
     <!-- <button color="primary" mat-stroked-button type="button" (click)="loginWithTwitter()">Login with Twitter</button> -->
-    <a href="{{envUrl}}/auth/twitter" class="btn btn-primary" target="blank">Login with Twitter</a>
+    <a href="{{envUrl}}/auth/twitter" (click)="_dialog.close()" class="btn btn-primary" target="blank">Login with Twitter</a>
 </div>
 </div>

@@ -11,11 +11,11 @@ import { ChartsService } from 'app/shared/Services/charts/charts.service';
 })
 export class SentimentLinechartComponent implements OnInit {
 
-@Input() lineChartData;
+  @Input() lineChartData;
   public canvas: any;
   public ctx;
   public chartColor;
-  lineChart;
+  public lineChart;
 
   noGridLines:Object = {
     xAxes: [{
@@ -42,8 +42,7 @@ export class SentimentLinechartComponent implements OnInit {
   }
 
 
-  createChart(data)    {
-      
+  createChart(data){      
 
     let modifiedData = {
       "positive":[],

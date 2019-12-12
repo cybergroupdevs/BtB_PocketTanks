@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as d3 from 'd3';
 import * as d3Cloud from 'd3-cloud';
 
@@ -10,72 +10,18 @@ import * as d3Cloud from 'd3-cloud';
 })
 export class WordCloudComponent implements OnInit {
 
-    foods = [
-        {value: 'Posts', viewValue: 'Posts'},
-        {value: 'Comments', viewValue: 'Comments'}
-      ];
-
-    tabSelected = "Comments";
-    commentsData = [
-        { text: 'Taran', size: 40 },
-        { text: 'Sahil', size: 15 },
-        { text: 'Arpit', size: 25 },
-        { text: 'Kaybee', size: 25 },
-        { text: 'AngularJS', size: 30 },
-        { text: 'Ruby', size: 30 },
-        { text: 'ECMAScript', size: 15 },
-        { text: 'Actionscript', size: 10 },
-        { text: 'Linux', size: 20 },
-        { text: 'C++', size: 20 },
-        { text: 'C#', size: 25 },
-        { text: 'JAVA', size: 38 },
-        { text: 'javascript', size: 40 },
-        { text: 'D3.js', size: 15 },
-        { text: 'coffeescript', size: 25 },
-        { text: 'shaving sheep', size: 25 },
-        { text: 'AngularJS', size: 30 },
-        { text: 'Ruby', size: 30 },
-        { text: 'ECMAScript', size: 15 },
-        { text: 'Actionscript', size: 10 },
-        { text: 'Linux', size: 20 },
-        { text: 'C++', size: 20 },
-        { text: 'C#', size: 25 },
-        { text: 'JAVA', size: 38 }]
-
-    postsData = [
-        { text: 'javascript', size: 40 },
-        { text: 'D3.js', size: 15 },
-        { text: 'coffeescript', size: 25 },
-        { text: 'shaving sheep', size: 25 },
-        { text: 'AngularJS', size: 30 },
-        { text: 'Ruby', size: 30 },
-        { text: 'ECMAScript', size: 15 },
-        { text: 'Actionscript', size: 10 },
-        { text: 'Linux', size: 20 },
-        { text: 'C++', size: 20 },
-        { text: 'C#', size: 25 },
-        { text: 'JAVA', size: 38 },
-        { text: 'javascript', size: 40 },
-        { text: 'D3.js', size: 15 },
-        { text: 'coffeescript', size: 25 },
-        { text: 'shaving sheep', size: 25 },
-        { text: 'AngularJS', size: 30 },
-        { text: 'Ruby', size: 30 },
-        { text: 'ECMAScript', size: 15 },
-        { text: 'Actionscript', size: 10 },
-        { text: 'Linux', size: 20 },
-        { text: 'C++', size: 20 },
-        { text: 'C#', size: 25 },
-        { text: 'JAVA', size: 38 }]
+    
+    @Input() wordCloudResponseData;
+    data;
 
     constructor() { }
 
     ngOnInit() {
-        this.createWordCloud(this.commentsData);
+        this.data = this.wordCloudResponseData["data"];
+        this.createWordCloud(this.data);
     }
 
-    // toggleTo(){
-    //     console.log(this.tabSelected);
+    // toggle(){
     //     d3.select("svg").remove();  
 
     //     if(this.tabSelected === "Posts")
@@ -84,15 +30,6 @@ export class WordCloudComponent implements OnInit {
     //        this.createWordCloud(this.commentsData)
     // }
 
-    toggle(){
-        d3.select("svg").remove();  
-
-        if(this.tabSelected === "Posts")
-            this.createWordCloud(this.postsData)
-        else
-           this.createWordCloud(this.commentsData)
-    }
-
     createWordCloud(data){
         const randomAngle = () => {
             return Math.random() < 0.5 ? 0 : 90;
@@ -100,34 +37,34 @@ export class WordCloudComponent implements OnInit {
     
     
         const drawSkillCloud = (words) => {
-                d3.select('#cloud').append('svg')
-                .append('g')
-                .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
-                .selectAll('text')
-                .data(words)
-                .enter().append('text')
-                .style('font-size', function(d) {
-                    return d.size + 'px';
-                })
-                .style('-webkit-touch-callout', 'none')
-                .style('-webkit-user-select', 'none')
-                .style('-khtml-user-select', 'none')
-                .style('-moz-user-select', 'none')
-                .style('-ms-user-select', 'none')
-                .style('user-select', 'none')
-                .style('cursor', 'default')
-                .style('font-family', 'Impact')
-                .style('fill', function(d, i) {
-                    return fill(i);
-                })
-                .attr('text-anchor', 'middle')
-                .attr('transform', function(d) {
-                    return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
-                })
-                .text(function(d) {
-                    return d.text;
-                });
-            }
+            d3.select('#cloud').append('svg')
+            .append('g')
+            .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
+            .selectAll('text')
+            .data(words)
+            .enter().append('text')
+            .style('font-size', function(d) {
+                return d.size + 'px';
+            })
+            .style('-webkit-touch-callout', 'none')
+            .style('-webkit-user-select', 'none')
+            .style('-khtml-user-select', 'none')
+            .style('-moz-user-select', 'none')
+            .style('-ms-user-select', 'none')
+            .style('user-select', 'none')
+            .style('cursor', 'default')
+            .style('font-family', 'Impact')
+            .style('fill', function(d, i) {
+                return fill(i);
+            })
+            .attr('text-anchor', 'middle')
+            .attr('transform', function(d) {
+                return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
+            })
+            .text(function(d) {
+                return d.text;
+            });
+        }
     
     
         const width = 350;

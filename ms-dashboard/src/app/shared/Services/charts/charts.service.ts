@@ -8,17 +8,4 @@ export class ChartsService {
 
   constructor(private repositoryService: RepositoryService) {}
 
-  getPieChartData() :any
-  {
-    return this.repositoryService.getData(
-      "twitter/sentiment?type=average"
-    );
-  }
-  
-  getSentimentLine(): any 
-  {
-    return this.repositoryService.getData(
-      "twitter/sentiment?type=timeseries"
-    );
-  }
 }

@@ -6,6 +6,7 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cal
 import { MatDialog } from '@angular/material';
 import { TweetDialogComponent } from 'app/user/tweet-dialog/tweet-dialog.component';
 import { element } from 'protractor';
+import { UserService } from 'app/shared/Services/user/user.service';
 
 
 const colors: any = {
@@ -72,11 +73,21 @@ export class CalendarComponent implements OnInit{
   activeDayIsOpen: boolean = true;
 
   constructor(
-    public _dialog: MatDialog
+    public _dialog: MatDialog,
+    private _service: UserService
   ) {}
 
   ngOnInit(){
     // data from the api
+    this._service.getScheduledTweets().subscribe(
+      response=>{
+        console.log(response); 
+      },
+      err=>{
+        console.log(err);        
+      }
+    )
+
     this.events = [
       {
         _id: 1,

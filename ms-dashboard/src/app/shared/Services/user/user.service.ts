@@ -31,7 +31,31 @@ export class UserService {
       `twitter/profilestats`
     );
   }
+
+  getWordCloudData(): any {
+    return this.repositoryService.getData(
+      `twitter/wordcloud`
+    );
+  }
   
+  getRecentTweets(): any {
+    return this.repositoryService.getData(
+      `twitter/posts`
+    );
+  }
+  
+  getProfileData(): any {
+    return this.repositoryService.getData(
+      `twitter/profile`
+    );
+  }
+
+  getScheduledTweets(): any {
+    return this.repositoryService.getData(
+      `twitter/posts`
+    );
+  }
+
   createUser(createUserRequest): any {
     return this.repositoryService.post(
       "registration",

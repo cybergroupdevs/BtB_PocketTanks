@@ -27,8 +27,7 @@ export class RepositoryService {
   }
 
   public post(route: string, body, headers?) {
-    // debugger;
-    debugger;
+
     return this.http.post(
       this.createCompleteRoute(route, this.envUrl),
       body,

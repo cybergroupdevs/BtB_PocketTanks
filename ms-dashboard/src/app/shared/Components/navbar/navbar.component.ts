@@ -5,6 +5,7 @@ import { Location} from '@angular/common';
 import { MatDialog } from "@angular/material";
 import { FixedPluginComponent } from '../fixedplugin/fixedplugin.component';
 import { ProfileDialogComponent } from 'app/user/profile-dialog/profile-dialog.component';
+import { UserService } from 'app/shared/Services/user/user.service';
 
 @Component({
     moduleId: module.id,
@@ -20,7 +21,9 @@ export class NavbarComponent implements OnInit{
   private toggleButton;
   private sidebarVisible: boolean;
 
-  public isCollapsed = true;
+  isCollapsed = true;
+  profileData;
+
   @ViewChild("navbar-cmp", {static: false}) button;
 
   constructor(
@@ -28,7 +31,8 @@ export class NavbarComponent implements OnInit{
     private renderer : Renderer, 
     private element : ElementRef,
     private router: Router,
-    public _dialog: MatDialog
+    public _dialog: MatDialog,
+    private _userService: UserService
   ) 
   {
       this.location = location;
@@ -36,13 +40,30 @@ export class NavbarComponent implements OnInit{
       this.sidebarVisible = false;
   }
 
+  getProfileData() {
+    this._userService.getProfileData().subscribe(response => {
+      if (response.success) {
+        this.profileData = response.data;
+        localStorage.setItem('background_image', this.profileData.backgroundImage)
+        localStorage.setItem('description', this.profileData.description)
+        localStorage.setItem('followersCount', this.profileData.followersCount)
+        localStorage.setItem('followingCount', this.profileData.followingCount)
+        localStorage.setItem('name', this.profileData.name)
+        localStorage.setItem('profileImage', this.profileData.profileImage)
+        localStorage.setItem('screenName', this.profileData.screenName)
+        localStorage.setItem('statusesCount', this.profileData.statusesCount)
+      }
+    });
+  }
+
   ngOnInit(){
-      this.listTitles = ROUTES.filter(listTitle => listTitle);
-      var navbar : HTMLElement = this.element.nativeElement;
-      this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-      this.router.events.subscribe((event) => {
-        this.sidebarClose();
-      });
+    this.getProfileData();
+    this.listTitles = ROUTES.filter(listTitle => listTitle);
+    var navbar : HTMLElement = this.element.nativeElement;
+    this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
+    this.router.events.subscribe((event) => {
+      this.sidebarClose();
+    });
   }
   getTitle(){
     // fetches title from the route
@@ -93,7 +114,6 @@ export class NavbarComponent implements OnInit{
   collapse(){
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName('nav')[0];
-    console.log(navbar);
     if (!this.isCollapsed) {
       navbar.classList.remove('navbar-transparent');
       navbar.classList.add('bg-white');
@@ -115,7 +135,6 @@ export class NavbarComponent implements OnInit{
 
   logoutUser()
   {
-    console.log(localStorage);
     if(localStorage != undefined)
     {
       localStorage.removeItem('userid');

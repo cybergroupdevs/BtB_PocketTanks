@@ -9,11 +9,11 @@ import Chart from 'chart.js';
 export class HistogramComponent implements OnInit {
 
   @Input() histogramResponseData;
-  public canvas: any;
-  public ctx;
+  canvas: any;
+  ctx;
   myBarChart;
   noGridLines = {}
-  public data;
+  data;
 
   month = [];
   likes = [];
@@ -70,7 +70,6 @@ export class HistogramComponent implements OnInit {
         }
       }]
     }
-    console.log(this.modifiedData);
     
     this.createChart()
   }

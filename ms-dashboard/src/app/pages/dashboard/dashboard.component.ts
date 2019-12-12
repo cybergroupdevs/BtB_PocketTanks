@@ -119,7 +119,6 @@ export class DashboardComponent implements OnInit {
       }
     },
       error => {
-        console.log(error);
       });
   }
 
@@ -127,7 +126,6 @@ export class DashboardComponent implements OnInit {
     this._userService.getHistogramData().subscribe(response => {
       if (response.success) {
         this.histogramData = response;
-        console.log(response);
         
         this.histogramDataReceived = true;
       }
@@ -138,7 +136,6 @@ export class DashboardComponent implements OnInit {
     this._userService.getPieChartData().subscribe(response => {
       if (response.success) {
         this.pieChartData = response;
-        console.log(response);
         
         this.pieChartDataReceived = true;
       }
@@ -149,7 +146,6 @@ export class DashboardComponent implements OnInit {
     this._userService.getWordCloudData().subscribe(response => {
       if (response.success) {
         this.wordCloudData = response;
-        console.log(response);
         
         this.wordCloudDataReceived = true;
       }
@@ -160,7 +156,6 @@ export class DashboardComponent implements OnInit {
     this._userService.getRecentTweets().subscribe(response => {
       if (response.success) {
         this.recentTweets = response.data.posts;
-        console.log(response.data);
         
         this.recentTweetsReceived = true;
       }

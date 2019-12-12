@@ -81,10 +81,8 @@ export class CalendarComponent implements OnInit{
     // data from the api
     this._service.getScheduledTweets().subscribe(
       response=>{
-        console.log(response); 
       },
       err=>{
-        console.log(err);        
       }
     )
 
@@ -180,7 +178,6 @@ export class CalendarComponent implements OnInit{
 
   // is triggered when the event is clicked
   handleEvent(action: string, event: CalendarEvent): void {
-    // console.log(event);
     
     const dialogRef = this._dialog.open(TweetDialogComponent, {
       width: '400px',

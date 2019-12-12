@@ -12,10 +12,10 @@ import { ChartsService } from 'app/shared/Services/charts/charts.service';
 export class SentimentLinechartComponent implements OnInit {
 
   @Input() lineChartData;
-  public canvas: any;
-  public ctx;
-  public chartColor;
-  public lineChart;
+  canvas: any;
+  ctx;
+  chartColor;
+  lineChart;
 
   noGridLines:Object = {
     xAxes: [{
@@ -57,15 +57,13 @@ export class SentimentLinechartComponent implements OnInit {
       modifiedData.total.push(element.total)
       modifiedData.date.push(element.date)
     })
-
-    // console.log(modifiedData);
     
     //Chart Data and Styling
     this.chartColor = "#FFFFFF";
 
-    var speedCanvas = document.getElementById("speedChart2");
+    let speedCanvas = document.getElementById("speedChart2");
 
-    var dataFirst = {
+    let dataFirst = {
       data: modifiedData.positive,
       fill: false,
       borderColor: '#6bd098',
@@ -76,7 +74,7 @@ export class SentimentLinechartComponent implements OnInit {
       pointBorderWidth: 8,
     };
 
-    var dataSecond = {
+    let dataSecond = {
       data: modifiedData.negative,
       fill: false,
       borderColor: '#f17e5d',
@@ -87,7 +85,7 @@ export class SentimentLinechartComponent implements OnInit {
       pointBorderWidth: 8
     };
 
-    var dataThird = {
+    let dataThird = {
       data: modifiedData.total,
       fill: false,
       borderColor: '#fcc468',
@@ -98,12 +96,12 @@ export class SentimentLinechartComponent implements OnInit {
       pointBorderWidth: 8
     };
 
-    var speedData = {
+    let speedData = {
       labels: modifiedData.date,
       datasets: [dataFirst, dataSecond, dataThird]
     };
     
-    var chartOptions = {
+    let chartOptions = {
       scales: this.noGridLines,
       legend: {
         display: false,

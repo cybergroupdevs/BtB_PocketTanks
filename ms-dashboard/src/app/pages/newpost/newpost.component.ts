@@ -43,8 +43,6 @@ export class NewpostComponent implements OnInit {
 
   ngOnInit() {
     
-    console.log(this._activatedRoute.params["value"]["_id"]);
-    
     // api call to get the details of this id and put it into tweet 
 
     this.tweet = {
@@ -100,7 +98,6 @@ export class NewpostComponent implements OnInit {
         scheduleIt: this.newPostFormGroup.get('scheduleIt').value,
         dateTime: this.newPostFormGroup.get('dateTime').value
       }
-      console.log(newPost);
       if(this.editPost){
         // api to edit post
       }

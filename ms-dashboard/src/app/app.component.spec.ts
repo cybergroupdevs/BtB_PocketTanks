@@ -78,7 +78,6 @@ describe(' Login Component', ()=>{
  it('email id is blank', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const email= fixture.debugElement.componentInstance;
-    console.log(email)
   }));
   
     

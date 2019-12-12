@@ -25,7 +25,6 @@ export class TweetDialogComponent {
     public dialogRef: MatDialogRef<TweetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ){
-    console.log(data);
     this.tweet = data;
   }
 
@@ -33,7 +32,6 @@ export class TweetDialogComponent {
   }
 
   goToEdit(){
-    console.log("editPost/"+this.tweet._id);
     this.router.navigateByUrl("editPost/"+this.tweet._id) 
     this.dialogRef.close()
 

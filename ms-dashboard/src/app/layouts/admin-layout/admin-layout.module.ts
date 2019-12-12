@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { UserComponent } from '../../user/user-profile/user.component';
 import { WordCloudComponent } from '../../charts/word-cloud/word-cloud.component';
 
 import { NgbModule, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
@@ -60,7 +59,6 @@ import { TweetDialogComponent } from 'app/user/tweet-dialog/tweet-dialog.compone
   ],
   declarations: [
     DashboardComponent,
-    UserComponent,
     WordCloudComponent,
     NewpostComponent,
     SocialAccountLoginComponent,

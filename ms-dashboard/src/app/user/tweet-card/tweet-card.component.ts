@@ -12,6 +12,9 @@ export class TweetCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
+    this.tweetObj.screen_name = localStorage.getItem('screenName');
+    this.tweetObj.name = localStorage.getItem('name');
+    this.tweetObj.profile_image = localStorage.getItem('profileImage');
+    this.tweetObj.background_image = localStorage.getItem('background_image');
   }
 }

@@ -27,6 +27,10 @@ export const AdminLayoutRoutes: Routes = [
         component: NewpostComponent
     },
     {
+        path: 'editPost/:_id',
+        component: NewpostComponent
+    },
+    {
         path: 'calendar',
         component: CalendarComponent
     }

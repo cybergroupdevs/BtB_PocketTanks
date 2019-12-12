@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { MatDialog } from '@angular/material';
-import { ProfileDialogComponent } from 'app/user/profile-dialog/profile-dialog.component';
 import { TweetDialogComponent } from 'app/user/tweet-dialog/tweet-dialog.component';
+import { element } from 'protractor';
 
 
 const colors: any = {
@@ -31,7 +31,7 @@ const colors: any = {
 })
 
 
-export class CalendarComponent{
+export class CalendarComponent implements OnInit{
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
@@ -66,48 +66,88 @@ export class CalendarComponent{
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: new Date('Tue Dec 9 2019 17:20:09'),
-      end: new Date('Tue Dec 9 2019 17:20:09'),
-      title: 'taran',
-      color: colors.blue,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      }
-    },
-    {
-      start: new Date(),
-      end: new Date(),
-      title: 'An event with no end date',
-      color: colors.blue,
-      actions: this.actions
-    },
-    {
-      start: new Date('Tue Dec 11 2019 17:20:09'),
-      end:  new Date('Tue Dec 11 2019 17:20:09'),
-      title: 'Taran 2',
-      color: colors.blue,
-      actions: this.actions
-    },
-    {
-      start: new Date('Tue Nov 10 2019 17:20:09'),
-      end:  new Date('Tue Nov 10 2019 17:20:09'),
-      title: 'Taran 2',
-      color: colors.blue,
-      actions: this.actions
-    }
-  ];
+  // events: CalendarEvent[] = [
+  events;
 
   activeDayIsOpen: boolean = true;
 
   constructor(
-    private modal: NgbModal, 
     public _dialog: MatDialog
   ) {}
+
+  ngOnInit(){
+    // data from the api
+    this.events = [
+      {
+        _id: 1,
+        start: new Date('Tue Dec 9 2019 17:20:09'),
+        end: new Date('Tue Dec 9 2019 17:20:09'),
+        // title: 'taran',
+        // color: colors.blue,
+        // actions: this.actions,
+        profile_image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+        screen_name: "@Shibu_the_dog",
+        username: "Shibu",
+        image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+        text: "Hiii, guys. All the best.",
+        scheduled_at: "12 DEC 2019"
+      },
+      {
+        _id: 2,
+        start: new Date(),
+        end: new Date(),
+        // title: 'An event with no end date',
+        // color: colors.blue,
+        // actions: this.actions,
+        profile_image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+        screen_name: "@Shibu_the_dog",
+        username: "Shibu",
+        image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+        text: "Hiii, guys. All the best.",
+        scheduled_at: "12 DEC 2019"
+      },
+      {
+        _id: 3,
+        start: new Date('Tue Dec 11 2019 17:20:09'),
+        end:  new Date('Tue Dec 11 2019 17:20:09'),
+        // title: 'Taran 2',
+        // color: colors.blue,
+        // actions: this.actions,
+        profile_image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+        screen_name: "@Shibu_the_dog",
+        username: "Shibu",
+        image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+        text: "Hiii, guys. All the best.",
+        scheduled_at: "12 DEC 2019"
+      },
+      {
+        _id: 4,
+        start: new Date('Tue Nov 10 2019 17:20:09'),
+        end: new Date('Tue Nov 10 2019 17:20:09'),
+        // title: 'Taran 2',
+        // color: colors.blue,
+        // actions: this.actions,
+        profile_image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+        screen_name: "@Shibu_the_dog",
+        username: "Shibu",
+        image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+        text: "Hiii, guys. All the best.",
+        scheduled_at: "12 DEC 2019"
+      }
+    ];
+
+    this.events.forEach(element=>{
+      
+      // element["start"] = element["scheduled_at"]
+      // element["end"] = element["scheduled_at"]
+
+      // element["start"] = new Date('Tue Dec 9 2019 17:20:09')
+      // element["end"] = new Date('Tue Dec 9 2019 17:20:09')
+      element["title"] = String(element["text"]).substring(0,10)+"..."
+      element["color"] = colors.blue
+      element["actions"] = this.actions
+    })
+  }
 
   // reqd for openeing and closing of the black bar below the days
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -126,39 +166,31 @@ export class CalendarComponent{
 
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-  }: CalendarEventTimesChangedEvent): void {
-    debugger;
-    this.events = this.events.map(iEvent => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
-  }
 
   // is triggered when the event is clicked
   handleEvent(action: string, event: CalendarEvent): void {
-    console.log(action);
+    // console.log(event);
     
     const dialogRef = this._dialog.open(TweetDialogComponent, {
       width: '400px',
-      data: {} 
+      data: event // event is the json Object of the selected post
     });
     dialogRef.afterClosed().subscribe(result => {
     });
-
-    // this.modalData = { event, action };
-    // this.modal.open(this.modalContent, { size: 'lg' });
   }
+
+  deleteEvent(eventToDelete: CalendarEvent) {
+    this.events = this.events.filter(event => event !== eventToDelete);
+  }
+
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
 
   // addEvent(): void {
   //   this.events = [
@@ -177,15 +209,21 @@ export class CalendarComponent{
   //   ];
   // }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-  }
+  
+  // eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+  //   debugger;
+  //   this.events = this.events.map(iEvent => {
+  //     if (iEvent === event) {
+  //       return {
+  //         ...event,
+  //         start: newStart,
+  //         end: newEnd
+  //       };
+  //     }
+  //     return iEvent;
+  //   });
+  //   this.handleEvent('Dropped or resized', event);
+  // }
 
-  setView(view: CalendarView) {
-    this.view = view;
-  }
 
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
-  }
 }

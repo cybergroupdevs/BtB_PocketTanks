@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, ViewChild, Optional, Input } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 export class ImageFile {
   Name: string;
@@ -26,23 +28,39 @@ export class NewpostComponent implements OnInit {
   @Input() tweet;
 
   twitterSelected = true;
-  instaSelected = false;
-  facebookSelected = false;
+  // instaSelected = false;
+  // facebookSelected = false;
   imageUploaded = false;
   editPost = true;
 
   newPostFormGroup: FormGroup;
 
   constructor(
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _activatedRoute: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
+    
+    console.log(this._activatedRoute.params["value"]["_id"]);
+    
+    // api call to get the details of this id and put it into tweet 
+
     this.tweet = {
-      
+      isScheduled: true,
+      dateTime: '',
+      profile_image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+      screen_name: "@Shibu_the_dog",
+      username: "Shibu",
+      image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+      text: "Hiii, guys. All the best.",
+      scheduled_at: "12 DEC 2019"
     }
+
+
     // If there's no input
-    // if(this.tweet === "")
+    if(this.tweet === "")
       this.editPost = false;
 
     this.newPostFormGroup = this._fb.group({
@@ -65,6 +83,12 @@ export class NewpostComponent implements OnInit {
         ]
       ]
     });
+
+    this.newPostFormGroup.patchValue({
+      text: this.tweet.text,
+      scheduleIt: this.tweet.scheduleIt,
+      dateTime: this.tweet.dateTime
+    });
   }
 
   submitForm(){
@@ -74,9 +98,15 @@ export class NewpostComponent implements OnInit {
       let newPost = {
         text: this.newPostFormGroup.get('text').value,
         scheduleIt: this.newPostFormGroup.get('scheduleIt').value,
-        // dateTime: this.newPostFormGroup.get('dateTime').value
+        dateTime: this.newPostFormGroup.get('dateTime').value
       }
       console.log(newPost);
+      if(this.editPost){
+        // api to edit post
+      }
+      else{
+        // api to create new
+      }
     }
   }
 
@@ -156,6 +186,12 @@ export class NewpostComponent implements OnInit {
   }
 
   // #endregion
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
+  }
   
   markFormGroupTouched(FormGroup: FormGroup){
     (<any>Object).values(FormGroup.controls).forEach(control => {

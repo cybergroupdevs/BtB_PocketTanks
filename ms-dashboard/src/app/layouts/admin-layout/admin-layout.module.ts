@@ -15,7 +15,7 @@ import { TweetCardComponent } from 'app/user/tweet-card/tweet-card.component';
 import {
   MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
   MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, 
-  MatSelectModule, MatTabsModule, MatCardModule, MatSlideToggleModule, MatTooltipModule, MatRadioModule
+  MatSelectModule, MatTabsModule, MatCardModule, MatSlideToggleModule, MatTooltipModule, MatRadioModule, MatSnackBarModule
 } from '@angular/material';
 import { NewpostComponent } from 'app/pages/newpost/newpost.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -55,7 +55,8 @@ import { TweetDialogComponent } from 'app/user/tweet-dialog/tweet-dialog.compone
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    })
+    }),
+    MatSnackBarModule
   ],
   declarations: [
     DashboardComponent,

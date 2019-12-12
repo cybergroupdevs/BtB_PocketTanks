@@ -1,5 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   profile_image: String,
@@ -7,6 +8,7 @@ export interface DialogData {
   username: String,
   image: String,
   tweet: String,
+  scheduled_at: String
 }
 
 @Component({
@@ -17,27 +19,27 @@ export interface DialogData {
 export class TweetDialogComponent {
 
   tweet;
-  // @Input() tweet;
-
+  
   constructor(
+    private router: Router,
     public dialogRef: MatDialogRef<TweetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ){
+    console.log(data);
+    this.tweet = data;
   }
 
   ngOnInit(){
-    this.tweet = {
-      "profile_image": "https://material.angular.io/assets/img/examples/shiba2.jpg",
-      "screen_name": "@Screen_name",
-      "username": "Username",
-      "image": "https://material.angular.io/assets/img/examples/shiba2.jpg",
-      "tweet":"Hiii, guys. All the best."
-    }
   }
 
-  onNoClick(): void {
-    console.log(this.data);
-    
+  goToEdit(){
+    console.log("editPost/"+this.tweet._id);
+    this.router.navigateByUrl("editPost/"+this.tweet._id) 
+    this.dialogRef.close()
+
+  }
+
+  onNoClick(): void {    
     this.dialogRef.close()
   }
 

@@ -64,46 +64,6 @@ export class SentimentLinechartComponent implements OnInit {
   { }
 
   ngOnInit() {
-    
-    // this._chartService.getSentimentLine().subscribe(
-    //   response => {
-    //     if (response.success && response.data.type == "timeseries") {
-
-
-    //       this.createChart(response.data["countsData"].positive, response.data["countsData"].negative);
-    //     }
-    //   },
-    //   error => {
-    //     this.data = [
-    //       {
-    //         "positive":0,
-    //         "negative":0,
-    //         "total":0,
-    //         "date":"JAN"
-    //       },
-    //       {
-    //         "positive":19,
-    //         "negative":5,
-    //         "total":24,
-    //         "date":"FEB"
-    //       },
-    //       {
-    //         "positive":15,
-    //         "negative":10,
-    //         "total":25,
-    //         "date":"MAR"
-    //       },
-    //       {
-    //         "positive":20,
-    //         "negative":12,
-    //         "total":32,
-    //         "date":"APR"
-    //       }
-    //     ];
-    //     this.createChart(this.data);
-    //   });
-
-
     this.createChart(this.data)
   }
 

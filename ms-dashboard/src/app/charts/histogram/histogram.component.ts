@@ -13,32 +13,91 @@ export class HistogramComponent implements OnInit {
   myBarChart;
   noGridLines= {}
 
-  data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "June"],
-    datasets: [
-        {
-            label: "Likes",
-            backgroundColor: "#6bd098",
-            data: [3,7,4,5,8,15]
-        },
-        {
-            label: "Retweets",
-            backgroundColor: "#f17e5d",
-            data: [4,3,5,4,3,5]
-        },
-        {
-            label: "Comments",
-            backgroundColor: "#fcc468",
-            data: [7,2,6,4,3,5]
-        }
-    ]
-  };
+  month = [];
+  likes = [];
+  comments = [];
+  retweets = [];
   
-  
+  modifiedData;
 
   constructor() { }
 
   ngOnInit() {
+
+    // api
+
+    let data;
+    let res =  {
+
+      "success": true,
+      "status": 200,
+      "message": "OK",
+      "data": [
+          {
+              "sumFavoriteCount": 20,
+              "sumCommentCount": 0,
+              "sumRetweetCount": 5,
+              "month": "2017-05"
+          },
+          {
+              "sumFavoriteCount": 30,
+              "sumCommentCount": 4,
+              "sumRetweetCount": 9,
+              "month": "2019-04"
+          },
+          {
+              "sumFavoriteCount": 5,
+              "sumCommentCount": 41,
+              "sumRetweetCount": 1,
+              "month": "2018-02"
+          },
+          {
+              "sumFavoriteCount": 7,
+              "sumCommentCount": 56,
+              "sumRetweetCount": 8,
+              "month": "2017-09"
+          },
+          {
+              "sumFavoriteCount": 2,
+              "sumCommentCount": 32,
+              "sumRetweetCount": 1,
+              "month": "2017-11"
+          }
+        ]
+    }
+
+
+    if(res.success)
+      data = res["data"];
+
+    data.forEach(element => {
+      this.likes.push(element.sumFavoriteCount)
+      this.comments.push(element.sumCommentCount)
+      this.retweets.push(element.sumRetweetCount)
+      this.month.push(element.month)
+    });
+
+    this.modifiedData = {
+      labels: this.month,
+      datasets:[
+        {
+          label: "Likes",
+          backgroundColor: "#6bd098",
+          data: this.likes
+        },
+        {
+            label: "Retweets",
+            backgroundColor: "#f17e5d",
+            data: this.retweets
+        },
+        {
+            label: "Comments",
+            backgroundColor: "#fcc468",
+            data: this.comments
+        }
+      ]
+    }
+
     this.noGridLines = {
       xAxes: [{
         gridLines: {
@@ -72,7 +131,7 @@ export class HistogramComponent implements OnInit {
 
     this.myBarChart = new Chart(this.ctx, {
       type: 'bar',
-      data: this.data,
+      data: this.modifiedData,
       options: options
     });
   }

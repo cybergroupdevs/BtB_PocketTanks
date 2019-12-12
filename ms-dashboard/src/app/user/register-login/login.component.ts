@@ -97,6 +97,7 @@ export class LoginComponent implements OnInit {
             }
           },
           error => {
+            // debugger;
             Swal.fire({
               title: 'Oops!',
               text: "Error occurred! Please try again later.",

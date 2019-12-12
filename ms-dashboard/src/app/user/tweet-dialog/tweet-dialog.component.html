@@ -5,13 +5,16 @@
                 <img [src]="tweet.profile_image" 
                     alt="Photo of a Shiba Inu" class="profile-img mt-2">
             </div>
-            <mat-card-title>{{tweet.username}}</mat-card-title>
+            <mat-card-title>
+                {{tweet.username}}<small class="ml-2">{{tweet.scheduled_at}}</small>
+            </mat-card-title>
             <mat-card-subtitle class="text-left">{{tweet.screen_name}}</mat-card-subtitle>
         </mat-card-header>
-        <i class="fa fa-pencil fa-lg mt-4 mr-4" matTooltip="Edit this Tweet."></i>
+        <i class="fa fa-pencil fa-lg mt-4 mr-4" matTooltip="Edit this Tweet." (click)="goToEdit()"></i>
     </div>
     <mat-card-content>
-        <p class="text-left">{{tweet.tweet}}</p>
+
+        <p class="text-left">{{tweet.text}}</p>
     </mat-card-content>
     <img mat-card-image [src]="tweet.image" 
         alt="Photo of a Shiba Inu" class="image_upload">

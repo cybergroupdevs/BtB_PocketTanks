@@ -22,7 +22,6 @@ import { EmailVerificationComponent } from './auth/email-verification/email-veri
 import { ResetPasswordVerificationComponent } from './user/reset-password-verification/reset-password-verification.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
 import { ProfileDialogComponent } from './user/profile-dialog/profile-dialog.component';
-import { CalendarHeaderComponent } from './pages/calendar-header/calendar-header.component';
 
 
 @NgModule({
@@ -35,7 +34,6 @@ import { CalendarHeaderComponent } from './pages/calendar-header/calendar-header
     ResetPasswordVerificationComponent,
     ChangePasswordComponent,
     ProfileDialogComponent,
-    CalendarHeaderComponent,
   ],
   imports: [
     BrowserAnimationsModule,

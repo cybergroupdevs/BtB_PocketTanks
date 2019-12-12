@@ -109,7 +109,7 @@ class TwitterWrapper {
     }
     async postTweet(tweet){
         try{
-            const result = await this.twit.post('statuses/update',tweet)
+            const result = await this.twit.post('statuses/update',{status : tweet})
             if(result.data){
                 return result.data
             } else {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { MatDialog } from '@angular/material';
 import { SocialAccountLoginComponent } from '../social-account-login/social-account-login.component';
+import { UserService } from 'app/shared/Services/user/user.service';
 
 @Component({
   selector: 'dashboard-cmp',
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit {
   public chartColor;
   public chartEmail;
   public chartHours;
-
+  public finalLineChartData = [];
+  public histogramData = [];
 
   tweets = [
     {
@@ -65,122 +67,117 @@ export class DashboardComponent implements OnInit {
     }
   ]
 
-  constructor(public _dialog: MatDialog) {
+  constructor(public _dialog: MatDialog, private _userService: UserService) {
+  }
 
+  getKPIData() {
+    this._userService.getKPIData().subscribe(response => {
+      if (response.success) {
+        this.KPIList = [{
+          iconClass: 'nc-icon nc-single-copy-04 text-warning',
+          cardTitle: 'Posts',
+          cardNumbers: (response.data["postsCount"] <= 0 ? '12' : response.data["postsCount"])
+        }, {
+          iconClass: 'fa fa-thumbs-up text-info',
+          cardTitle: 'Favorites',
+          cardNumbers: (response.data["favoriteCount"] <= 0 ? '304' : response.data["favoriteCount"])
+        }, {
+          iconClass: 'fa fa-eye text-primary',
+          cardTitle: 'Retweets',
+          cardNumbers: (response.data["retweetCount"] <= 0 ? '4.5K' : response.data["retweetCount"])
+        }, {
+          iconClass: 'fa fa-comment text-danger',
+          cardTitle: 'Comments',
+          cardNumbers: (response.data["commentsCount"] <= 0 ? '56' : response.data["commentsCount"])
+        },];
+      }
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+  getLineChartData() {
+    this._userService.getLineChartData().subscribe(response => {
+      if (response.success) {
+
+        const positiveData: any = [];
+
+        for (let key in response.data.countsData.positive) {
+          if (response.data.countsData.positive.hasOwnProperty(key)) {
+            positiveData.push({ type: 'positive', date: key, month: this.getMonthNameForDate(key), value: response.data.countsData.positive[key] });
+          }
+        }
+        const positiveGroupByMonth = positiveData.reduce((acc, it) => {
+          acc[it.month] = acc[it.month] + 1 || 1;
+          return acc;
+        }, {});
+
+        const negativeData: any = [];
+
+        for (let key in response.data.countsData.negative) {
+          if (response.data.countsData.negative.hasOwnProperty(key)) {
+            negativeData.push({ type: 'negative', date: key, month: this.getMonthNameForDate(key), value: response.data.countsData.negative[key] });
+          }
+        }
+        const negativeGroupByMonth = negativeData.reduce((acc, it) => {
+          acc[it.month] = acc[it.month] + 1 || 1;
+          return acc;
+        }, {});
+
+        const positiveNegativeData: any = positiveData.concat(negativeData);
+
+        const totalGroupByMonth = positiveNegativeData.reduce((acc, it) => {
+          acc[it.month] = acc[it.month] + 1 || 1;
+          return acc;
+        }, {});
+
+
+        for (let key in totalGroupByMonth) {
+          const monthItem = {};
+          monthItem["date"] = key
+          if (positiveGroupByMonth.hasOwnProperty(key)) {
+            monthItem["positive"] = positiveGroupByMonth[key];
+          }
+          else {
+            monthItem["positive"] = 0;
+          }
+
+          if (negativeGroupByMonth.hasOwnProperty(key)) {
+            monthItem["negative"] = negativeGroupByMonth[key];
+          }
+          else {
+            monthItem["negative"] = 0;
+          }
+          monthItem["total"] = totalGroupByMonth[key];
+          this.finalLineChartData.push(monthItem);
+        }
+      }
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+  getHistogramData() {
+    this._userService.getHistogramData().subscribe(response => {
+      if (response.success) {
+        this.histogramData = response;
+      }
+    });
+  }
+
+  getMonthNameForDate(dateString: string): string {
+    const date = new Date(dateString);  // 2009-11-10
+    const month = date.toLocaleString('default', { month: 'short' });
+    return month;
   }
 
   ngOnInit() {
-    {
-      this.KPIList = [{
-        iconClass: 'nc-icon nc-single-copy-04 text-warning',
-        cardTitle: 'Posts',
-        cardNumbers: '12',
-        footerText: 'Last Updated Time',
-        footerIconClass: 'fa fa-clock-o'
-      }, {
-        iconClass: 'fa fa-thumbs-up text-info',
-        cardTitle: 'Likes',
-        cardNumbers: '304',
-        footerText: 'Last Updated Time',
-        footerIconClass: 'fa fa-clock-o'
-      }, {
-        iconClass: 'fa fa-eye text-primary',
-        cardTitle: 'Reach',
-        cardNumbers: '4.5K',
-        footerText: 'Last Updated Time',
-        footerIconClass: 'fa fa-clock-o'
-      }, {
-        iconClass: 'fa fa-comment text-danger',
-        cardTitle: 'Comments',
-        cardNumbers: '56',
-        footerText: 'Last Updated Time',
-        footerIconClass: 'fa fa-clock-o'
-      },];
 
-
-      //Chart Data and Styling
-      this.chartColor = "#FFFFFF";
-
-      // #region chartHours 
-      // this.canvas = document.getElementById("chartHours");
-      // this.ctx = this.canvas.getContext("2d");
-
-      // this.chartHours = new Chart(this.ctx, {
-      //   type: 'line',
-
-      //   data: {
-      //     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
-      //     datasets: [{
-      //       borderColor: "#6bd098",
-      //       backgroundColor: "#6bd098",
-      //       pointRadius: 0,
-      //       pointHoverRadius: 0,
-      //       borderWidth: 3,
-      //       data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
-      //     },
-      //     {
-      //       borderColor: "#f17e5d",
-      //       backgroundColor: "#f17e5d",
-      //       pointRadius: 0,
-      //       pointHoverRadius: 0,
-      //       borderWidth: 3,
-      //       data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
-      //     },
-      //     {
-      //       borderColor: "#fcc468",
-      //       backgroundColor: "#fcc468",
-      //       pointRadius: 0,
-      //       pointHoverRadius: 0,
-      //       borderWidth: 3,
-      //       data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
-      //     }
-      //     ]
-      //   },
-      //   options: {
-      //     legend: {
-      //       display: false
-      //     },
-
-      //     tooltips: {
-      //       enabled: false
-      //     },
-
-      //     scales: {
-      //       yAxes: [{
-
-      //         ticks: {
-      //           fontColor: "#9f9f9f",
-      //           beginAtZero: false,
-      //           maxTicksLimit: 5,
-      //           //padding: 20
-      //         },
-      //         gridLines: {
-      //           drawBorder: false,
-      //           zeroLineColor: "#ccc",
-      //           color: 'rgba(255,255,255,0.05)'
-      //         }
-
-      //       }],
-
-      //       xAxes: [{
-      //         barPercentage: 1.6,
-      //         gridLines: {
-      //           drawBorder: false,
-      //           color: 'rgba(255,255,255,0.1)',
-      //           zeroLineColor: "transparent",
-      //           display: false,
-      //         },
-      //         ticks: {
-      //           padding: 20,
-      //           fontColor: "#9f9f9f"
-      //         }
-      //       }]
-      //     },
-      //   }
-      // });
-      // #endregion
-
-    }
+    this.getKPIData();
+    this.getLineChartData();
+    this.getHistogramData();
 
     //Check if twitter logged in
     var twitterAuthDate = new Date(localStorage.getItem('twitterAuth').toString());

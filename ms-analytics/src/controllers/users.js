@@ -28,7 +28,7 @@ class Users extends AppController {
             }, globalConfig[process.env.ENV]['JWTSECRETKEY'], {
                 expiresIn: 60 * 60
             })
-            user.update({
+            await user.update({
                 'email': req.body.email
             }, {
                 $set: {
@@ -46,7 +46,6 @@ class Users extends AppController {
                 data: userObj
             })
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -133,22 +132,27 @@ class Users extends AppController {
             const isMatched = await bcrypt.compare(req.body.newPassword, data[0].password)
             if (data.length != 0 && isMatched == false) {
                 let hashednewPassword = bcrypt.hashSync(req.body.newPassword, 10);
-                await user.update({
+                let updatedUser = await user.update({
                     'email': req.body.email
                 }, {
                     $unset: {
                         'passwordToken': 1
-                    }
-                })
-                let updatedUser = await user.update({
-                    'email': req.body.email
-                }, {
-                    '$set': {
+                    },
+                    $set: {
                         'previousPassword': data[0]['password'],
                         'password': hashednewPassword,
                         'passwordChangeAt': date.getTime()
                     }
                 })
+                // let updatedUser = await user.update({
+                //     'email': req.body.email
+                // }, {
+                //     '$set': {
+                //         'previousPassword': data[0]['password'],
+                //         'password': hashednewPassword,
+                //         'passwordChangeAt': date.getTime()
+                //     }
+                // })
                 super.success(req, res, {
                     statusCode: 200,
                     message: "Password is changed and database is updated",
@@ -207,29 +211,30 @@ class Users extends AppController {
     async emailVerification(req, res) {
         try {
             const user = new User();
-            console.log('req.body.token', req.body.token);
 
             const data = await user.get({
                 emailToken: req.body.token
             });
-            console.log('data', data);
-
             if (data.length > 0 && data[0]['emailVerified'] == false) {
-                await user.update({
-                    emailToken: req.body.token
+                let updateUser = await user.update({
+                    emailToken: data[0]['email']
                 }, {
                     $unset: {
                         'emailToken': 1
-                    }
-                });
-                let updatedUser = await user.update({
-                    email: data[0]['email']
-                }, {
+                    },
                     $set: {
                         'emailVerified': true,
                         'createdAt': new Date().getTime()
                     }
                 });
+                // let updatedUser = await user.update({
+                //     email: data[0]['email']
+                // }, {
+                //     $set: {
+                //         'emailVerified': true,
+                //         'createdAt': new Date().getTime()
+                //     }
+                // });
                 super.success(req, res, {
                     statusCode: 200,
                     message: "User is verified and database is updated",

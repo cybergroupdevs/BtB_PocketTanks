@@ -13,14 +13,16 @@ class Twitter extends AppController {
     constructor() {
         super();
     }
-
+    //This API returns KPIS
+    /*
+     * 
+     * @param {Object} user The request object
+    */
     async kpis(req, res) {
         try {
             const post = new Post();
-
             // Extracting userId from request body
             const userId = req.user._id;
-
             // Fetching KPI's from db
             const responseData = {
                 postsCount: await post.getCount({
@@ -46,7 +48,7 @@ class Twitter extends AppController {
                             $sum: "$favoriteCount"
                         }
                     }
-                }]))[0]['sumFavoriteCount'],
+                }])),
                 retweetCount: (await post.getAggregate([{
                     $match: {
                         userId: mongoose.Types.ObjectId(userId)
@@ -58,8 +60,22 @@ class Twitter extends AppController {
                             $sum: "$retweetCount"
                         }
                     }
-                }]))[0]['sumRetweetCount']
+                }]))
             };
+
+            // checks to extract value from object
+
+            if (responseData['favoriteCount'].length) {
+                responseData['favoriteCount'] = responseData['favoriteCount'][0]['sumFavoriteCount'];
+            } else {
+                responseData['favoriteCount'] = 0;
+            }
+
+            if (responseData['retweetCount'].length) {
+                responseData['retweetCount'] = responseData['retweetCount'][0]['sumRetweetCount'];
+            } else {
+                responseData['retweetCount'] = 0;
+            }
 
             super.success(req, res, {
                 statusCode: 200,
@@ -67,7 +83,6 @@ class Twitter extends AppController {
                 data: responseData
             });
         } catch (error) {
-            console.log(error.message);
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -105,7 +120,6 @@ class Twitter extends AppController {
     }
 
     async sentiment(req, res) {
-
         const _createCriteriaTimeSeries = (sentiment, userId) => {
             return [{
                 $match: {
@@ -182,7 +196,6 @@ class Twitter extends AppController {
                 }
             });
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -204,7 +217,6 @@ class Twitter extends AppController {
                 data: {}
             });
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -249,7 +261,6 @@ class Twitter extends AppController {
                 });
             }
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -298,7 +309,6 @@ class Twitter extends AppController {
                 data: data
             });
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message
@@ -477,7 +487,6 @@ async wordcloud(req, res) {
                 throw new Error("User doesn't exists");
             }
         } catch (error) {
-            console.log(error.message)
             super.failure(req, res, {
                 statusCode: 400,
                 message: error.message

@@ -305,58 +305,7 @@ class Twitter extends AppController {
             });
         }
     }
-    async postTweet(req, res){
-        try{
-            const user = new User()
-            let data = await user.get({
-                _id: req.user._id
-            });
-            
-            if (data.length == 0) {
-                throw new Error("No email exists");
-            } else {
-                const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret'])
-                console.log(data);
-                let postedTweet = await tw.postTweet(req.body);
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Process Started",
-                    data: postedTweet
-                });
-            }
-        } catch (error){
-            console.log(error.message);
-            super.failure(req,res, {
-                statusCode: 400,
-                message: error.message
-                })
-        }
-    }
-    async postMediaTweet(req, res){
-        try{
-            const user = new User()
-            let data = await user.get({
-                _id: req.user._id
-            });
-            if (data.length == 0) {
-                throw new Error("No email exists");
-            } else {
-                const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret'])
-                let postedTweet = await tw.postMediaTweet(req.body.status,req.body.media);
-                super.success(req, res, {
-                    statusCode: 200,
-                    message: "Process Started",
-                    data: postedTweet
-                });
-            }
-        } catch (error){
-            super.failure(req,res, {
-                statusCode: 400,
-                message: error.message
-            })
-        }
-    }
-
+    
     async postTweet(req, res){
         try{
             const user = new User();

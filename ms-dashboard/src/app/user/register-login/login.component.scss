@@ -1,0 +1,42 @@
+.container{
+  background-color: white;
+  position: relative;
+  max-width: 100% !important;
+}
+
+.card{
+  width: 40%;
+  max-width: 800px;
+  min-width: 400px;
+  margin: 20vh auto 0 auto;
+}
+
+h2{
+  margin-bottom: 0;
+}
+  
+mat-form-field{
+  width: 100%;
+}
+
+button{
+  outline: none;
+}
+
+.wrapper{
+  position: relative;
+  top: 0;
+  height: 100vh;
+
+  &.wrapper-full-page{
+      min-height: 100vh;
+      height: auto;
+  }
+}
+
+@media(max-width: 600px){
+
+  .card{
+    min-width: 300px;
+  }
+}

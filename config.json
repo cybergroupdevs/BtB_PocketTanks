@@ -1,0 +1,20 @@
+{
+    "DEV" : {
+        "ANALYTICS" : {
+            "IP" : "0.0.0.0",
+            "PORT" : "5001",
+            "PREFIX": "/api/soci/",
+            "DB_NAME": "socialize-dev",
+            "MONGO_DB_IP": "localhost",
+            "VERSION" : "v0.1"
+        },
+        "ML" : {
+            "IP" : "0.0.0.0",
+            "PORT" : "5002",
+            "PREFIX" : "/api/ml/"
+        },
+        "JWTSECRETKEY": "kfu0eXSiPiJBV1SiLCJrc",
+        "X-API-KEY": "$2j$33$dSbcIud1f3yeKHRxEcPaU.",
+        "X-API-SECRET_KEY": "$2c$45$L5GHAaVnqRT/DFfYctwPoa"
+    }
+}

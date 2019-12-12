@@ -1,0 +1,14 @@
+.likes{
+    color: #6bd098;
+}
+
+.retweets{
+    color: #f17e5d;
+}
+
+.comments{
+    color: #fcc468;
+}
+.card-footer{
+    margin: 0 !important;
+}

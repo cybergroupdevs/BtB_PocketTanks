@@ -1,0 +1,44 @@
+{
+  "name": "ms-analytics",
+  "version": "1.0.0",
+  "description": "Folder for Analytics microservice for application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "bull": "^3.12.1",
+    "cron": "^1.7.2",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.12",
+    "nodemailer": "^6.3.1",
+    "nodemon": "^2.0.0",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
+    "redis": "^2.8.0",
+    "regenerator-runtime": "^0.13.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "twit": "^2.2.11",
+    "validator": "^12.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/register": "^7.7.4",
+    "babel-polyfill": "^6.26.0"
+  }
+}

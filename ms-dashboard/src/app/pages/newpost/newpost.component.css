@@ -1,0 +1,103 @@
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+.container{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2em;
+
+}
+
+.text{
+    width: 80%;
+}
+
+textarea{
+    resize: none !important;
+}
+
+.twitter-card{
+    width: 80%;
+    max-width: 450px;
+    min-width: 300px;
+}
+
+.image_upload{
+    border-radius: 10px;
+}
+
+.profile-img{
+    border-radius: 50%;
+    background-size: cover;
+    height: 40px;
+    width: 40px;
+}
+
+.example-header-image {
+    background-size: cover;
+}
+
+.dragNdrop{
+    width: 80%;
+    height: 100px;
+    background-color: rgb(196, 191, 191);
+}
+/* .afu-dragndrop-box{
+    margin: auto !important;
+} */
+
+.schedule{
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.media{
+    font-size: 2.5em;
+    cursor: pointer;
+    color: rgb(196, 191, 191);
+}
+
+.media-selected{
+    color: black;
+}
+.icons{
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.twitterActions{
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+
+.twitterActions .fa{
+    font-size: 1.5em;
+}
+
+@media(max-width: 500px){
+    .schedule{
+        display: block;
+    }
+}
+
+i.nc-cloud-upload-94 {
+    cursor: pointer;
+  }
+  
+  i.nc-cloud-upload-94:hover,
+  .remove-document:hover {
+    color: #4354d9;
+  }
+
+  .add-image-pop-up {
+    margin-top: 1rem;
+    margin-right: 3.5%;
+    margin-left: 3.5%;
+  }
+
+  .overflowFiles{
+    overflow-x: auto;
+    height:9rem;
+  }

@@ -12,7 +12,7 @@ Trend analysis on how the social media handle is performing w.r.t time ( monthly
 
 ## Installation and Usage 💡
 
-Clone this repo and switch to develop branch ( will be merging into master once some issues are resolved. )
+Clone this repo.
 
 then navigate into specific directory of Microservice to start it
 

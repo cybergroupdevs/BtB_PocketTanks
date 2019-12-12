@@ -40,7 +40,6 @@ class TwitterWrapper {
             const count = 20;
             const responseData = [];
             const parentTweets = [];
-
             let data = [];
             let lastPostId = "";
             const result = await this.twit.get('statuses/user_timeline', {

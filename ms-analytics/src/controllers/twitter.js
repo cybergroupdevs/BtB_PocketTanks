@@ -150,11 +150,11 @@ class Twitter extends AppController {
 
         try {
             const post = new Post();
-
             let countsData = {
                 'positive': {},
                 'negative': {}
             };
+
             const userId = req.user._id;
             switch (req.query.type) {
                 case 'average':
@@ -209,6 +209,7 @@ class Twitter extends AppController {
             const data = await user.get({
                 _id: req.user._id
             });
+            console.log(data[0]['twitter'])
             const worker = new Worker();
             worker.saveComment(data[0]['twitter']['screenName'], req.user._id, data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret']);
             super.success(req, res, {

@@ -30,6 +30,9 @@ class Auth extends AppController {
      * @param {String} oauth_verifier The response object
     */
     async twitter(req, res) {
+        console.log(req.user)
+        console.log(req.user._id)
+        
 
         try {
             let formData = querystring.stringify({
@@ -71,6 +74,8 @@ class Auth extends AppController {
                     }
                 });
                 const user = new User();
+                console.log("************")
+                console.log(req.user._id)
                 let updatedUser = await user.update({
                     _id: req.user._id
                 }, {

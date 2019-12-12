@@ -12,6 +12,8 @@ import Response from './wrappers/response';
 import Authentication from './src/middlewares/authentication'
 import Authorization from './src/middlewares/authorization'
 // Required for twitter OAuth
+
+app.use(express.static('public'));
 app.use(expressSession({
     secret: 'secretKeyFromEnv',
     resave: true,

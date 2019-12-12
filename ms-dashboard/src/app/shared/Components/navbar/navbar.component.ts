@@ -115,6 +115,8 @@ export class NavbarComponent implements OnInit{
 
   logoutUser()
   {
+    console.log(localStorage);
+    debugger;
     if(localStorage != undefined)
     {
       localStorage.removeItem('userid');

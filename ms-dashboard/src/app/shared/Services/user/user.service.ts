@@ -8,16 +8,30 @@ export class UserService {
 
   constructor(private repositoryService: RepositoryService) {}
 
-  getUserList(): any {
-    return this.repositoryService.get(
-      ""
+  getKPIData(): any {
+    return this.repositoryService.getData(
+      `twitter/kpis`
     );
   }
-  getUserDetails(userId): any {
-    return this.repositoryService.get(
-      `api/user/${userId}`
+
+  getLineChartData(): any {
+    return this.repositoryService.getData(
+      `twitter/sentiment?type=timeseries`
     );
   }
+
+  getPieChartData(): any {
+    return this.repositoryService.getData(
+      `twitter/sentiment?type=average`
+    );
+  }
+  
+  getHistogramData(): any {
+    return this.repositoryService.getData(
+      `twitter/profilestats`
+    );
+  }
+  
   createUser(createUserRequest): any {
     return this.repositoryService.post(
       "registration",
@@ -36,17 +50,6 @@ export class UserService {
     return this.repositoryService.post(
       "emailverification",
       emailVerificationRequest
-    );
-  }
-  updateUserDetails(userId, userDetails): any {
-    return this.repositoryService.put(
-      `api/user/${userId}`,
-      userDetails
-    );
-  }
-  deleteUser(user): any {
-    return this.repositoryService.delete(
-      `api/user/${user}`
     );
   }
 }

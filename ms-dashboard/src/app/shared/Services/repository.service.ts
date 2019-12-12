@@ -17,7 +17,7 @@ export class RepositoryService {
   ) {
   }
 
-  public get(route: string, headers?) {
+  public getData(route: string, headers?) {
     return this.http.get(
       this.createCompleteRoute(route, this.envUrl),
       headers

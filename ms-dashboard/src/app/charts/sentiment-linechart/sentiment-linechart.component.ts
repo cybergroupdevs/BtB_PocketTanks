@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import Chart from 'chart.js';
 import { MatDialog } from '@angular/material';
 import { ChartsService } from 'app/shared/Services/charts/charts.service';
@@ -11,7 +11,7 @@ import { ChartsService } from 'app/shared/Services/charts/charts.service';
 })
 export class SentimentLinechartComponent implements OnInit {
 
-
+@Input() lineChartData;
   public canvas: any;
   public ctx;
   public chartColor;
@@ -30,32 +30,6 @@ export class SentimentLinechartComponent implements OnInit {
     }]
   }
   
-  data =  [
-    {
-      "positive":0,
-      "negative":0,
-      "total":0,
-      "date":"JAN"
-    },
-    {
-      "positive":19,
-      "negative":5,
-      "total":24,
-      "date":"FEB"
-    },
-    {
-      "positive":15,
-      "negative":10,
-      "total":25,
-      "date":"MAR"
-    },
-    {
-      "positive":20,
-      "negative":12,
-      "total":32,
-      "date":"APR"
-    }
-  ];
 
   constructor(
     public _dialog: MatDialog,
@@ -64,7 +38,7 @@ export class SentimentLinechartComponent implements OnInit {
   { }
 
   ngOnInit() {
-    this.createChart(this.data)
+    this.createChart(this.lineChartData)
   }
 
 
@@ -150,7 +124,7 @@ export class SentimentLinechartComponent implements OnInit {
   mouseEnter(){
     this.noGridLines = {};
     this.lineChart.destroy();
-    this.createChart(this.data)
+    this.createChart(this.lineChartData)
   }
 
   mouseLeave(){
@@ -167,6 +141,6 @@ export class SentimentLinechartComponent implements OnInit {
       }]
     }
     this.lineChart.destroy();
-    this.createChart(this.data)
+    this.createChart(this.lineChartData)
   }
 }

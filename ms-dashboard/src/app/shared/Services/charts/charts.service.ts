@@ -10,14 +10,14 @@ export class ChartsService {
 
   getPieChartData() :any
   {
-    return this.repositoryService.get(
+    return this.repositoryService.getData(
       "twitter/sentiment?type=average"
     );
   }
   
   getSentimentLine(): any 
   {
-    return this.repositoryService.get(
+    return this.repositoryService.getData(
       "twitter/sentiment?type=timeseries"
     );
   }

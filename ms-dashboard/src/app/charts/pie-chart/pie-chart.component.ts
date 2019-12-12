@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import Chart from 'chart.js';
 import { ChartsService } from 'app/shared/Services/charts/charts.service';
+import { UserService } from 'app/shared/Services/user/user.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -9,29 +10,22 @@ import { ChartsService } from 'app/shared/Services/charts/charts.service';
 })
 export class PieChartComponent implements OnInit {
 
-  public canvas: any;
-  public ctx;
-  public chartEmail;
+  @Input() pieChartResponseData;
 
-  constructor(private _chartService: ChartsService) { }
+  canvas: any;
+  ctx;
+  chartEmail;
+
+  constructor(private _chartService: UserService) { }
 
   ngOnInit() {
-    this._chartService.getPieChartData().subscribe(
-      response => {
-        if (response.success && response.data.type == "average") {
+    if (this.pieChartResponseData.data["countsData"].positive == 0)
+      this.pieChartResponseData.data["countsData"].positive = 60;
 
-          if (response.data["countsData"].positive == 0)
-            response.data["countsData"].positive = 60;
+    if (this.pieChartResponseData.data["countsData"].negative == 0)
+      this.pieChartResponseData.data["countsData"].negative = 40;
 
-          if (response.data["countsData"].negative == 0)
-            response.data["countsData"].negative = 40;
-
-          this.createChart(response.data["countsData"].positive, response.data["countsData"].negative);
-        }
-      },
-      error => {
-        this.createChart(60, 40);
-      });
+    this.createChart(this.pieChartResponseData.data["countsData"].positive, this.pieChartResponseData.data["countsData"].negative);
   }
 
   createChart(positiveData, negativeData) {
@@ -43,7 +37,7 @@ export class PieChartComponent implements OnInit {
       data: {
         labels: ["Positive", "Negative"],
         datasets: [{
-          label: "Emails",
+          label: "Comments",
           pointRadius: 0,
           pointHoverRadius: 0,
           backgroundColor: [

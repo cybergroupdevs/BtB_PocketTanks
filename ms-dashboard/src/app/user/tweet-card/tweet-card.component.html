@@ -12,15 +12,15 @@
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <p class="text-left">{{tweetObj.tweet}}</p>
+        <p class="text-left">{{tweetObj.text}}</p>
     </mat-card-content>
     <!-- <img mat-card-image [src]="twitter.profile_image" 
         alt="Photo of a Shiba Inu" class="image_upload"> -->                
     <mat-card-actions>
         <div class="twitterActions mb-1">
-        <i class="fa fa-comment-o"><span><small class="mx-1">12</small></span></i>
-        <i class="fa fa-retweet"><span><small class="mx-1">22</small></span></i>  
-        <i class="fa fa-heart-o"><span><small class="mx-1">15</small></span></i>
+        <i class="fa fa-comment-o"><span><small class="mx-1">{{tweetObj.commentCount}}</small></span></i>
+        <i class="fa fa-retweet"><span><small class="mx-1">{{tweetObj.retweetCount}}</small></span></i>  
+        <i class="fa fa-heart-o"><span><small class="mx-1">{{tweetObj.favoriteCount}}</small></span></i>
         </div>
     </mat-card-actions>
 </mat-card>

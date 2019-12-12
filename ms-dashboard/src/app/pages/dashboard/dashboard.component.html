@@ -1,7 +1,4 @@
 <div class="row">
-</div>
-<!-- KPI -->
-<div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let kpiItem of KPIList">
     <kpi [kpiData]="kpiItem"></kpi> 
   </div>
@@ -11,33 +8,31 @@
   <div class="col-md-8">
     <div class="row">
       <div class="col-md-12">
-        <histogram [histogramResponseData] = "histogramData"></histogram>
+        <histogram *ngIf="histogramDataReceived" [histogramResponseData]="histogramData"></histogram>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
-        <app-pie-chart></app-pie-chart>
+        <app-pie-chart *ngIf="pieChartDataReceived" [pieChartResponseData]="pieChartData"></app-pie-chart>
       </div>
       <div class="col-md-8">
-        <sentiment-linechart [lineChartData] ="finalLineChartData" ></sentiment-linechart>
+        <word-cloud *ngIf="wordCloudDataReceived" [wordCloudResponseData]="wordCloudData"></word-cloud>
       </div>
     </div>
   </div>
   <div class="col-md-4">
     <div class="card tabGroup">
-      <mat-tab-group>
-        <mat-tab label="Recent 10 Tweets">
-            <tweet-card *ngFor="let tweet of tweets" [tweetObj]="tweet"></tweet-card>
-        </mat-tab>
-      </mat-tab-group>
+      <h5 class="text-center">Recent 10 Tweets</h5>
+      <div *ngIf="recentTweetsReceived">
+        <tweet-card *ngFor="let tweet of recentTweets" [tweetObj]="tweet"></tweet-card>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <app-word-cloud>
-    </app-word-cloud>
+  <div class="col-md-8">
+    <sentiment-linechart *ngIf="lineChartDataReceived" [lineChartData]="finalLineChartData" ></sentiment-linechart>
   </div>
 </div>
 

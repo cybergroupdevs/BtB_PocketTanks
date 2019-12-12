@@ -45,7 +45,7 @@ class Twitter extends AppController {
                             $sum: "$favoriteCount"
                         }
                     }
-                }]))[0]['sumFavoriteCount'],
+                }])),
                 retweetCount: (await post.getAggregate([{
                     $match: {
                         userId: mongoose.Types.ObjectId(userId)
@@ -57,8 +57,22 @@ class Twitter extends AppController {
                             $sum: "$retweetCount"
                         }
                     }
-                }]))[0]['sumRetweetCount']
+                }]))
             };
+
+            // checks to extract value from object
+
+            if (responseData['favoriteCount'].length) {
+                responseData['favoriteCount'] = responseData['favoriteCount'][0]['sumFavoriteCount'];
+            } else {
+                responseData['favoriteCount'] = 0;
+            }
+
+            if (responseData['retweetCount'].length) {
+                responseData['retweetCount'] = responseData['retweetCount'][0]['sumRetweetCount'];
+            } else {
+                responseData['retweetCount'] = 0;
+            }
 
             super.success(req, res, {
                 statusCode: 200,

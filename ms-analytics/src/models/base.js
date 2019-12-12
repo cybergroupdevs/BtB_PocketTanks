@@ -16,7 +16,7 @@ class BaseModel {
         return await this.model.create(object);
     }
     async update(criteria, updateObj) {
-        return await this.model.update(criteria, updateObj);
+        return await this.model.updateOne(criteria, updateObj);
     }
     async delete(criteria) {
         return await this.model.delete(object);

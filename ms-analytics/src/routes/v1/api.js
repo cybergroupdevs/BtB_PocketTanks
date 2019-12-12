@@ -27,17 +27,17 @@ let apiRoutes = (router) => {
     router.get('/twitter/sentiment', api.twitter.sentiment);
     router.get('/twitter/fetchPosts', api.twitter.fetchPostsFromTwitter);
     router.get('/twitter/profilestats', api.twitter.profileStats);
-    router.post('/twitter/tweet',api.twitter.postTweet);
-    router.post('/twitter/mediaTweet',api.twitter.postMediaTweet);
-    router.post('/twitter/scheduleTweet',api.twitter.scheduleTweet);
-    router.get('/twitter/scheduleTweet',api.twitter.getScheduledTweet);
-    router.get('/twitter/scheduleTweet/:id',api.twitter.getScheduledTweet);
-    router.put('/twitter/scheduleTweet/:id',api.twitter.updateScheduledTweet);
-    router.delete('/twitter/scheduleTweet/:id',api.twitter.deleteScheduledTweet);
+    router.post('/twitter/tweet', api.twitter.postTweet);
+    router.post('/twitter/mediaTweet', api.twitter.postMediaTweet);
+    router.post('/twitter/scheduleTweet', api.twitter.scheduleTweet);
+    router.get('/twitter/scheduleTweet', api.twitter.getScheduledTweet);
+    router.get('/twitter/scheduleTweet/:id', api.twitter.getScheduledTweet);
+    router.put('/twitter/scheduleTweet/:id', api.twitter.updateScheduledTweet);
+    router.delete('/twitter/scheduleTweet/:id', api.twitter.deleteScheduledTweet);
     router.get('/twitter/wordcloud', api.twitter.wordcloud);
 
     router.get('/tweets/:username', api.auth.fetchComment);
-    router.get('/profile/:username', api.twitter.twitterProfile);
+    router.get('/twitter/profile', api.twitter.twitterProfile);
 
 
     return router;

@@ -6,7 +6,7 @@ import expressSession from 'express-session';
 import bodyParser from 'body-parser';
 import globalConfig from '../config.json';
 import routes from './src/routes';
-import db from './app/db/mongoose';
+import db from './src/db/mongoose';
 const app = express();
 import Response from './wrappers/response';
 import Authentication from './src/middlewares/authentication'

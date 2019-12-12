@@ -87,7 +87,6 @@ class Users extends AppController {
     }
     async forgotPassword(req, res) {
         try {
-
             const user = new User();
             let data = await user.get({
                 email: req.body.email

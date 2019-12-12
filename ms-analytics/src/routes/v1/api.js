@@ -34,6 +34,8 @@ let apiRoutes = (router) => {
     router.get('/twitter/scheduleTweet/:id',api.twitter.getScheduledTweet);
     router.put('/twitter/scheduleTweet/:id',api.twitter.updateScheduledTweet);
     router.delete('/twitter/scheduleTweet/:id',api.twitter.deleteScheduledTweet);
+    router.get('/twitter/wordcloud', api.twitter.wordcloud);
+
     router.get('/tweets/:username', api.auth.fetchComment);
     router.get('/profile/:username', api.twitter.twitterProfile);
 

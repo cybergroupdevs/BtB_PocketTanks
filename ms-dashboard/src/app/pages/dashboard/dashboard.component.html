@@ -11,7 +11,7 @@
   <div class="col-md-8">
     <div class="row">
       <div class="col-md-12">
-        <histogram></histogram>
+        <histogram [histogramResponseData] = "histogramData"></histogram>
       </div>
     </div>
     <div class="row">
@@ -19,7 +19,7 @@
         <app-pie-chart></app-pie-chart>
       </div>
       <div class="col-md-8">
-        <sentiment-linechart></sentiment-linechart>
+        <sentiment-linechart [lineChartData] ="finalLineChartData" ></sentiment-linechart>
       </div>
     </div>
   </div>
@@ -27,9 +27,6 @@
     <div class="card tabGroup">
       <mat-tab-group>
         <mat-tab label="Recent 10 Tweets">
-            <tweet-card *ngFor="let tweet of tweets" [tweetObj]="tweet"></tweet-card>
-        </mat-tab>
-        <mat-tab label="Recent 20 Mentions">
             <tweet-card *ngFor="let tweet of tweets" [tweetObj]="tweet"></tweet-card>
         </mat-tab>
       </mat-tab-group>

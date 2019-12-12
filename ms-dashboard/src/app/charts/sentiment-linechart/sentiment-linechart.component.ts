@@ -7,7 +7,7 @@ import { ChartsService } from 'app/shared/Services/charts/charts.service';
 @Component({
   selector: 'sentiment-linechart',
   templateUrl: './sentiment-linechart.component.html',
-  styleUrls: ['./sentiment-linechart.component.css']
+  styleUrls: ['./sentiment-linechart.component.scss']
 })
 export class SentimentLinechartComponent implements OnInit {
 

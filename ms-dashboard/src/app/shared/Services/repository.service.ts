@@ -10,7 +10,7 @@ export class RepositoryService {
   private devData = data.DEV;
   private devAnalytics = this.devData.ANALYTICS;
 
-  private envUrl='http://${this.devAnalytics.MONGO_DB_IP}:${this.devAnalytics.PORT}${this.devAnalytics.PREFIX}${this.devAnalytics.VERSION}';
+  private envUrl=`http://${this.devAnalytics.MONGO_DB_IP}:${this.devAnalytics.PORT}${this.devAnalytics.PREFIX}${this.devAnalytics.VERSION}`;
 
   constructor(
     private http: HttpClient
@@ -28,6 +28,7 @@ export class RepositoryService {
 
   public post(route: string, body, headers?) {
     // debugger;
+    debugger;
     return this.http.post(
       this.createCompleteRoute(route, this.envUrl),
       body,

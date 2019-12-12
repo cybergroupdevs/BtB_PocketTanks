@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import * as d3Cloud from 'd3-cloud';
 
 @Component({
-  selector: 'app-word-cloud',
+  selector: 'word-cloud',
   moduleId: module.id,
   templateUrl: './word-cloud.component.html',
   styleUrls: ['./word-cloud.component.scss']

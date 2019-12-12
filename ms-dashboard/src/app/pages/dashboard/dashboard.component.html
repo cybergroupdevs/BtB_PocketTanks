@@ -19,24 +19,21 @@
         <app-pie-chart></app-pie-chart>
       </div>
       <div class="col-md-8">
-        <sentiment-linechart [lineChartData] ="finalLineChartData" ></sentiment-linechart>
+        <word-cloud></word-cloud>
       </div>
     </div>
   </div>
   <div class="col-md-4">
     <div class="card tabGroup">
-      <mat-tab-group>
-        <mat-tab label="Recent 10 Tweets">
-            <tweet-card *ngFor="let tweet of tweets" [tweetObj]="tweet"></tweet-card>
-        </mat-tab>
-      </mat-tab-group>
+      <h5 class="text-center">Recent 10 Tweets</h5>
+      <tweet-card *ngFor="let tweet of tweets" [tweetObj]="tweet"></tweet-card>
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-8">
-    <sentiment-linechart></sentiment-linechart>
+    <sentiment-linechart [lineChartData] ="finalLineChartData" ></sentiment-linechart>
   </div>
 </div>
 

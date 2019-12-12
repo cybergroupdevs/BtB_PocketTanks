@@ -4,7 +4,7 @@ import Chart from 'chart.js';
 @Component({
   selector: 'histogram',
   templateUrl: './histogram.component.html',
-  styleUrls: ['./histogram.component.css']
+  styleUrls: ['./histogram.component.scss']
 })
 export class HistogramComponent implements OnInit {
 

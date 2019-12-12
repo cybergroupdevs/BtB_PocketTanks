@@ -14,7 +14,7 @@ export class ImageFile {
 @Component({
   selector: 'app-newpost',
   templateUrl: './newpost.component.html',
-  styleUrls: ['./newpost.component.css']
+  styleUrls: ['./newpost.component.scss']
 })
 export class NewpostComponent implements OnInit {
 

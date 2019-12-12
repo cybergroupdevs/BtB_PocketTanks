@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-
+debugger;
     this.markFormGroupTouched(this.loginFormGroup);
 
     if (this.loginFormGroup.valid) {
@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
             // debugger;
             Swal.fire({
               title: 'Oops!',
-              text: "Error occurred! Please try again later.",
+              text: error.message,
               icon: 'error'
             });
           }

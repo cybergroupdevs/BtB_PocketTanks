@@ -25,6 +25,10 @@ class Auth extends AppController {
         }
     }
     // Method to extract and save tokens
+    /*
+     * @param {String} oauth_token The request object
+     * @param {String} oauth_verifier The response object
+    */
     async twitter(req, res) {
 
         try {

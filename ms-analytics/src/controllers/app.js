@@ -9,8 +9,17 @@ class AppController {
     success(req, res, result) {
         res.send(new Response(true, result.statusCode, result.message, result.data))
     }
-    failure(req, res, result) {
-        res.send(new Response(false, result['statusCode'], result['message']))
+    /**
+     * @param {Object} req The request object
+     * @param {Object} res The response object
+     * @return {Object} error The response error object
+     */
+    failure(req, res, error) {
+        console.log("**************Error******************")
+        console.log("StatusCode - "+ error['statusCode'])
+        console.log(error['message'])
+        console.log("*************************************")
+        res.send(new Response(false, error['statusCode'], error['message']))
     }
 }
 

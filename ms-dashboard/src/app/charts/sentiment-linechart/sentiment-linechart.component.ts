@@ -44,6 +44,8 @@ export class SentimentLinechartComponent implements OnInit {
 
   createChart(data){      
 
+    console.log(data);
+    
     let modifiedData = {
       "positive":[],
       "negative":[],
@@ -57,6 +59,8 @@ export class SentimentLinechartComponent implements OnInit {
       modifiedData.total.push(element.total)
       modifiedData.date.push(element.date)
     })
+    
+    console.log(modifiedData);
     
     //Chart Data and Styling
     this.chartColor = "#FFFFFF";

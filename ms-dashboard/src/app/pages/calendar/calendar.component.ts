@@ -69,7 +69,9 @@ export class CalendarComponent implements OnInit{
 
   // events: CalendarEvent[] = [
   events;
-
+  profile_img = localStorage.getItem("profileImage");
+  screenName = localStorage.getItem("screenName");
+  name = localStorage.getItem("name");
   activeDayIsOpen: boolean = true;
 
   constructor(
@@ -86,20 +88,21 @@ export class CalendarComponent implements OnInit{
       }
     )
 
+
     this.events = [
       {
         _id: 1,
-        start: new Date('Tue Dec 9 2019 17:20:09'),
-        end: new Date('Tue Dec 9 2019 17:20:09'),
+        start: new Date('Tue Dec 14 2019 17:20:09'),
+        end: new Date('Tue Dec 14 2019 17:20:09'),
         // title: 'taran',
         // color: colors.blue,
         // actions: this.actions,
-        profile_image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
-        screen_name: "@Shibu_the_dog",
-        username: "Shibu",
-        image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
-        text: "Hiii, guys. All the best.",
-        scheduled_at: "12 DEC 2019"
+        profile_image: this.profile_img,
+        screen_name: this.screenName,
+        username: this.name,
+        image: "https://inteng-storage.s3.amazonaws.com/img/iea/Ne6NqXMqG5/sizes/tesla-atv_resize_md.png",
+        text: "Oops.....",
+        scheduled_at: "14 DEC 2019"
       },
       {
         _id: 2,

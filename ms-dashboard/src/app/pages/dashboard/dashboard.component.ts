@@ -66,13 +66,19 @@ export class DashboardComponent implements OnInit {
         const positiveData: any = [];
 
         for (let key in response.data.countsData.positive) {
-          if (response.data.countsData.positive.hasOwnProperty(key)) {
+          if (response.data.countsData.positive.hasOwnProperty(key)) {  
             positiveData.push({ type: 'positive', date: key, month: this.getMonthNameForDate(key), value: response.data.countsData.positive[key] });
+            
           }
         }
 
         const positiveGroupByMonth = positiveData.reduce((acc, it) => {
-          acc[it.month] = acc[it.month] + 1 || 1;
+          if(typeof(acc[it.month]) === 'number'){
+            acc[it.month] +=  it['value'];
+          } else {
+            acc[it.month] =  0;
+            acc[it.month] +=  it['value'];
+          }
           return acc;
         }, {});
 
@@ -84,14 +90,24 @@ export class DashboardComponent implements OnInit {
           }
         }
         const negativeGroupByMonth = negativeData.reduce((acc, it) => {
-          acc[it.month] = acc[it.month] + 1 || 1;
+          if(typeof(acc[it.month]) === 'number'){
+            acc[it.month] +=  it['value'];
+          } else {
+            acc[it.month] =  0;
+            acc[it.month] +=  it['value'];
+          }
           return acc;
         }, {});
 
         const positiveNegativeData: any = positiveData.concat(negativeData);
 
         const totalGroupByMonth = positiveNegativeData.reduce((acc, it) => {
-          acc[it.month] = acc[it.month] + 1 || 1;
+          if(typeof(acc[it.month]) === 'number'){
+            acc[it.month] +=  it['value'];
+          } else {
+            acc[it.month] =  0;
+            acc[it.month] +=  it['value'];
+          }
           return acc;
         }, {});
 

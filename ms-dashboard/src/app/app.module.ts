@@ -22,6 +22,7 @@ import { EmailVerificationComponent } from './auth/email-verification/email-veri
 import { ResetPasswordVerificationComponent } from './user/reset-password-verification/reset-password-verification.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
 import { ProfileDialogComponent } from './user/profile-dialog/profile-dialog.component';
+import { NumberSystem } from './number-system.pipe';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ProfileDialogComponent } from './user/profile-dialog/profile-dialog.com
     ResetPasswordVerificationComponent,
     ChangePasswordComponent,
     ProfileDialogComponent,
+    NumberSystem
   ],
   imports: [
     BrowserAnimationsModule,

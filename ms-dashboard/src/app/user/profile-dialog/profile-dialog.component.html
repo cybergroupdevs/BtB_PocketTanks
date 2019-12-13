@@ -22,19 +22,19 @@
     <div class="button-container">
         <div class="row">
         <div class="col-lg-4 col-md-6 col-6 ml-auto">
-            <h5>{{userInfo.followers_count}}
+            <h5>{{userInfo.followers_count | numberSystem : 2}}
             <br>
             <small>Followers</small>
             </h5>
         </div>
         <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-            <h5>{{userInfo.following_count}}
+            <h5>{{userInfo.following_count | numberSystem : 2}}
             <br>
             <small>Following</small>
             </h5>
         </div>
         <div class="col-lg-3 mr-auto">
-            <h5>{{userInfo.statuses_count}}
+            <h5>{{userInfo.statuses_count | numberSystem : 2}}
             <br>
             <small>Posts</small>
             </h5>

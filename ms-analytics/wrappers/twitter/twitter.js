@@ -121,11 +121,8 @@ class TwitterWrapper {
     }
     async postMediaTweet(tweet,media){
         try{
-            // let b64content = fs.readFileSync(media, { encoding: 'base64' });
-            // console.log(b64content);
             let base64String = media;
             let base64Image =  base64String.split(';base64,').pop();
-            console.log(base64Image);
             
             let result =await this.twit.post('media/upload',{ media_data: base64Image })
             

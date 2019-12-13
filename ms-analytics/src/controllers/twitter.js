@@ -325,11 +325,11 @@ class Twitter extends AppController {
             if (data.length == 0) {
                 throw new Error("No email exists");
             } else {
-                if(!req.body.isScheduled){
-
+                if(!req.body.isScheduled){                    
                     if(req.body.containsMedia){
+                        
                         const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret'])
-                        let postedTweet = await tw.postMediaTweet(req.body.text,req.body.media);
+                        let postedTweet = await tw.postMediaTweet(req.body.text,req.body.mediaPath);
                         super.success(req, res, {
                             statusCode: 200,
                             message: "Process Started",
@@ -337,7 +337,6 @@ class Twitter extends AppController {
                         });
                     } else {
                         const tw = new TwitterWrapper(data[0]['twitter']['oAuthToken'], data[0]['twitter']['oAuthTokenSecret'])
-                        console.log(data);
                         let postedTweet = await tw.postTweet(req.body.text);
                         super.success(req, res, {
                             statusCode: 200,
@@ -398,7 +397,6 @@ class Twitter extends AppController {
 
             
             let result = await scheduledTweet.insert(request)
-            console.log(result);
             
             if(result){
                 super.success(req, res, {
@@ -430,9 +428,16 @@ class Twitter extends AppController {
                 result = await scheduledTweet.get({userId : req.user._id})
             }
             if(result){
-                return res.send(result)
+                super.success(req, res, {
+                    statusCode: 200,
+                    message: "tweets found",
+                    data: result
+                });
             } else {
-                return null
+                super.failure(req,res, {
+                    statusCode: 400,
+                    message: "no tweets found"
+                })
             } 
         } catch (error) {
             super.failure(req,res, {
@@ -447,14 +452,23 @@ class Twitter extends AppController {
             let result;
             if(req.params.id){
                 result = await scheduledTweet.update({_id : req.params.id}, req.body)
-                console.log(result);
                 if(result){
-                    return res.send(result)
+                    super.success(req, res, {
+                        statusCode: 200,
+                        message: "tweet updated",
+                        data: result
+                    });
                 } else {
-                    return null
+                    super.failure(req,res, {
+                    statusCode: 400,
+                    message: "can't update"
+                    })
                 }
             } else {
-                return null
+                super.failure(req,res, {
+                    statusCode: 400,
+                    message: "id not provided"
+                })
             }
         } catch (error) {
             super.failure(req,res, {
@@ -467,11 +481,9 @@ class Twitter extends AppController {
     async deleteScheduledTweet(req,res){
         try{
             const scheduledTweet = new ScheduledPost();
-            console.log(req.params.id);
             
             if(req.params.id){
                 let result = await scheduledTweet.delete({_id : req.params.id})
-                console.log(result);
                 
                 if(result){
                     super.success(req, res, {
@@ -480,10 +492,16 @@ class Twitter extends AppController {
                         data: result
                     });
                 } else {
-                   return null
+                    super.failure(req,res, {
+                        statusCode: 400,
+                        message: "can't delete"
+                    })
                 }
             } else {
-                return null
+                super.failure(req,res, {
+                    statusCode: 400,
+                    message: "id not provided"
+                })
             }
         } catch {
             super.failure(req,res, {

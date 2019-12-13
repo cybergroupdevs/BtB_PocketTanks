@@ -39,7 +39,7 @@ class TwitterWrapper {
     }
     async fetchComments(userName) {
         try {
-            const count = 20;
+            const count = 1000;
             const responseData = [];
             const parentTweets = [];
 

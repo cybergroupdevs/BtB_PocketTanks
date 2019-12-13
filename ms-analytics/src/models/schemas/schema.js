@@ -28,29 +28,29 @@ const schemas = {
             screenName: {
                 type: String
             },
-            profileImage:{
-                type:String
+            profileImage: {
+                type: String
             },
-            backgroundImage:{
-                type:String
+            backgroundImage: {
+                type: String
             },
-            followersCount:{
-                type:Number
+            followersCount: {
+                type: Number
             },
-            followingCount:{
-                type:Number
+            followingCount: {
+                type: Number
             },
-            name:{
-                type:String
+            name: {
+                type: String
             },
-            description:{
-                type:String
+            description: {
+                type: String
             },
-            statusesCount:{
-                type:Number
+            statusesCount: {
+                type: Number
             },
-            createdAt:{
-                type:Date
+            createdAt: {
+                type: Date
             }
 
         },
@@ -72,11 +72,16 @@ const schemas = {
         },
         passwordToken: {
             type: String
-        }
+        },
+        sentiments: [],
+        wordCloud: []
     },
     posts: {
         text: {
-            type: String
+            type: String,
+            default: null,
+            index: true,
+            required: true
         },
         source: {
             type: String
@@ -133,10 +138,6 @@ const schemas = {
         time: {
             type: Number,
             default: 0
-        },
-        isScheduled: {
-            type: Boolean,
-            default: null
         },
         containsMedia: {
             type: Boolean,

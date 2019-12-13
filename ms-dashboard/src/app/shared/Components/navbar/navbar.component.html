@@ -31,7 +31,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btn-magnify" href="javascript:void(0)" matTooltip="Scheduled Posts">
+          <a class="nav-link btn-magnify" href="javascript:void(0)" 
+              matTooltip="Scheduled Posts"  routerLink="/calendar">
             <i class="nc-icon nc-calendar-60"></i>
             <p>
               <span class="d-lg-none d-md-block">Scheduled</span>
@@ -41,7 +42,7 @@
 
         <li class="nav-item">
           <a class="nav-link btn-magnify" href="javascript:void(0)" 
-              matTooltip="New Post" routerLink="/new">
+              matTooltip="New Post" routerLink="/newPost">
             <i class="nc-icon nc-simple-add"></i>
             <p>
               <span class="d-lg-none d-md-block">New Post</span>
@@ -57,7 +58,6 @@
             </p>
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-            <a ngbDropdownItem routerLink="/user">My Profile</a>
             <a ngbDropdownItem (click)="logoutUser()">Logout</a>
           </div>
         </li>

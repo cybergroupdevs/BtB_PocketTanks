@@ -26,7 +26,8 @@ export class RepositoryService {
     );
   }
 
-  public create(route: string, body, headers?) {
+  public post(route: string, body, headers?) {
+
     return this.http.post(
       this.createCompleteRoute(route, this.envUrl),
       body,
@@ -36,7 +37,7 @@ export class RepositoryService {
     );
   }
 
-  public update(route: string, body) {
+  public put(route: string, body) {
     return this.http.put(
       this.createCompleteRoute(route, this.envUrl),
       body,

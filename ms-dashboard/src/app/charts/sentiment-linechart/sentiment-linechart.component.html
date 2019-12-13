@@ -1,10 +1,18 @@
 <div class="card card-chart">
     <div class="card-header">
-        <h5 class="card-title">Sentiment Analysis on Comments</h5>
+        <div class="card-subHeader">
+            <h5 class="card-title">Sentiment Analysis on Comments</h5>
+            <i class="fa fa-info-circle mt-3 " 
+                matTooltip="A Line chart showing the number of positive, negative and the Total comments that you have received on your posts with respect to time."
+                matTooltipPosition="above">
+            </i>
+        </div>
         <p class="card-category">Line Chart with Points</p>
     </div>
     <div class="card-body">
-        <canvas id="speedChart2" width="400" height="100"></canvas>
+        <canvas id="speedChart2" width="600" height="200" 
+            (mouseenter) ="mouseEnter()"  (mouseleave) ="mouseLeave()">
+        </canvas>
     </div>
     <div class="card-footer">
         <div class="chart-legend">
@@ -14,3 +22,4 @@
         </div>
     </div>
 </div>
+

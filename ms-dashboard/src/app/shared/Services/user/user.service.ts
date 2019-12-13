@@ -31,22 +31,47 @@ export class UserService {
       `twitter/profilestats`
     );
   }
+
+  getWordCloudData(): any {
+    return this.repositoryService.getData(
+      `twitter/wordcloud`
+    );
+  }
   
+  getRecentTweets(): any {
+    return this.repositoryService.getData(
+      `twitter/posts`
+    );
+  }
+  
+  getProfileData(): any {
+    return this.repositoryService.getData(
+      `twitter/profile`
+    );
+  }
+
+  getScheduledTweets(): any {
+    return this.repositoryService.getData(
+      `twitter/posts`
+    );
+  }
+
   createUser(createUserRequest): any {
-    return this.repositoryService.create(
+    return this.repositoryService.post(
       "registration",
       createUserRequest
     );
   }
   loginUser(loginUserRequest): any {
-    return this.repositoryService.create(
+    // debugger;
+    return this.repositoryService.post(
       "login",
       loginUserRequest
     );
   }
   verifyEmail(emailVerificationRequest): any {
     debugger;
-    return this.repositoryService.create(
+    return this.repositoryService.post(
       "emailverification",
       emailVerificationRequest
     );

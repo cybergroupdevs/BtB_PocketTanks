@@ -13,59 +13,22 @@ import { UserService } from 'app/shared/Services/user/user.service';
 
 export class DashboardComponent implements OnInit {
 
-  public KPIList: any[] = [];
-  public canvas: any;
-  public ctx;
-  public chartColor;
-  public chartEmail;
-  public chartHours;
-  public finalLineChartData = [];
-  public histogramData = [];
-
-  tweets = [
-    {
-      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
-      "screen_name": "ZeeNewsHindi",
-      "name": "Zee News Hindi",
-      "created_at": "12 Nov 2012",
-      "tweet": "hi there, I am tweeting from Nodejs and angular."
-    },
-    {
-      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
-      "screen_name": "ZeeNewsHindi",
-      "name": "Zee News Hindi",
-      "created_at": "12 Jan 2013",
-      "tweet": "Hey, you still there?"
-    },
-    {
-      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
-      "screen_name": "ZeeNewsHindi",
-      "name": "Zee News Hindi",
-      "created_at": "2 Nov 2012",
-      "tweet": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aliquid, itaque, dolor eius facilis alias quisquam odio ad debitis, quos consectetur velit sint distinctio similique neque sit cupiditate voluptates nostrum."
-    },
-    {
-      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
-      "screen_name": "ZeeNewsHindi",
-      "name": "Zee News Hindi",
-      "created_at": "12 Nov 2012",
-      "tweet": "hi there, I am tweeting from Nodejs and angular."
-    },
-    {
-      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
-      "screen_name": "ZeeNewsHindi",
-      "name": "Zee News Hindi",
-      "created_at": "12 Jan 2013",
-      "tweet": "Hey, you still there?"
-    },
-    {
-      "profile_image": "http://pbs.twimg.com/profile_images/919586418174783489/usRQmm1H_normal.jpg",
-      "screen_name": "ZeeNewsHindi",
-      "name": "Zee News Hindi",
-      "created_at": "2 Nov 2012",
-      "tweet": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aliquid, itaque, dolor eius facilis alias quisquam odio ad debitis, quos consectetur velit sint distinctio similique neque sit cupiditate voluptates nostrum."
-    }
-  ]
+  KPIList: any[] = [];
+  canvas: any;
+  ctx;
+  chartColor;
+  chartEmail;
+  chartHours;
+  finalLineChartData = [];
+  histogramData = [];
+  wordCloudData = [];
+  recentTweets = [];
+  pieChartData = [];
+  lineChartDataReceived = false;
+  histogramDataReceived = false;
+  wordCloudDataReceived = false;
+  recentTweetsReceived = false;
+  pieChartDataReceived = false;
 
   constructor(public _dialog: MatDialog, private _userService: UserService) {
   }
@@ -93,7 +56,6 @@ export class DashboardComponent implements OnInit {
       }
     },
       error => {
-        console.log(error);
       });
   }
 
@@ -108,6 +70,7 @@ export class DashboardComponent implements OnInit {
             positiveData.push({ type: 'positive', date: key, month: this.getMonthNameForDate(key), value: response.data.countsData.positive[key] });
           }
         }
+
         const positiveGroupByMonth = positiveData.reduce((acc, it) => {
           acc[it.month] = acc[it.month] + 1 || 1;
           return acc;
@@ -151,11 +114,11 @@ export class DashboardComponent implements OnInit {
           }
           monthItem["total"] = totalGroupByMonth[key];
           this.finalLineChartData.push(monthItem);
+          this.lineChartDataReceived = true;
         }
       }
     },
       error => {
-        console.log(error);
       });
   }
 
@@ -163,6 +126,38 @@ export class DashboardComponent implements OnInit {
     this._userService.getHistogramData().subscribe(response => {
       if (response.success) {
         this.histogramData = response;
+        
+        this.histogramDataReceived = true;
+      }
+    });
+  }
+  
+  getPieChartData() {
+    this._userService.getPieChartData().subscribe(response => {
+      if (response.success) {
+        this.pieChartData = response;
+        
+        this.pieChartDataReceived = true;
+      }
+    });
+  }
+
+  getWordCloudData() {
+    this._userService.getWordCloudData().subscribe(response => {
+      if (response.success) {
+        this.wordCloudData = response;
+        
+        this.wordCloudDataReceived = true;
+      }
+    });
+  }
+
+  getRecentTweets() {
+    this._userService.getRecentTweets().subscribe(response => {
+      if (response.success) {
+        this.recentTweets = response.data.posts;
+        
+        this.recentTweetsReceived = true;
       }
     });
   }
@@ -178,7 +173,9 @@ export class DashboardComponent implements OnInit {
     this.getKPIData();
     this.getLineChartData();
     this.getHistogramData();
-
+    this.getWordCloudData();
+    this.getRecentTweets();
+    this.getPieChartData();
     //Check if twitter logged in
     var twitterAuthDate = new Date(localStorage.getItem('twitterAuth').toString());
     var todaysDate = new Date();

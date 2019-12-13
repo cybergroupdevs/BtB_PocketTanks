@@ -1,5 +1,7 @@
 import Twit from 'twit';
 import envs from '../../src/utils/config';
+import fs from 'fs'
+
 
 class TwitterWrapper {
     constructor(accessToken, accessTokenSecret) {
@@ -104,6 +106,47 @@ class TwitterWrapper {
         } catch (error) {
             throw new Error(error.message)
         }
+    }
+    async postTweet(tweet){
+        try{
+            const result = await this.twit.post('statuses/update',{status : tweet})
+            if(result.data){
+                return result.data
+            } else {
+                return null
+            }
+        } catch (error){
+            throw new Error(error.message)
+        }
+    }
+    async postMediaTweet(tweet,media){
+        try{
+            let b64content = media;
+            let result =await this.twit.post('media/upload',{ media_data: b64content })
+            
+            if (result.data){
+                
+                let mediaIdStr = result.data.media_id_string;
+                let altText = "uploaded using socialize";
+                let meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+
+                await this.twit.post('media/metadata/create', meta_params)
+                
+                let params = { status: tweet, media_ids: [mediaIdStr] }
+                result = await this.twit.post('statuses/update', params)
+                
+                if(result.data){
+                    return result.data
+                } else {
+                    return null
+                }
+                
+            } else {
+                return null
+            }
+        } catch(error) {
+            throw new Error(error.message)
+        } 
     }
 }
 

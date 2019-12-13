@@ -9,11 +9,11 @@
           (click)="twitterSelected=!twitterSelected; openSnackBar('Select atleast one platform.', 'Buy Premium!')">
         </i>
         <i class="fa fa-facebook-square media" 
-          (click)="openSnackBar('Not available in Pro Version', 'Buy Premium!')">
+          (click)="openSnackBar('Not available in Free Version', 'Buy Premium!')">
         </i>
         <i class="fa fa-instagram media" 
-          (click)="openSnackBar('Not available in Pro Version', 'Buy Premium!')">
-      </i>
+          (click)="openSnackBar('Not available in Free Version', 'Buy Premium!')">
+        </i>
       </div>
       <form [formGroup]="newPostFormGroup" (ngSubmit)="submitForm()">
         <div class="form-group">

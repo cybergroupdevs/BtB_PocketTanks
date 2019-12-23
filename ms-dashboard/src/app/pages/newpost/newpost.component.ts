@@ -48,7 +48,7 @@ export class NewpostComponent implements OnInit {
     this.tweet = {
       isScheduled: true,
       dateTime: '',
-      profile_image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+      profile_image: "http://pbs.twimg.com/profile_images/1205226947346722817/veJLfnPs_normal.jpg",
       screen_name: "@Shibu_the_dog",
       username: "Shibu",
       image: "https://material.angular.io/assets/img/examples/shiba2.jpg",

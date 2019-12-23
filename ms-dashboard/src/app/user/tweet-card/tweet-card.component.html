@@ -18,9 +18,9 @@
         alt="Photo of a Shiba Inu" class="image_upload"> -->                
     <mat-card-actions>
         <div class="twitterActions mb-1">
-        <i class="fa fa-comment-o"><span><small class="mx-1">{{tweetObj.commentCount}}</small></span></i>
-        <i class="fa fa-retweet"><span><small class="mx-1">{{tweetObj.retweetCount}}</small></span></i>  
-        <i class="fa fa-heart-o"><span><small class="mx-1">{{tweetObj.favoriteCount}}</small></span></i>
+        <i class="fa fa-comment-o"><span><small class="mx-1">{{tweetObj.commentCount | numberSystem2 : 2}}</small></span></i>
+        <i class="fa fa-retweet"><span><small class="mx-1">{{tweetObj.retweetCount | numberSystem2 : 2}}</small></span></i>  
+        <i class="fa fa-heart-o"><span><small class="mx-1">{{tweetObj.favoriteCount | numberSystem2 : 2}}</small></span></i>
         </div>
     </mat-card-actions>
 </mat-card>

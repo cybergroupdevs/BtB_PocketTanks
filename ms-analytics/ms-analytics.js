@@ -54,7 +54,7 @@ app.use(function(err, req, res, next) {
     }
 
 });
-app.use(new Authorization().isAuthorized); //Middleware to check Request authorization
+// app.use(new Authorization().isAuthorized); //Middleware to check Request authorization
 app.get('/', (req, res) => res.send('Welcome to the Pocket Tanks'));
 
 const server = app.listen(port, () => {

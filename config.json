@@ -5,7 +5,7 @@
             "PORT" : "5001",
             "PREFIX": "/api/soci/",
             "DB_NAME": "socialize-dev",
-            "MONGO_DB_IP": "172.25.122.218",
+            "MONGO_DB_IP": "0.0.0.0",
             "VERSION" : "v0.1"
         },
         "ML" : {

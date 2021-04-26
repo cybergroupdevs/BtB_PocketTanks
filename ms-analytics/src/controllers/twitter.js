@@ -399,11 +399,18 @@ class Twitter extends AppController {
                     userId: req.user._id
                 })
             }
-            if (result) {
-                return res.send(result)
+            if(result){
+                super.success(req, res, {
+                    statusCode: 200,
+                    message: "tweets found",
+                    data: result
+                });
             } else {
-                return null
-            }
+                super.failure(req,res, {
+                    statusCode: 400,
+                    message: "no tweets found"
+                })
+            } 
         } catch (error) {
             super.failure(req, res, {
                 statusCode: 400,
@@ -416,18 +423,25 @@ class Twitter extends AppController {
         try {
             const scheduledTweet = new ScheduledPost();
             let result;
-            if (req.params.id) {
-                result = await scheduledTweet.update({
-                    _id: req.params.id
-                }, req.body);
-
-                if (result) {
-                    return res.send(result)
+            if(req.params.id){
+                result = await scheduledTweet.update({_id : req.params.id}, req.body)
+                if(result){
+                    super.success(req, res, {
+                        statusCode: 200,
+                        message: "tweet updated",
+                        data: result
+                    });
                 } else {
-                    return null
+                    super.failure(req,res, {
+                    statusCode: 400,
+                    message: "can't update"
+                    })
                 }
             } else {
-                return null
+                super.failure(req,res, {
+                    statusCode: 400,
+                    message: "id not provided"
+                })
             }
         } catch (error) {
             super.failure(req, res, {
@@ -454,10 +468,16 @@ class Twitter extends AppController {
                         data: result
                     });
                 } else {
-                    return null
+                    super.failure(req,res, {
+                        statusCode: 400,
+                        message: "can't delete"
+                    })
                 }
             } else {
-                return null
+                super.failure(req,res, {
+                    statusCode: 400,
+                    message: "id not provided"
+                })
             }
         } catch {
             super.failure(req, res, {
